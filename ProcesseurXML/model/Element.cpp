@@ -5,5 +5,5 @@ using namespace std;
 
 Element::Element(string contenu)
 {
-
+	this.contenu=contenu;
 }

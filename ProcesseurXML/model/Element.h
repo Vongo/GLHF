@@ -13,7 +13,7 @@ public:
 
  
 private:
-
+	string contenu;
 	vector<Element> elementsIncluded;
 
 };
