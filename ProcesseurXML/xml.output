@@ -1,0 +1,157 @@
+Terminaux inutilisés dans la grammaire
+
+   EGAL
+   SUPSPECIAL
+   DOCTYPE
+   COLON
+   INFSPECIAL
+   CDATABEGIN
+   VALEUR
+   DONNEES
+   COMMENT
+   CDATAEND
+
+
+Grammaire
+
+    0 $accept: document $end
+
+    1 document: element
+
+    2 element: INF NOM SUP content INF SLASH NOM SUP
+
+    3 content: content element
+    4        | /* vide */
+
+
+Terminaux, suivis des règles où ils apparaissent
+
+$end (0) 0
+error (256)
+EGAL (258)
+SLASH (259) 2
+SUP (260) 2
+SUPSPECIAL (261)
+DOCTYPE (262)
+COLON (263)
+INFSPECIAL (264)
+INF (265) 2
+CDATABEGIN (266)
+VALEUR (267)
+DONNEES (268)
+COMMENT (269)
+NOM (270) 2
+CDATAEND (271)
+
+
+Non-terminaux, suivis des règles où ils apparaissent
+
+$accept (17)
+    à gauche: 0
+document (18)
+    à gauche: 1, à droite: 0
+element (19)
+    à gauche: 2, à droite: 1 3
+content (20)
+    à gauche: 3 4, à droite: 2 3
+
+
+état 0
+
+    0 $accept: . document $end
+
+    INF  décalage et aller à l'état 1
+
+    document  aller à l'état 2
+    element   aller à l'état 3
+
+
+état 1
+
+    2 element: INF . NOM SUP content INF SLASH NOM SUP
+
+    NOM  décalage et aller à l'état 4
+
+
+état 2
+
+    0 $accept: document . $end
+
+    $end  décalage et aller à l'état 5
+
+
+état 3
+
+    1 document: element .
+
+    $défaut  réduction par utilisation de la règle 1 (document)
+
+
+état 4
+
+    2 element: INF NOM . SUP content INF SLASH NOM SUP
+
+    SUP  décalage et aller à l'état 6
+
+
+état 5
+
+    0 $accept: document $end .
+
+    $défaut  accepter
+
+
+état 6
+
+    2 element: INF NOM SUP . content INF SLASH NOM SUP
+
+    $défaut  réduction par utilisation de la règle 4 (content)
+
+    content  aller à l'état 7
+
+
+état 7
+
+    2 element: INF NOM SUP content . INF SLASH NOM SUP
+    3 content: content . element
+
+    INF  décalage et aller à l'état 8
+
+    element  aller à l'état 9
+
+
+état 8
+
+    2 element: INF . NOM SUP content INF SLASH NOM SUP
+    2        | INF NOM SUP content INF . SLASH NOM SUP
+
+    SLASH  décalage et aller à l'état 10
+    NOM    décalage et aller à l'état 4
+
+
+état 9
+
+    3 content: content element .
+
+    $défaut  réduction par utilisation de la règle 3 (content)
+
+
+état 10
+
+    2 element: INF NOM SUP content INF SLASH . NOM SUP
+
+    NOM  décalage et aller à l'état 11
+
+
+état 11
+
+    2 element: INF NOM SUP content INF SLASH NOM . SUP
+
+    SUP  décalage et aller à l'état 12
+
+
+état 12
+
+    2 element: INF NOM SUP content INF SLASH NOM SUP .
+
+    $défaut  réduction par utilisation de la règle 2 (element)
