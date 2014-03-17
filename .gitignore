@@ -13,10 +13,10 @@
 *.a
 
 # OSEF de ces fichiers
-ProcesseurXML/commun
-ProcesseurXML/lex.xml.c
-ProcesseurXML/xml.output
-ProcesseurXML/xml.tab.c
-ProcesseurXML/xml.tab.h
-ProcesseurXML/xmltool
+*/commun
+*/lex.xml.c
+*/xml.output
+*/xml.tab.c
+*/xml.tab.h
+*/xmltool
 
