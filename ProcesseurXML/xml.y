@@ -9,6 +9,7 @@ using namespace std;
 #include "commun.h"
 #include "model/Attribut.h"
 #include "model/Element.h"
+#include "model/Donnee.h"
 
 extern char xmltext[];
 
@@ -27,6 +28,7 @@ void xmlerror(const char * msg)
    Attribut* a;
    list<Attribut *> * la;
    Element* e;
+   list<Element>* c [2];
 }
 
 %token EGAL SLASH SUP SUPSPECIAL DOCTYPE COLON INFSPECIAL INF CDATABEGIN
@@ -35,7 +37,8 @@ void xmlerror(const char * msg)
 %type <l> valeurs;
 %type <a> att;
 %type <la> atts;
-%type <e> element;
+%type <e> element
+%type <c> content;
 %%
 
 document
@@ -59,7 +62,8 @@ valeurs
 element
  : INF NOM atts SUP 
    content
-   INF SLASH NOM SUP {$$ = new Element($2, $5, $3);}	               
+   INF SLASH NOM SUP {$$ = new ElementBalise($2, $5, $3);} //Balise Paire
+ | INF NOM atts SLASH SUP {$$ = new ElementBaliseOrpheline($2,$3);} //Balise Orpheline
  ;
 
  atts
@@ -72,9 +76,9 @@ element
   ;
 
 content
- : content element
- | CDATABEGIN CDATAEND
- | COMMENT
- | DONNEES          
- | /* vide */              
+ : content element 			{$$ = $1; $$[1]->push_back($2);}
+ | content CDATABEGIN CDATAEND {$$ = $1; $$[0]->push_back(new Donnee(strcat($2,$3),1));}
+ | content COMMENT			{$$ = $1; $$[0]->push_back(Donnee($2,2));}
+ | content DONNEES 			{$$ = $1; $$[0]->push_back(new Donnee($2,0));}         
+ | /* vide */       {list<Donnee*>* donnees = new list<Donnee*>(); list<Element*>* elements = new list<Element*>(); $$ = {donnees, elements};  } 
  ;
