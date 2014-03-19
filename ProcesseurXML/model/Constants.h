@@ -1,4 +1,9 @@
+#ifndef CONSTANTS_H
+#define CONSTANTS_H
+
 #define MAX_ATTRIBUTE_NAME_SIZE 20
 #define MAX_ATTRIBUTE_VALUE_SIZE 255
 
 typedef enum TypeBalise {OUVRANTE, FERMANTE, ORPHELINE} TypeBalise;
+
+#endif

@@ -1,5 +1,6 @@
+#ifndef BALISE_H
+#define BALISE_H
 #include "Constants.h"
-
 class Balise
 {
 public:
@@ -10,3 +11,4 @@ private:
     //Nom nomBalise;
     //Attribut attributs;
 };
+#endif

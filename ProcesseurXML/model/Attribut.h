@@ -1,5 +1,5 @@
-#ifndef ATTRIBUT
-#define ATTRIBUT
+#ifndef ATTRIBUT_H
+#define ATTRIBUT_H
 
 #include "./Constants.h"
 
