@@ -1,4 +1,4 @@
-typedef enum TypeBalise {OUVRANTE, FERMANTE, ORPHELINE} TypeBalise;
+#include "Constants.h"
 
 class Balise
 {
