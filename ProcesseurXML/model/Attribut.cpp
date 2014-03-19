@@ -32,6 +32,12 @@ Attribut::Attribut(const char *in)
     }
 
 }
+Attribut::Attribut(char *pName, char *pValue){
+    this->name = pName;
+    this->value = pValue;
+}
+
+
 Attribut::~Attribut()
 {
 	delete(this->name);
