@@ -7,6 +7,7 @@
 #include <cstdlib>
 using namespace std;
 #include "commun.h"
+#include "model/Attribut.h"
 
 extern char xmltext[];
 
@@ -21,23 +22,54 @@ void xmlerror(const char * msg)
 
 %union {
    char * s;
+   list<char *> * l;
+   Attribut* a;
 }
 
 %token EGAL SLASH SUP SUPSPECIAL DOCTYPE COLON INFSPECIAL INF CDATABEGIN
 %token <s> VALEUR DONNEES COMMENT NOM CDATAEND
 
+%type <l> valeurs;
+%type <a> att;
 %%
 
 document
- : element 
+ : entetes element 
+ | element
+ | /*vide*/
+ ;
+
+entetes
+ : entetes
+ | INFSPECIAL atts SUPSPECIAL
+ | DOCTYPE NOM NOM valeurs SUP
+ | /*vide*/
+ ;
+
+valeurs				
+ : valeurs VALEUR 	{$$ = $1; $$->push_back($2);}
+ | /*vide*/			{$$ = new list<char* >();}
  ;
 
 element
- : INF NOM SUP content
+ : INF NOM atts SUP 
+   content
    INF SLASH NOM SUP               
  ;
 
+ atts
+  : atts att
+  | /*vide*/
+  ;
+
+ att
+  : NOM EGAL VALEUR {$$ = new Attribut();}
+  ;
+
 content
- : content element          
+ : content element
+ | CDATABEGIN CDATAEND
+ | COMMENT
+ | DONNEES          
  | /* vide */              
  ;
