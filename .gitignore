@@ -13,10 +13,10 @@
 *.a
 
 # OSEF de ces fichiers
-*/commun
-*/lex.xml.c
-*/xml.output
-*/xml.tab.c
-*/xml.tab.h
-*/xmltool
+commun
+lex.xml.c
+xml.output
+xml.tab.c
+xml.tab.h
+xmltool
 
