@@ -7,6 +7,7 @@ class Attribut
 {
 public:
     Attribut(const char *);
+    Attribut(char *, char *);
     ~Attribut();
 
     /* data */
