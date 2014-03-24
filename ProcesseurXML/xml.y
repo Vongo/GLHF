@@ -80,6 +80,7 @@ element
 
  att
   : NOM EGAL VALEUR 				           {$$ = new Attribut($1,$3);}
+  | NOM COLON NOM EGAL VALEUR               {$$ = new Attribut($3,$5);}
   ;
 
 content
