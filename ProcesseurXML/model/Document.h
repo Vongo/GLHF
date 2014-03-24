@@ -4,6 +4,7 @@
 #include <iostream>
 #include <vector> 
 #include "Element.h"
+#include "EnTete.h"
 using namespace std;
  
 class Document
@@ -11,9 +12,11 @@ class Document
 public:
   Document();
   Document(string path);
+  Document(list<EnTete>, Element);
  
 private: 
   Element elementRacine;
+  list<EnTete> enTetes;
 
 };
  
