@@ -3,7 +3,6 @@
 
 using namespace std;
 
-Element::Element(char *contenu)
+Element::Element()
 {
-    this->contenu = contenu;
 }
