@@ -46,40 +46,44 @@ void xmlerror(const char * msg)
 %%
 
 document
- : entetes element 					{$$ = new Document($1,$2);}
- | element 							{$$ = new Document($1);};
+ : entetes element 					            {$$ = new Document($1,$2);}
+ | element 							                {$$ = new Document($1);};
  | /*vide*/
  ;
 
 entetes
  : entetes INFSPECIAL atts SUPSPECIAL 	{$$ = $1; $$->push_back(new Autre($3));}
  | entetes DOCTYPE NOM NOM valeurs SUP 	{$$ = $1; $$->push_back(new DocType($3,$4,$5));}
- | /*vide*/							{$$ = new list<EnTete*>();}
+ | /*vide*/							                {$$ = new list<EnTete*>();}
  ;
 
 valeurs				
- : valeurs VALEUR 					{$$ = $1; $$->push_back($2);}
- | /*vide*/							{$$ = new list<char* >();}
+ : valeurs VALEUR 				            	{$$ = $1; $$->push_back($2);}
+ | /*vide*/							                {$$ = new list<char* >();}
  ;
 
 element
  : INF NOM atts SUP 
    content
-   INF SLASH NOM SUP 				{$$ = new ElementBalise($2, $5, $3);} //Balise Paire
- | INF NOM atts SLASH SUP 			{$$ = new ElementBaliseOrpheline($2,$3);} //Balise Orpheline
+   INF SLASH NOM SUP 				           {$$ = new ElementBalise($2, $5, $3);} //Balise Paire
+ | INF NOM COLON NOM atts SUP 
+   content
+   INF SLASH NOM COLON NOM SUP         {$$ = new ElementBalise($4, $7, $5);} //Balise Paire XSL
+ | INF NOM atts SLASH SUP              {$$ = new ElementBaliseOrpheline($2,$3);} //Balise Orpheline
+ | INF NOM COLON NOM atts SLASH SUP 	 {$$ = new ElementBaliseOrpheline($4,$5);} //Balise Orpheline XSL
  ;
 
  atts
-  : atts att 						{$$ = $1; $$->push_back($2);}
-  | /*vide*/						{$$ = new list<Attribut*>();}
+  : atts att 						               {$$ = $1; $$->push_back($2);}
+  | /*vide*/						               {$$ = new list<Attribut*>();}
   ;
 
  att
-  : NOM EGAL VALEUR 				{$$ = new Attribut($1,$3);}
+  : NOM EGAL VALEUR 				           {$$ = new Attribut($1,$3);}
   ;
 
 content
- : content element 					{$$ = $1; $$[1]->push_back($2);}
+ : content element 					           {$$ = $1; $$[1]->push_back($2);}
  | content CDATABEGIN CDATAEND 		{$$ = $1; $$[0]->push_back(new Donnee(strcat($2,$3),1));}
  | content COMMENT					{$$ = $1; $$[0]->push_back(Donnee($2,2));}
  | content DONNEES 					{$$ = $1; $$[0]->push_back(new Donnee($2,0));}         
