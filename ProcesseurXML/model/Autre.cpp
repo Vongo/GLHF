@@ -3,7 +3,7 @@
 
 using namespace std;
 
-Autre::Autre(list<Attribut> attrs) 
+Autre::Autre(list<Attribut*> * attrs) 
 {
 	this->attributs = attrs;
 }

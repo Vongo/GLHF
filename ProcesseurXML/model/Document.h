@@ -12,12 +12,11 @@ class Document
 public:
   Document();
   Document(string path);
-  Document(list<EnTete>, Element);
+  Document(list<EnTete*>*, Element*);
  
-private: 
-  Element elementRacine;
-  list<EnTete> enTetes;
-
+private:
+  Element* elementRacine;
+  list<EnTete*> *enTetes;
 };
  
 #endif
