@@ -9,11 +9,11 @@ class Element
 {
 public:
   	//variable contenu = de la balise ouvrante a la fermante incluses
-  	Element(string contenu);
+  	Element(char* contenu);
 
  
 private:
-	string contenu;
+	char* contenu;
 	vector<Element> elementsIncluded;
 
 };

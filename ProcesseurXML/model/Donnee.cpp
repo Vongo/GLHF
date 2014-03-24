@@ -3,7 +3,7 @@
 
 using namespace std;
 
-Donnee::Donnee(string contenu, int codeType): Element(contenu)
+Donnee::Donnee(char* contenu, int codeType): Element(contenu)
 {
     this->codeType = codeType;
 }
