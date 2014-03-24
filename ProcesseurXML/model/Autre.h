@@ -7,6 +7,7 @@ class Autre public EnTete
 {
 public:
 	Autre(list<Attribut> attrs);
+	~Autre();
 private:
 	list<Attribut> attributs;
 };

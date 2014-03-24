@@ -7,3 +7,8 @@ Autre::Autre(list<Attribut> attrs)
 {
 	this->attributs = attrs;
 }
+
+Autre::~Autre()
+{
+	delete(this->attributs);
+}

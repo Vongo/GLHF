@@ -10,6 +10,7 @@ class Doctype: public EnTete
 {
 	public:
 	  	Doctype(char* nom1,char* nom2,list<char*> valeurs);
+	  	~Doctype();
 	 
 	private:
 		char* nom1;
