@@ -48,7 +48,6 @@ void xmlerror(const char * msg)
 document
  : entetes element 					            {$$ = new Document($1,$2);}
  | element 							                {$$ = new Document($1);};
- | /*vide*/
  ;
 
 entetes
