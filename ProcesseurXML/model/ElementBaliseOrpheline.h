@@ -4,7 +4,7 @@
 class ElementBaliseOrpheline: public Element
 {
 public:
-    ElementBaliseOrpheline(char *);
+    ElementBaliseOrpheline(char *, char*);
     ~ElementBaliseOrpheline();
 
 private:
