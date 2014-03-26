@@ -545,9 +545,13 @@ char *xmltext;
 #line 4 "xml.l"
 #include <stdio.h>
 #include <ctype.h>
+#include <list>
 #include <string.h>
 #include <stdlib.h>
 #include "commun.h"
+#include "model/Attribut.h"
+#include "model/Element.h"
+#include "model/Document.h"
 #include "xml.tab.h"
 
 #ifdef FLEXDEBUG
@@ -585,7 +589,7 @@ static char * enleveGuillemets(char *s) {
  */
 
 
-#line 589 "lex.xml.c"
+#line 593 "lex.xml.c"
 
 #define INITIAL 0
 #define CONTENU 1
@@ -774,10 +778,10 @@ YY_DECL
 	register char *yy_cp, *yy_bp;
 	register int yy_act;
     
-#line 69 "xml.l"
+#line 73 "xml.l"
 
 
-#line 781 "lex.xml.c"
+#line 785 "lex.xml.c"
 
 	if ( !(yy_init) )
 		{
@@ -863,103 +867,103 @@ do_action:	/* This label is used only to access EOF actions. */
 case 1:
 /* rule 1 can match eol */
 YY_RULE_SETUP
-#line 71 "xml.l"
+#line 75 "xml.l"
 {/* skip */}
 	YY_BREAK
 case 2:
 /* rule 2 can match eol */
 YY_RULE_SETUP
-#line 72 "xml.l"
+#line 76 "xml.l"
 {dbg; return DOCTYPE;}
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 73 "xml.l"
+#line 77 "xml.l"
 {dbg; return SLASH;}
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 74 "xml.l"
+#line 78 "xml.l"
 {dbg; return EGAL;}
 	YY_BREAK
 case 5:
 /* rule 5 can match eol */
 YY_RULE_SETUP
-#line 75 "xml.l"
+#line 79 "xml.l"
 {dbg; BEGIN(CONTENU); return SUP;}
 	YY_BREAK
 case 6:
 /* rule 6 can match eol */
 YY_RULE_SETUP
-#line 76 "xml.l"
+#line 80 "xml.l"
 { dbg; return SUPSPECIAL;}
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 77 "xml.l"
+#line 81 "xml.l"
 {dbg; xmllval.s = strdup(xmltext); return NOM;}
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 78 "xml.l"
+#line 82 "xml.l"
 {dbg; return COLON;}
 	YY_BREAK
 case 9:
 /* rule 9 can match eol */
 YY_RULE_SETUP
-#line 79 "xml.l"
+#line 83 "xml.l"
 {dbg; xmllval.s = strdup(enleveGuillemets(xmltext)); return VALEUR;}
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 80 "xml.l"
+#line 84 "xml.l"
 {dbg; BEGIN(CDATASECTION); buffer = (char*) malloc(1); buffer[0]='\0'; return CDATABEGIN;  }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 81 "xml.l"
+#line 85 "xml.l"
 {dbg; BEGIN(CONTENU); xmllval.s = strdup(buffer); free(buffer); return CDATAEND; }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 82 "xml.l"
+#line 86 "xml.l"
 {dbg; char * tmp = strdup(buffer); free(buffer); buffer = (char*) malloc(strlen(tmp)+2); strcpy(buffer,tmp); strcat(buffer,xmltext); free(tmp); }
 	YY_BREAK
 case 13:
 /* rule 13 can match eol */
 YY_RULE_SETUP
-#line 84 "xml.l"
+#line 88 "xml.l"
 {dbg; BEGIN(INITIAL); return INFSPECIAL;}
 	YY_BREAK
 case 14:
 /* rule 14 can match eol */
 YY_RULE_SETUP
-#line 85 "xml.l"
+#line 89 "xml.l"
 {dbg; BEGIN(INITIAL); return INF;}
 	YY_BREAK
 case 15:
 /* rule 15 can match eol */
 YY_RULE_SETUP
-#line 86 "xml.l"
+#line 90 "xml.l"
 {dbg; xmllval.s = strdup(xmltext); return COMMENT;}
 	YY_BREAK
 case 16:
 /* rule 16 can match eol */
 YY_RULE_SETUP
-#line 88 "xml.l"
+#line 92 "xml.l"
 {dbg; xmllval.s = strdup(supprimeEspaces(xmltext)); return DONNEES;}
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 90 "xml.l"
+#line 94 "xml.l"
 { fprintf(stderr,"Lexical Error (character %s)\n",xmltext); }
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 91 "xml.l"
+#line 95 "xml.l"
 ECHO;
 	YY_BREAK
-#line 963 "lex.xml.c"
+#line 967 "lex.xml.c"
 case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(CONTENU):
 case YY_STATE_EOF(CDATASECTION):
@@ -1959,4 +1963,4 @@ void xmlfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 91 "xml.l"
+#line 95 "xml.l"

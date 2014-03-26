@@ -4,7 +4,7 @@
 class EnTete
 {
 	public:
-		virtual EnTete() = 0;
+		EnTete();
 };
 
 #endif

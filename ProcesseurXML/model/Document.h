@@ -1,23 +1,24 @@
 #ifndef DOCUMENT_H
 #define DOCUMENT_H
- 
+
 #include <iostream>
-#include <vector> 
+#include <list>
+#include <vector>
 #include "Element.h"
 #include "EnTete.h"
 using namespace std;
- 
+
 class Document
 {
 public:
-  Document();
-  Document(string path);
-  Document(list<EnTete*>*, Element*);
-  Element* getElementRacine();
- 
+    Document();
+    Document(Element *);
+    Document(list<EnTete *> *, Element *);
+    Element* getElementRacine();
+    ~Document();
 private:
-  Element* elementRacine;
-  list<EnTete*> *enTetes;
+    Element *elementRacine;
+    list<EnTete *> *enTetes;
 };
- 
+
 #endif

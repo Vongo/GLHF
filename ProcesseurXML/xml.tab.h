@@ -61,14 +61,21 @@ typedef union YYSTYPE
 {
 
 /* Line 2068 of yacc.c  */
-#line 22 "xml.y"
+#line 34 "xml.y"
 
    char * s;
+   list<char *>* l;
+   Attribut* a;
+   list<Attribut *>* la;
+   Element* e;
+   list<Element*> **c;
+   list<EnTete*> * en;
+   Document* d;
 
 
 
 /* Line 2068 of yacc.c  */
-#line 72 "xml.tab.h"
+#line 79 "xml.tab.h"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */

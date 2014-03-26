@@ -1,9 +1,10 @@
 #include "ElementBaliseOrpheline.h"
 
-ElementBaliseOrpheline::ElementBaliseOrpheline(char *pNom, list<Attribut *> *lesAttributs): Element(pContenu)
+
+ElementBaliseOrpheline::ElementBaliseOrpheline(char *pNom, list<Attribut*> *attributs):Element()
 {
     this->nom = pNom;
-    this->lesAttributs->lesAttributs;
+    this->lesAttributs = attributs;
 }
 
 char* ElementBaliseOrpheline::getName()

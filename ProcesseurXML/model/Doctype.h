@@ -2,6 +2,7 @@
 #define DOCTYPE_H
  
 #include <iostream>
+#include <list>
 #include "EnTete.h"
 
 using namespace std;
@@ -9,13 +10,13 @@ using namespace std;
 class Doctype: public EnTete
 {
 	public:
-	  	Doctype(char* nom1,char* nom2,list<char*> valeurs);
+	  	Doctype(char*& nom1,char*& nom2,list<char*>*& valeurs);
 	  	~Doctype();
 	 
 	private:
-		char* nom1;
-		char* nom2;
-		list<char*> valeurs;
+		char *nom1;
+		char *nom2;
+		list<char*> *valeurs;
 };
  
 #endif

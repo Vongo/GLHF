@@ -3,9 +3,13 @@
 %{
 #include <stdio.h>
 #include <ctype.h>
+#include <list>
 #include <string.h>
 #include <stdlib.h>
 #include "commun.h"
+#include "model/Attribut.h"
+#include "model/Element.h"
+#include "model/Document.h"
 #include "xml.tab.h"
 
 #ifdef FLEXDEBUG

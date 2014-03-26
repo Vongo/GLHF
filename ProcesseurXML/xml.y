@@ -5,17 +5,26 @@
 #include <cstring>
 #include <cstdio>
 #include <cstdlib>
+#include <stdio.h>
+#include <string.h>
+
 using namespace std;
 #include "commun.h"
 #include "model/Attribut.h"
 #include "model/Element.h"
 #include "model/Donnee.h"
+#include "model/EnTete.h"
+#include "model/Document.h"
+#include "model/Doctype.h"
+#include "model/Autre.h"
+#include "model/ElementBalise.h"
+#include "model/ElementBaliseOrpheline.h"
 
 extern char xmltext[];
 
 int xmllex(void);  
 
-void xmlerror(const char * msg)
+void xmlerror(Document **d, const char * msg)
 {
    fprintf(stderr,"%s\n",msg);
 }
@@ -24,13 +33,12 @@ void xmlerror(const char * msg)
 
 %union {
    char * s;
-   list<char *> * l;
+   list<char *>* l;
    Attribut* a;
-   list<Attribut *> * la;
+   list<Attribut *>* la;
    Element* e;
-   list<Element*>* c [2];
+   list<Element*> **c;
    list<EnTete*> * en;
-   Document* d;
 }
 
 %token EGAL SLASH SUP SUPSPECIAL DOCTYPE COLON INFSPECIAL INF CDATABEGIN
@@ -41,18 +49,19 @@ void xmlerror(const char * msg)
 %type <la> atts;
 %type <e> element
 %type <c> content;
-%type <d> document;
 %type <en> entetes;
+
+%parse-param {Document **d} //Le retour du parseur
 %%
 
 document
- : entetes element 					            {$$ = new Document($1,$2);}
- | element 							                {$$ = new Document($1);};
+ : entetes element 					            {*d = new Document($1,$2);}
+ | element 							                {*d = new Document($1);};
  ;
 
 entetes
  : entetes INFSPECIAL atts SUPSPECIAL 	{$$ = $1; $$->push_back(new Autre($3));}
- | entetes DOCTYPE NOM NOM valeurs SUP 	{$$ = $1; $$->push_back(new DocType($3,$4,$5));}
+ | entetes DOCTYPE NOM NOM valeurs SUP 	{$$ = $1; $$->push_back(new Doctype($3,$4,$5));}
  | /*vide*/							                {$$ = new list<EnTete*>();}
  ;
 
@@ -83,9 +92,14 @@ element
   ;
 
 content
- : content element 					           {$$ = $1; $$[1]->push_back($2);}
- | content CDATABEGIN CDATAEND 		{$$ = $1; $$[0]->push_back(new Donnee(strcat($2,$3),1));}
- | content COMMENT					{$$ = $1; $$[0]->push_back(Donnee($2,2));}
+ : content element                {$$ = $1;$$[1]->push_back($2);}
+ | content CDATABEGIN CDATAEND 		{$$ = $1;$$[0]->push_back(new Donnee($3,1));}
  | content DONNEES 					{$$ = $1; $$[0]->push_back(new Donnee($2,0));}         
- | /* vide */       				{list<Donnee*>* donnees = new list<Donnee*>(); list<Element*>* elements = new list<Element*>(); $$ = {donnees, elements};  } 
+ | /* vide */       				{
+                              list<Element*>* donnees = new list<Element*>(); 
+                              list<Element*>* elements = new list<Element*>(); 
+                              $$ = new list<Element*>*[2];
+                              ($$)[0] = donnees;
+                              (*$$)[1] = *elements;  
+                            } 
  ;
