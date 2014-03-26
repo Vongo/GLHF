@@ -96,5 +96,5 @@ content
                                   $$[1]->push_back($2);}
  | content CDATABEGIN CDATAEND 		{$$ = $1;$$[0]->push_back(new Donnee($3,1));}
  | content DONNEES 					{$$ = $1; $$[0]->push_back(new Donnee($2,0));}         
- | /* vide */       				{list<Donnee*>* donnees = new list<Donnee*>(); list<Element*>* elements = new list<Element*>(); $$ = new list<Element*>*[2];(*$$)[0]=donnees;(*$$)[1]= elements;  } 
+ | /* vide */       				{list<Element*>* donnees = new list<Element*>(); list<Element*>* elements = new list<Element*>(); $$ = new list<Element*>*[2];$$[0]=donnees;$$[1]= elements;  } 
  ;

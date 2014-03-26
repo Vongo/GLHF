@@ -1547,7 +1547,7 @@ yyreduce:
 
 /* Line 1806 of yacc.c  */
 #line 99 "xml.y"
-    {list<Donnee*>* donnees = new list<Donnee*>(); list<Element*>* elements = new list<Element*>(); (yyval.c) = new list<Element*>*[2];(*(yyval.c))[0]=donnees;(*(yyval.c))[1]= elements;  }
+    {list<Element*>* donnees = new list<Element*>(); list<Element*>* elements = new list<Element*>(); (yyval.c) = new list<Element*>*[2];(yyval.c)[0]=donnees;(yyval.c)[1]= elements;  }
     break;
 
 
