@@ -6,16 +6,16 @@
 using namespace std;
 
 int xmlparse(Document **);
-int xmltransformation(const char *, const char *);
-int xmlvalidation(const char *, const char *);
+int xmlvalidation(FILE *xml, FILE *xsd);
+int xmltransformation(FILE *xml, FILE *xsl);
 
 // TEMP //
 
-int xmltransformation(const char *, const char *)
+int xmlvalidation(FILE *xml, FILE *xsd)
 {
     return 1;
 }
-int xmlvalidation(const char *, const char *)
+int xmltransformation(FILE *xml, FILE *xsl)
 {
     return 1;
 }
@@ -58,14 +58,22 @@ int main(int argc, char const *argv[])
     {
         switch (argv[1][1])
         {
-        case 'v':
+        case 'v':{
+            FILE *xml = fopen(argv[2], "r");
+            FILE *xsd = fopen(argv[3], "r");
             cout << ">> VALIDATION <<" << endl;
-            retour = xmlvalidation(argv[2], argv[3]);
-            break;
-        case 't':
+            retour = xmlvalidation(xml, xsd);
+            fclose(xml);
+            fclose(xsd);
+            break;}
+        case 't':{
+            FILE *xml = fopen(argv[2], "r");
+            FILE *xsl = fopen(argv[3], "r");
             cout << ">> TRANSFORMATION <<" << endl;
-            retour = xmltransformation(argv[2], argv[3]);
-            break;
+            retour = xmltransformation(xml, xsl);
+            fclose(xml);
+            fclose(xsl);
+            break;}
         default:
             cout << "Argument non reconnu : " << argv[1][1] << endl;
         }

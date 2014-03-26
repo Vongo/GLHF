@@ -6,26 +6,26 @@ ElementBalise::ElementBalise(): Element()
     this->lesElements = new list<Element *>();
 }
 
-ElementBalise::ElementBalise(char *&nom, list<Element *> *elements [2],list<Attribut *> *&attributs): Element()
+ElementBalise::ElementBalise(char *&nom, list<Element *> *elements [2], list<Attribut *> *&attributs): Element()
 {
     this->lesAttributs = attributs;
     this->lesElements = *elements;
     this->nom = nom;
 }
 
-list<Element *> * ElementBalise::getLesElements()
+list<Element *> *ElementBalise::getLesElements()
 {
-	return lesElements;
+    return lesElements;
 }
 
-list<Attribut *> * ElementBalise::getLesAttributs
+list<Attribut *> *ElementBalise::getLesAttributs()
 {
-	return lesAttributs;
+    return lesAttributs;
 }
 
-char* ElementBalise::getName()
+char *ElementBalise::getName()
 {
-	return nom;
+    return nom;
 }
 
 ElementBalise::~ElementBalise()
