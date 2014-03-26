@@ -24,7 +24,7 @@ extern char xmltext[];
 
 int xmllex(void);  
 
-void xmlerror(const char * msg)
+void xmlerror(Document **d, const char * msg)
 {
    fprintf(stderr,"%s\n",msg);
 }
