@@ -1,6 +1,6 @@
 #include "ElementBalise.h"
 
-ElementBalise::ElementBalise(): Element("\0")
+ElementBalise::ElementBalise(): Element()
 {
     this->lesAttributs = new list<Attribut *>();
     this->lesElements = new list<Element *>();

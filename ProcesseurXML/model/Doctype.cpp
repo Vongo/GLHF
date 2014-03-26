@@ -14,8 +14,8 @@ Doctype::~Doctype()
 {
 	delete(this->nom1);
 	delete(this->nom2);
-	for(list<char*>::iterator it = valeurs.begin() ; it != valeurs.end() ; it++)
+	for(list<char*>::iterator it = valeurs->begin() ; it != valeurs->end() ; it++)
 	{
-		delete(it);
+		delete(&it);
 	}
 }

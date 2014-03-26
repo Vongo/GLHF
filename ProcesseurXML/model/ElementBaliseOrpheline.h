@@ -1,6 +1,8 @@
 #ifndef ELEMENT_BALISE_ORPHELINE_H
 #define ELEMENT_BALISE_ORPHELINE_H
 #include "Element.h"
+#include "Attribut.h"
+#include <list>
 
 class ElementBaliseOrpheline: public Element
 {
