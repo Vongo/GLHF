@@ -10,6 +10,9 @@ class ElementBalise: public Element
 public:
     ElementBalise();
     ElementBalise(char *, char *, list<Attribut *> *, list<Element *> *);
+    list<Element *> * getLesElements();
+    list<Attribut *> * getLesAttributs();
+    char* getName();
     ~ElementBalise();
 
 private:

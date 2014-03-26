@@ -8,6 +8,8 @@ class Attribut
 public:
     Attribut(const char *);
     Attribut(char *, char *);
+    char* getValue();
+    char* getName();
     ~Attribut();
 
     /* data */

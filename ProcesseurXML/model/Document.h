@@ -13,6 +13,7 @@ public:
   Document();
   Document(string path);
   Document(list<EnTete*>*, Element*);
+  Element* getElementRacine();
  
 private:
   Element* elementRacine;

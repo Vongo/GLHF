@@ -51,6 +51,11 @@ Document::Document(list<EnTete*> * enTetes, Element* elementRacine)
     this->elementRacine = elementRacine;
 }
 
+Element* Document::getElementRacine()
+{
+    return elementRacine;
+}
+
 Document::~Document()
 {
     delete(this->enTetes);

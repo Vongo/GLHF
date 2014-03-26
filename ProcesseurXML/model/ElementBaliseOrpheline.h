@@ -4,11 +4,14 @@
 class ElementBaliseOrpheline: public Element
 {
 public:
-    ElementBaliseOrpheline(char *, char*);
+    ElementBaliseOrpheline(char *, list<Attribut *> *);
     ~ElementBaliseOrpheline();
+    list<Attribut *> * getLesAttributs();
+    char* getName();
 
 private:
 	char *nom;
+	list<Attribut *> *lesAttributs;
 };
 
 #endif
