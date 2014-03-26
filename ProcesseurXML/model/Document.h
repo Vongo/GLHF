@@ -12,9 +12,9 @@ class Document
 {
 public:
     Document();
-    Document(string path);
     Document(Element *);
     Document(list<EnTete *> *, Element *);
+    ~Document();
 
 private:
     Element *elementRacine;

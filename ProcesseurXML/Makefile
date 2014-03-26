@@ -1,4 +1,4 @@
-MODEL = $(wildcard ./model/*.h)
+MODEL = $(wildcard ./model/*.h) $(wildcard ./model/*.cpp)
 
 all: commun
 commun: *.l *.y *.cpp *.h

@@ -6,7 +6,7 @@ using namespace std;
 
 int xmlparse(void);
 
-int main(void)
+int main(int argc, char const *argv[])
 {
    int retour = xmlparse();
    if (!retour)

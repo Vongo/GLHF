@@ -9,7 +9,7 @@ class ElementBalise: public Element
 {
 public:
     ElementBalise();
-    ElementBalise(char *&, list<Element *> * [2],list<Attribut *> *&);
+    ElementBalise(char *&, list<Element *> *[2],list<Attribut *> *&);
     ~ElementBalise();
 
 private:
