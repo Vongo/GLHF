@@ -14,11 +14,6 @@ Document::Document(list<EnTete *> *enTetes, Element *elementRacine)
     this->elementRacine = elementRacine;
 }
 
-Element* Document::getElementRacine()
-{
-    return elementRacine;
-}
-
 Document::Document(Element *elementRacine)
 {
     this->enTetes = 0;
@@ -29,4 +24,8 @@ Document::~Document()
 {
     delete(this->enTetes);
     delete(this->elementRacine);
+}
+
+Element* Document::getRacine(){
+    return this->elementRacine;
 }

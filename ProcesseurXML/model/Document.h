@@ -14,8 +14,8 @@ public:
     Document();
     Document(Element *);
     Document(list<EnTete *> *, Element *);
-    Element* getElementRacine();
     ~Document();
+    Element* getRacine();
 private:
     Element *elementRacine;
     list<EnTete *> *enTetes;
