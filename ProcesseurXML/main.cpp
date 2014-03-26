@@ -1,14 +1,16 @@
 #include "commun.h"
+#include "model/Document.h"
 #include <iostream>
 #include <cstring>
 
 using namespace std;
 
-int xmlparse(void);
+int xmlparse(Document **);
 
 int main(int argc, char const *argv[])
 {
-    extern FILE* xmlin;
+    Document **doc;
+    extern FILE *xmlin;
     int retour = 1;
     if (argc == 2 && argv[0] == "-p")
     {
@@ -19,7 +21,7 @@ int main(int argc, char const *argv[])
             return 1;
         }
         xmlin = fid;
-        retour = xmlparse();
+        retour = xmlparse(doc);
         fclose(fid);
     }
     if (!retour)
