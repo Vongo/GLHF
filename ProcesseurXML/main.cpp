@@ -26,13 +26,14 @@ int main(int argc, char const *argv[])
 {
     Document **doc;
     extern FILE *xmlin;
-    int retour = 0;
+    int retour = 1;
     if (argc == 2)
     {
         switch (argv[1][1])
         {
         case 'h':
             cout << "CECI EST LE MANUEL OLOL" << endl;
+            retour = 0;
             break;
         default:
             cout << "Argument non reconnu : " << argv[1][1] << endl;
@@ -58,22 +59,26 @@ int main(int argc, char const *argv[])
     {
         switch (argv[1][1])
         {
-        case 'v':{
+        case 'v':
+        {
             FILE *xml = fopen(argv[2], "r");
             FILE *xsd = fopen(argv[3], "r");
             cout << ">> VALIDATION <<" << endl;
             retour = xmlvalidation(xml, xsd);
             fclose(xml);
             fclose(xsd);
-            break;}
-        case 't':{
+            break;
+        }
+        case 't':
+        {
             FILE *xml = fopen(argv[2], "r");
             FILE *xsl = fopen(argv[3], "r");
             cout << ">> TRANSFORMATION <<" << endl;
             retour = xmltransformation(xml, xsl);
             fclose(xml);
             fclose(xsl);
-            break;}
+            break;
+        }
         default:
             cout << "Argument non reconnu : " << argv[1][1] << endl;
         }
