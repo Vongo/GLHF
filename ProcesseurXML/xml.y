@@ -39,7 +39,6 @@ void xmlerror(Document **d, const char * msg)
    Element* e;
    list<Element*> **c;
    list<EnTete*> * en;
-   Document* d;
 }
 
 %token EGAL SLASH SUP SUPSPECIAL DOCTYPE COLON INFSPECIAL INF CDATABEGIN
@@ -50,15 +49,14 @@ void xmlerror(Document **d, const char * msg)
 %type <la> atts;
 %type <e> element
 %type <c> content;
-%type <d> document;
 %type <en> entetes;
 
 %parse-param {Document **d} //Le retour du parseur
 %%
 
 document
- : entetes element 					            {$$ = new Document($1,$2);}
- | element 							                {$$ = new Document($1);};
+ : entetes element 					            {*d = new Document($1,$2);}
+ | element 							                {*d = new Document($1);};
  ;
 
 entetes
