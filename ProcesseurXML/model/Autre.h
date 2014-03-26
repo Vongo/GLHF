@@ -3,13 +3,13 @@
 #include "Attribut.h"
 #include "EnTete.h"
 
-class Autre public EnTete
+class Autre: public EnTete
 {
 public:
-	Autre(list<Attribut> attrs);
+	Autre(list<Attribut*>* attrs);
 	~Autre();
 private:
-	list<Attribut*> * attributs;
+	list<Attribut*> *attributs;
 };
 
 #endif

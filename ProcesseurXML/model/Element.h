@@ -8,11 +8,12 @@ using namespace std;
 class Element
 {
 public:
-  	Element(char* contenu);
+  	//variable contenu = de la balise ouvrante a la fermante incluses
+  	Element();
 
 private:
-	char* contenu;
 	vector<Element> elementsIncluded;
+
 };
 
 #endif
