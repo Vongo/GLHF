@@ -52,6 +52,8 @@ void xmlerror(const char * msg)
 %type <c> content;
 %type <d> document;
 %type <en> entetes;
+
+%parse-param {Document **d} //Le retour du parseur
 %%
 
 document
