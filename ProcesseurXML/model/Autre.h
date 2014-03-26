@@ -1,15 +1,21 @@
 #ifndef AUTRE_H
 #define AUTRE_H
+
+#include <list>
+#include <string>
 #include "Attribut.h"
 #include "EnTete.h"
+
+using namespace std;
 
 class Autre: public EnTete
 {
 public:
-	Autre(list<Attribut*>* attrs);
-	~Autre();
+    Autre(list<Attribut *> *);
+    ~Autre();
 private:
-	list<Attribut*> *attributs;
+	string hoho;
+    list<Attribut *> *attributs;
 };
 
 #endif
