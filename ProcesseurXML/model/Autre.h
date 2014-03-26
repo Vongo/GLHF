@@ -9,7 +9,7 @@ public:
 	Autre(list<Attribut*>* attrs);
 	~Autre();
 private:
-	list<Attribut*>* attributs;
+	list<Attribut*> *attributs;
 };
 
 #endif

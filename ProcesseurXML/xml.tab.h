@@ -68,7 +68,7 @@ typedef union YYSTYPE
    Attribut* a;
    list<Attribut *>* la;
    Element* e;
-   list<Element*>* c [2];
+   list<Element*> **c;
    list<EnTete*> * en;
    Document* d;
 

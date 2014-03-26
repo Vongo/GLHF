@@ -22,38 +22,37 @@ Grammaire
 
     8 element: INF NOM atts SUP content INF SLASH NOM SUP
     9        | INF NOM COLON NOM atts SUP content INF SLASH NOM COLON NOM SUP
-   10        | INF NOM atts SLASH SUP
-   11        | INF NOM COLON NOM atts SLASH SUP
 
-   12 atts: atts att
-   13     | /* vide */
+   10 atts: atts att
+   11     | /* vide */
 
-   14 att: NOM EGAL VALEUR
+   12 att: NOM EGAL VALEUR
+   13    | NOM COLON NOM EGAL VALEUR
 
-   15 content: content element
-   16        | content CDATABEGIN CDATAEND
-   17        | content DONNEES
-   18        | /* vide */
+   14 content: content element
+   15        | content CDATABEGIN CDATAEND
+   16        | content DONNEES
+   17        | /* vide */
 
 
 Terminaux, suivis des règles où ils apparaissent
 
 $end (0) 0
 error (256)
-EGAL (258) 14
-SLASH (259) 8 9 10 11
-SUP (260) 4 8 9 10 11
+EGAL (258) 12 13
+SLASH (259) 8 9
+SUP (260) 4 8 9
 SUPSPECIAL (261) 3
 DOCTYPE (262) 4
-COLON (263) 9 11
+COLON (263) 9 13
 INFSPECIAL (264) 3
-INF (265) 8 9 10 11
-CDATABEGIN (266) 16
-VALEUR (267) 6 14
-DONNEES (268) 17
+INF (265) 8 9
+CDATABEGIN (266) 15
+VALEUR (267) 6 12 13
+DONNEES (268) 16
 COMMENT (269)
-NOM (270) 4 8 9 10 11 14
-CDATAEND (271) 16
+NOM (270) 4 8 9 12 13
+CDATAEND (271) 15
 
 
 Non-terminaux, suivis des règles où ils apparaissent
@@ -67,13 +66,13 @@ entetes (19)
 valeurs (20)
     à gauche: 6 7, à droite: 4 6
 element (21)
-    à gauche: 8 9 10 11, à droite: 1 2 15
+    à gauche: 8 9, à droite: 1 2 14
 atts (22)
-    à gauche: 12 13, à droite: 3 8 9 10 11 12
+    à gauche: 10 11, à droite: 3 8 9 10
 att (23)
-    à gauche: 14, à droite: 12
+    à gauche: 12 13, à droite: 10
 content (24)
-    à gauche: 15 16 17 18, à droite: 8 9 15 16 17
+    à gauche: 14 15 16 17, à droite: 8 9 14 15 16
 
 
 état 0
@@ -94,8 +93,6 @@ content (24)
 
     8 element: INF . NOM atts SUP content INF SLASH NOM SUP
     9        | INF . NOM COLON NOM atts SUP content INF SLASH NOM COLON NOM SUP
-   10        | INF . NOM atts SLASH SUP
-   11        | INF . NOM COLON NOM atts SLASH SUP
 
     NOM  décalage et aller à l'état 5
 
@@ -131,12 +128,10 @@ content (24)
 
     8 element: INF NOM . atts SUP content INF SLASH NOM SUP
     9        | INF NOM . COLON NOM atts SUP content INF SLASH NOM COLON NOM SUP
-   10        | INF NOM . atts SLASH SUP
-   11        | INF NOM . COLON NOM atts SLASH SUP
 
     COLON  décalage et aller à l'état 10
 
-    $défaut  réduction par utilisation de la règle 13 (atts)
+    $défaut  réduction par utilisation de la règle 11 (atts)
 
     atts  aller à l'état 11
 
@@ -159,7 +154,7 @@ content (24)
 
     3 entetes: entetes INFSPECIAL . atts SUPSPECIAL
 
-    $défaut  réduction par utilisation de la règle 13 (atts)
+    $défaut  réduction par utilisation de la règle 11 (atts)
 
     atts  aller à l'état 13
 
@@ -174,7 +169,6 @@ content (24)
 état 10
 
     9 element: INF NOM COLON . NOM atts SUP content INF SLASH NOM COLON NOM SUP
-   11        | INF NOM COLON . NOM atts SLASH SUP
 
     NOM  décalage et aller à l'état 14
 
@@ -182,262 +176,255 @@ content (24)
 état 11
 
     8 element: INF NOM atts . SUP content INF SLASH NOM SUP
-   10        | INF NOM atts . SLASH SUP
-   12 atts: atts . att
+   10 atts: atts . att
 
-    SLASH  décalage et aller à l'état 15
-    SUP    décalage et aller à l'état 16
-    NOM    décalage et aller à l'état 17
+    SUP  décalage et aller à l'état 15
+    NOM  décalage et aller à l'état 16
 
-    att  aller à l'état 18
+    att  aller à l'état 17
 
 
 état 12
 
     4 entetes: entetes DOCTYPE NOM . NOM valeurs SUP
 
-    NOM  décalage et aller à l'état 19
+    NOM  décalage et aller à l'état 18
 
 
 état 13
 
     3 entetes: entetes INFSPECIAL atts . SUPSPECIAL
-   12 atts: atts . att
+   10 atts: atts . att
 
-    SUPSPECIAL  décalage et aller à l'état 20
-    NOM         décalage et aller à l'état 17
+    SUPSPECIAL  décalage et aller à l'état 19
+    NOM         décalage et aller à l'état 16
 
-    att  aller à l'état 18
+    att  aller à l'état 17
 
 
 état 14
 
     9 element: INF NOM COLON NOM . atts SUP content INF SLASH NOM COLON NOM SUP
-   11        | INF NOM COLON NOM . atts SLASH SUP
 
-    $défaut  réduction par utilisation de la règle 13 (atts)
+    $défaut  réduction par utilisation de la règle 11 (atts)
 
-    atts  aller à l'état 21
+    atts  aller à l'état 20
 
 
 état 15
 
-   10 element: INF NOM atts SLASH . SUP
+    8 element: INF NOM atts SUP . content INF SLASH NOM SUP
 
-    SUP  décalage et aller à l'état 22
+    $défaut  réduction par utilisation de la règle 17 (content)
+
+    content  aller à l'état 21
 
 
 état 16
 
-    8 element: INF NOM atts SUP . content INF SLASH NOM SUP
+   12 att: NOM . EGAL VALEUR
+   13    | NOM . COLON NOM EGAL VALEUR
 
-    $défaut  réduction par utilisation de la règle 18 (content)
-
-    content  aller à l'état 23
+    EGAL   décalage et aller à l'état 22
+    COLON  décalage et aller à l'état 23
 
 
 état 17
 
-   14 att: NOM . EGAL VALEUR
+   10 atts: atts att .
 
-    EGAL  décalage et aller à l'état 24
+    $défaut  réduction par utilisation de la règle 10 (atts)
 
 
 état 18
-
-   12 atts: atts att .
-
-    $défaut  réduction par utilisation de la règle 12 (atts)
-
-
-état 19
 
     4 entetes: entetes DOCTYPE NOM NOM . valeurs SUP
 
     $défaut  réduction par utilisation de la règle 7 (valeurs)
 
-    valeurs  aller à l'état 25
+    valeurs  aller à l'état 24
 
 
-état 20
+état 19
 
     3 entetes: entetes INFSPECIAL atts SUPSPECIAL .
 
     $défaut  réduction par utilisation de la règle 3 (entetes)
 
 
-état 21
+état 20
 
     9 element: INF NOM COLON NOM atts . SUP content INF SLASH NOM COLON NOM SUP
-   11        | INF NOM COLON NOM atts . SLASH SUP
-   12 atts: atts . att
+   10 atts: atts . att
 
-    SLASH  décalage et aller à l'état 26
-    SUP    décalage et aller à l'état 27
-    NOM    décalage et aller à l'état 17
+    SUP  décalage et aller à l'état 25
+    NOM  décalage et aller à l'état 16
 
-    att  aller à l'état 18
+    att  aller à l'état 17
+
+
+état 21
+
+    8 element: INF NOM atts SUP content . INF SLASH NOM SUP
+   14 content: content . element
+   15        | content . CDATABEGIN CDATAEND
+   16        | content . DONNEES
+
+    INF         décalage et aller à l'état 26
+    CDATABEGIN  décalage et aller à l'état 27
+    DONNEES     décalage et aller à l'état 28
+
+    element  aller à l'état 29
 
 
 état 22
 
-   10 element: INF NOM atts SLASH SUP .
+   12 att: NOM EGAL . VALEUR
 
-    $défaut  réduction par utilisation de la règle 10 (element)
+    VALEUR  décalage et aller à l'état 30
 
 
 état 23
 
-    8 element: INF NOM atts SUP content . INF SLASH NOM SUP
-   15 content: content . element
-   16        | content . CDATABEGIN CDATAEND
-   17        | content . DONNEES
+   13 att: NOM COLON . NOM EGAL VALEUR
 
-    INF         décalage et aller à l'état 28
-    CDATABEGIN  décalage et aller à l'état 29
-    DONNEES     décalage et aller à l'état 30
-
-    element  aller à l'état 31
+    NOM  décalage et aller à l'état 31
 
 
 état 24
 
-   14 att: NOM EGAL . VALEUR
+    4 entetes: entetes DOCTYPE NOM NOM valeurs . SUP
+    6 valeurs: valeurs . VALEUR
 
-    VALEUR  décalage et aller à l'état 32
+    SUP     décalage et aller à l'état 32
+    VALEUR  décalage et aller à l'état 33
 
 
 état 25
 
-    4 entetes: entetes DOCTYPE NOM NOM valeurs . SUP
-    6 valeurs: valeurs . VALEUR
+    9 element: INF NOM COLON NOM atts SUP . content INF SLASH NOM COLON NOM SUP
 
-    SUP     décalage et aller à l'état 33
-    VALEUR  décalage et aller à l'état 34
+    $défaut  réduction par utilisation de la règle 17 (content)
+
+    content  aller à l'état 34
 
 
 état 26
 
-   11 element: INF NOM COLON NOM atts SLASH . SUP
+    8 element: INF . NOM atts SUP content INF SLASH NOM SUP
+    8        | INF NOM atts SUP content INF . SLASH NOM SUP
+    9        | INF . NOM COLON NOM atts SUP content INF SLASH NOM COLON NOM SUP
 
-    SUP  décalage et aller à l'état 35
+    SLASH  décalage et aller à l'état 35
+    NOM    décalage et aller à l'état 5
 
 
 état 27
 
-    9 element: INF NOM COLON NOM atts SUP . content INF SLASH NOM COLON NOM SUP
+   15 content: content CDATABEGIN . CDATAEND
 
-    $défaut  réduction par utilisation de la règle 18 (content)
-
-    content  aller à l'état 36
+    CDATAEND  décalage et aller à l'état 36
 
 
 état 28
 
-    8 element: INF . NOM atts SUP content INF SLASH NOM SUP
-    8        | INF NOM atts SUP content INF . SLASH NOM SUP
-    9        | INF . NOM COLON NOM atts SUP content INF SLASH NOM COLON NOM SUP
-   10        | INF . NOM atts SLASH SUP
-   11        | INF . NOM COLON NOM atts SLASH SUP
+   16 content: content DONNEES .
 
-    SLASH  décalage et aller à l'état 37
-    NOM    décalage et aller à l'état 5
+    $défaut  réduction par utilisation de la règle 16 (content)
 
 
 état 29
 
-   16 content: content CDATABEGIN . CDATAEND
+   14 content: content element .
 
-    CDATAEND  décalage et aller à l'état 38
+    $défaut  réduction par utilisation de la règle 14 (content)
 
 
 état 30
 
-   17 content: content DONNEES .
+   12 att: NOM EGAL VALEUR .
 
-    $défaut  réduction par utilisation de la règle 17 (content)
+    $défaut  réduction par utilisation de la règle 12 (att)
 
 
 état 31
 
-   15 content: content element .
+   13 att: NOM COLON NOM . EGAL VALEUR
 
-    $défaut  réduction par utilisation de la règle 15 (content)
+    EGAL  décalage et aller à l'état 37
 
 
 état 32
-
-   14 att: NOM EGAL VALEUR .
-
-    $défaut  réduction par utilisation de la règle 14 (att)
-
-
-état 33
 
     4 entetes: entetes DOCTYPE NOM NOM valeurs SUP .
 
     $défaut  réduction par utilisation de la règle 4 (entetes)
 
 
-état 34
+état 33
 
     6 valeurs: valeurs VALEUR .
 
     $défaut  réduction par utilisation de la règle 6 (valeurs)
 
 
+état 34
+
+    9 element: INF NOM COLON NOM atts SUP content . INF SLASH NOM COLON NOM SUP
+   14 content: content . element
+   15        | content . CDATABEGIN CDATAEND
+   16        | content . DONNEES
+
+    INF         décalage et aller à l'état 38
+    CDATABEGIN  décalage et aller à l'état 27
+    DONNEES     décalage et aller à l'état 28
+
+    element  aller à l'état 29
+
+
 état 35
 
-   11 element: INF NOM COLON NOM atts SLASH SUP .
+    8 element: INF NOM atts SUP content INF SLASH . NOM SUP
 
-    $défaut  réduction par utilisation de la règle 11 (element)
+    NOM  décalage et aller à l'état 39
 
 
 état 36
 
-    9 element: INF NOM COLON NOM atts SUP content . INF SLASH NOM COLON NOM SUP
-   15 content: content . element
-   16        | content . CDATABEGIN CDATAEND
-   17        | content . DONNEES
+   15 content: content CDATABEGIN CDATAEND .
 
-    INF         décalage et aller à l'état 39
-    CDATABEGIN  décalage et aller à l'état 29
-    DONNEES     décalage et aller à l'état 30
-
-    element  aller à l'état 31
+    $défaut  réduction par utilisation de la règle 15 (content)
 
 
 état 37
 
-    8 element: INF NOM atts SUP content INF SLASH . NOM SUP
+   13 att: NOM COLON NOM EGAL . VALEUR
 
-    NOM  décalage et aller à l'état 40
+    VALEUR  décalage et aller à l'état 40
 
 
 état 38
 
-   16 content: content CDATABEGIN CDATAEND .
-
-    $défaut  réduction par utilisation de la règle 16 (content)
-
-
-état 39
-
     8 element: INF . NOM atts SUP content INF SLASH NOM SUP
     9        | INF . NOM COLON NOM atts SUP content INF SLASH NOM COLON NOM SUP
     9        | INF NOM COLON NOM atts SUP content INF . SLASH NOM COLON NOM SUP
-   10        | INF . NOM atts SLASH SUP
-   11        | INF . NOM COLON NOM atts SLASH SUP
 
     SLASH  décalage et aller à l'état 41
     NOM    décalage et aller à l'état 5
 
 
-état 40
+état 39
 
     8 element: INF NOM atts SUP content INF SLASH NOM . SUP
 
     SUP  décalage et aller à l'état 42
+
+
+état 40
+
+   13 att: NOM COLON NOM EGAL VALEUR .
+
+    $défaut  réduction par utilisation de la règle 13 (att)
 
 
 état 41

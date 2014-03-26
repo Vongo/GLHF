@@ -18,7 +18,7 @@ using namespace std;
 #include "model/Doctype.h"
 #include "model/Autre.h"
 #include "model/ElementBalise.h"
-#include "model/ElementBaliseOrpheline.h"
+//#include "model/ElementBaliseOrpheline.h"
 
 extern char xmltext[];
 
@@ -37,7 +37,7 @@ void xmlerror(const char * msg)
    Attribut* a;
    list<Attribut *>* la;
    Element* e;
-   list<Element*>* c [2];
+   list<Element*> **c;
    list<EnTete*> * en;
    Document* d;
 }
@@ -77,8 +77,8 @@ element
  | INF NOM COLON NOM atts SUP 
    content
    INF SLASH NOM COLON NOM SUP         {$$ = new ElementBalise($4, $7, $5);} //Balise Paire XSL
- | INF NOM atts SLASH SUP              {$$ = new ElementBaliseOrpheline($2,$3);} //Balise Orpheline
- | INF NOM COLON NOM atts SLASH SUP 	 {$$ = new ElementBaliseOrpheline($4,$5);} //Balise Orpheline XSL
+ //| INF NOM atts SLASH SUP              //{$$ = new ElementBaliseOrpheline($2,$3);} //Balise Orpheline
+ //| INF NOM COLON NOM atts SLASH SUP 	 //{$$ = new ElementBaliseOrpheline($4,$5);} //Balise Orpheline XSL
  ;
 
  atts
@@ -88,11 +88,13 @@ element
 
  att
   : NOM EGAL VALEUR 				           {$$ = new Attribut($1,$3);}
+  | NOM COLON NOM EGAL VALEUR               {$$ = new Attribut($3,$5);}
   ;
 
 content
- : content element 					           {$$ = $1; $$[1]->push_back($2);}
+ : content element                {$$ = $1; 
+                                  $$[1]->push_back($2);}
  | content CDATABEGIN CDATAEND 		{$$ = $1;$$[0]->push_back(new Donnee($3,1));}
  | content DONNEES 					{$$ = $1; $$[0]->push_back(new Donnee($2,0));}         
- | /* vide */       				{list<Donnee*>* donnees = new list<Donnee*>(); list<Element*>* elements = new list<Element*>(); $$ = {donnees, elements};  } 
+ | /* vide */       				{list<Donnee*>* donnees = new list<Donnee*>(); list<Element*>* elements = new list<Element*>(); $$ = new list<Element*>*[2];(*$$)[0]=donnees;(*$$)[1]= elements;  } 
  ;

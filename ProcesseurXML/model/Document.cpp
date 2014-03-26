@@ -45,14 +45,25 @@ Document::Document(string path)
     else cout << "Unable to open file";
 }
 
+<<<<<<< HEAD
 Document::Document(list<EnTete*>* enTetes, Element* elementRacine)
+=======
+Document::Document(list<EnTete*> * enTetes, Element* elementRacine)
+>>>>>>> 6ee51042a7a0921318f213538edb488c50fdd244
 {
     this->enTetes = enTetes;
     this->elementRacine = elementRacine;
 }
 
+<<<<<<< HEAD
 Document::Document(Element* elementRacine)
 {
     this->enTetes = 0;
     this->elementRacine = elementRacine;
+=======
+Document::~Document()
+{
+    delete(this->enTetes);
+    delete(this->elementRacine);
+>>>>>>> 6ee51042a7a0921318f213538edb488c50fdd244
 }

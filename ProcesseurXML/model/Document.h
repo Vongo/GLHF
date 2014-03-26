@@ -18,7 +18,6 @@ public:
 private: 
   Element* elementRacine;
   list<EnTete*>* enTetes;
-
 };
  
 #endif
