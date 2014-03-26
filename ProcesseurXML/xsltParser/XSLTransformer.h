@@ -4,14 +4,16 @@
 
 class XSLTransformer {
 
-	Document xml;
-	Document catalog;
-	List<Template> tree;
 	
 	public:
 		XSLTransformer();
-		XSLTransformer(XML xmlRep, XMLRep cat);
+		XSLTransformer(Document xmlRep,Document cat);
 	private:
+
+		Document xml;
+		Document catalog;
+		List<Template> tree;
+		
 		void createTemplateTree();
 		void addContent(Template t);
 

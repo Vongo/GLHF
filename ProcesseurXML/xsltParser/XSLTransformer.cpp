@@ -1,25 +1,29 @@
 #include "Template.h"
 #include "Document.h"
 #include <list>
+#include <iostream>
 
 using namespace std;
 
 
 	XSLTransformer::XSLTransformer() {
-		cout << "lolilol"
+		cout << "lolilol"<< endline;
 	}
 
 	XSLTransformer::XSLTransformer(Document xmlRep, Document cat) {
 		xml = xmlRep;
 		catalog = cat;
+
 		createTemplateTree();
 
-		for ()
+		for (list<Template>::iterator it=tree.begin(),it != tree.end() , it++){
+			addContent(*it)
+		}
 	}
 
-	void createTemplateTree() {
-		Balise root = xml.getRoot(); // <xsl:stylesheet>
-		if (root = "xsl:stylesheet") {
+	void XSLTransformer::createTemplateTree() {
+		Element* root = xml.getRacine(); // <xsl:stylesheet>
+		if (root-> = "xsl:stylesheet") {
 			// List<Template> tempList = new List<Template>();
 			foreach(Element e : root.getChildren()) {
 				Template t = new Template(e.getValueOfAttribute("match"));
@@ -43,7 +47,7 @@ using namespace std;
 		}
 	}
 
-	void addContent(Template t) {
+	void XSLTransformer::addContent(Template t) {
 		foreach(Element child : t.getContent().getChildren) {
 			if (child instanceOf Donnee) { // treat text nodes like "Title :"
 				t.addToOutput(child);
