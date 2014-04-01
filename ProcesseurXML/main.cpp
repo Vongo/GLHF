@@ -39,10 +39,6 @@ int main(int argc, char const *argv[])
         case 'p':
         {
             FILE *fid = fopen(argv[2], "r");
-            if (!fid)
-            {
-                return 1;
-            }
             xmlin = fid;
             vRet = xmlparse(doc);
             fclose(fid);
@@ -74,10 +70,11 @@ int main(int argc, char const *argv[])
             fclose(xsl);
             break;
         }
+        }
+        if (!vRet)
+        {
+            // TODO stuff
+        }
+        return vRet;
     }
-    if (!vRet)
-    {
-
-    }
-    return vRet;
 }
