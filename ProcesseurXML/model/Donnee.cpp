@@ -1,38 +1,36 @@
 #include "Donnee.h"
-#include <iostream>
 
-using namespace std;
-
-Donnee::Donnee(char *contenu, int codeType):Element()
+Donnee::Donnee(char *contenu, int codeType): Element()
 {
-	this->contenu = contenu;
+    this->contenu = contenu;
     this->codeType = codeType;
 }
 
-string toString()
+char *Donnee::toString()
 {
-	switch(this->codeType)
-	{
-		case 0: //Texte
-		{
-			string stringContenu(this->contenu);
-			return stringContenu;
-		}
-		case 1: //CDATA
-		{
-			string stringContenu = "<![CDATA[";
-			stringContenu+= this->contenu;
-			stringContenu+= "]]>";
-
-			return stringContenu;			
-		}
-		case 2: //Commentaire
-		{
-			string stringContenu = "<!-- ";
-			stringContenu+= this->contenu;
-			stringContenu+= " -->";
-
-			return stringContenu;
-		}
-	}
+    switch (this->codeType)
+    {
+    case 0: //Texte
+    {
+        return this->contenu;
+    }
+    case 1: //CDATA
+    {
+        string buffer("<![CDATA[");
+        buffer.append(this->contenu);
+        buffer.append("]]>");
+        char *cstr = new char[buffer.length() + 1];
+        strcpy(cstr, buffer.c_str());
+        return cstr;
+    }
+    case 2: //Commentaire
+    {
+        string buffer("<!-- ");
+        buffer.append(this->contenu);
+        buffer.append(" -->");
+        char *cstr = new char[buffer.length() + 1];
+        strcpy(cstr, buffer.c_str());
+        return cstr;
+    }
+    }
 }

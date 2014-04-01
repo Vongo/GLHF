@@ -32,33 +32,37 @@ Attribut::Attribut(const char *in)
     }
 
 }
-Attribut::Attribut(char *pName, char *pValue){
+Attribut::Attribut(char *pName, char *pValue)
+{
     this->name = pName;
     this->value = pValue;
 }
 
-char* Attribut::getValue()
+char *Attribut::getValue()
 {
     return value;
 }
 
-char* Attribut::getName()
+char *Attribut::getName()
 {
     return name;
 }
 
 Attribut::~Attribut()
 {
-	delete(this->name);
-	delete(this->value);
+    delete(this->name);
+    delete(this->value);
 }
 
-string toString()
-{
-    
-    string stringContenu(this->name);
-    stringContenu+= "=";
-    stringContenu+= this->value;
+// string toString()
+// {
+//     string stringContenu(this->name);
+//     stringContenu += "=";
+//     stringContenu += this->value;
+//     return buffer;
+// }
 
-    return buffer;
+char *Attribut::toString()
+{
+    return strcat(strcat(this->name,"="),this->value);
 }
