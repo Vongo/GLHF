@@ -24,14 +24,16 @@ static const char *CANNOT_OPEN_XSD = "Unable to open file does_not_exist.xsd\n";
 int checkEntryFormat(int argc, char const *argv[])
 {
     //Check input format
-    int vRet = 1;
+    int vRet = 0; // 0 is "No error found"
     if (argc == 1)
     {
         fputs(NO_ARGUMENT_GIVEN, stderr);
+        vRet = 1;
     }
     else if (argc > 4)
     {
         fputs(TOO_MANY_ARGUMENTS, stderr);
+        vRet = 1;
     }
     else if (argc > 1)
     {
@@ -42,6 +44,7 @@ int checkEntryFormat(int argc, char const *argv[])
             case 'h':
             {
                 fputs (MANUAL, stderr);
+                vRet = 1;
                 break;
             }
             case 'p':
@@ -49,15 +52,24 @@ int checkEntryFormat(int argc, char const *argv[])
                 if (argc != 3)
                 {
                     if (argc > 3)
+                    {
                         fputs(TOO_MANY_ARGUMENTS, stderr);
+                        vRet = 1;
+                    }
                     else
+                    {
                         fputs(UNPROVIDED_ARGUMENT_P, stderr);
+                        vRet = 1;
+                    }
                 }
                 else
                 {
                     FILE *fid = fopen(argv[2], "r");
                     if (!fid)
+                    {
                         fputs(CANNOT_OPEN_XML, stderr);
+                        vRet = 1;
+                    }
                     fclose(fid);
                 }
                 break;
@@ -67,19 +79,21 @@ int checkEntryFormat(int argc, char const *argv[])
                 if (argc < 4)
                 {
                     fputs(UNPROVIDED_ARGUMENT_V, stderr);
-                    break;
+                    vRet = 1;
                 }
                 else
                 {
                     FILE *xml = fopen(argv[2], "r");
                     FILE *xsd = fopen(argv[3], "r");
-                    if(xml==NULL )
+                    if (!xml)
                     {
                         fputs(CANNOT_OPEN_XML, stderr);
+                        vRet = 1;
                     }
-                    else if(xsd==NULL)
+                    if (!xsd)
                     {
                         fputs(CANNOT_OPEN_XSD, stderr);
+                        vRet = 1;
                     }
                 }
                 break;
@@ -89,15 +103,22 @@ int checkEntryFormat(int argc, char const *argv[])
                 if (argc != 4)
                 {
                     fputs(UNPROVIDED_ARGUMENT_T, stderr);
+                    vRet = 1;
                 }
                 else
                 {
                     FILE *xml = fopen(argv[2], "r");
                     FILE *xsl = fopen(argv[3], "r");
                     if (!xml)
+                    {
                         fputs(CANNOT_OPEN_XML, stderr);
+                        vRet = 1;
+                    }
                     if (!xsl)
+                    {
                         fputs(CANNOT_OPEN_XSL, stderr);
+                        vRet = 1;
+                    }
                     fclose(xml);
                     fclose(xsl);
                 }
@@ -105,6 +126,7 @@ int checkEntryFormat(int argc, char const *argv[])
             }
             default:
                 fputs (UNKNOWN_ARGUMENT, stderr);
+                vRet = 1;
             }
         }
     }
