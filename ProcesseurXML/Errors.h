@@ -55,13 +55,23 @@ int checkEntryFormat(int argc, char const *argv[])
             }
             case 'v':
             {
-                if (argc != 4)
+                if (argc < 4)
                 {
-
+                    fputs(UNPROVIDED_ARGUMENT_V, stderr);
+                    break;
                 }
                 else
                 {
-
+                    FILE *xml = fopen(argv[2], "r");
+                    FILE *xsd = fopen(argv[3], "r");
+                    if(xml==NULL )
+                    {
+                        fputs(CANNOT_OPEN_XML, stderr);
+                    }
+                    else if(xsd==NULL)
+                    {
+                        fputs(CANNOT_OPEN_XSD, stderr);
+                    }
                 }
                 break;
             }
