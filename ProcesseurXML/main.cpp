@@ -32,7 +32,7 @@ int main(int argc, char const *argv[])
 
     Document **doc;
     extern FILE *xmlin;
-    else if (argc == 3)
+    if (argc == 3)
     {
         switch (argv[1][1])
         {
