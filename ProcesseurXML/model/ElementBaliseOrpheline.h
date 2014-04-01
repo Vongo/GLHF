@@ -11,6 +11,7 @@ public:
     ~ElementBaliseOrpheline();
     list<Attribut *> * getLesAttributs();
     char* getName();
+    char *toString();
     char* getType();
 
 private:

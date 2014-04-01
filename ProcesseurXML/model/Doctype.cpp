@@ -19,3 +19,28 @@ Doctype::~Doctype()
 		delete(&it);
 	}
 }
+
+//<!DOCTYPE html>
+
+char *Doctype::toString()
+{
+	string buffer("<");
+	buffer.append("!DOCTYPE ");
+    buffer.append(this->nom1);
+    buffer.append(" ");
+    buffer.append(this->nom2);
+    buffer.append(" ");
+
+    for (list<valeurs *>::iterator it = this->valeurs->begin(); it != this->valeurs->end(); it++)
+    {
+        buffer.append(" ");
+        buffer.append("\"");
+        buffer.append((*it)->toString());
+        buffer.append("\"");
+    }
+    buffer.append(">");
+
+    char *cstr = new char[buffer.length() + 1];
+    strcpy(cstr, buffer.c_str());
+    return cstr;
+}

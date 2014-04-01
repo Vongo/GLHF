@@ -4,3 +4,8 @@ EnTete::EnTete()
 {
 
 }
+
+char *EnTete::toString()
+{
+	return "";
+}

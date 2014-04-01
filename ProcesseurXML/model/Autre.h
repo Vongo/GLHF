@@ -13,6 +13,7 @@ class Autre: public EnTete
 public:
     Autre(list<Attribut *> *);
     ~Autre();
+    char *toString();
 private:
 	string hoho;
     list<Attribut *> *attributs;

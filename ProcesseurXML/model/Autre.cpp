@@ -9,3 +9,8 @@ Autre::~Autre()
 {
     delete(this->attributs);
 }
+
+char *Autre::toString()
+{
+	
+}
