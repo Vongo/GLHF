@@ -18,7 +18,24 @@ Template::Template(Element* rootTemplate){
 void Template::addChild(Template t) {
 	children.push_back(t);
 }
-
+void Template::addChildren(set<Template*> *t){
+	for(list<Template*>::iterator itAjout=tree.begin(),itAjout != tree.end(),itAjout++)
+	{
+		this->addChild(*it)
+	}
+}
+list<Element*> findXSLtemplate(list<Template*> *t)
+{
+	for(list<Element*>::iterator it=*(eb)->getLesElements.begin(),it != *(eb)->getLesElements.end(), it++)
+	{
+		if(*(it)->getTypes() == "xsl" && strcmp(*(it)->getName,"apply-templates") == 0)
+		{
+			return *(it);
+		} else {
+			return getXSLApply(*(it));
+		}
+	}
+}
 void Template::setParent(Template t) : parent(t) { }
 
 void Template::addToOutput(string o) {
