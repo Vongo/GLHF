@@ -15,7 +15,7 @@ Template::Template(Element* rootTemplate){
     content = rootTemplate;   
 }
 
-void Template::addChild(Template t) {
+void Template::addChild(Template* t) {
 	children.push_back(t);
 }
 void Template::addChildren(set<Template*> *t){

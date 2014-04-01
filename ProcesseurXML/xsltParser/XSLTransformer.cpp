@@ -33,8 +33,6 @@ using namespace std;
 					}
 			}	
 
-			// iterate a second time over tree to add all Templates where no // parent is specified as children to the one without an apply-
-			// templates match
 			Template* first = tree.front();
 			//foreach(Template t : tree) 
 			set<Element*> *templates;
@@ -54,7 +52,7 @@ using namespace std;
 					}
 					else
 					{
-						*itTemplate->addChild(*(it));
+						*itTemplate->addChild(*tree.find((*(it)->getLesAttributs()).front()->getValue()));
 					}
 				}
 

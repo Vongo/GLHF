@@ -12,7 +12,7 @@ class XSLTransformer {
 
 		Document xml;
 		Document catalog;
-		List<Template*> tree;
+		map<char* match,Template*> tree;
 		
 		void createTemplateTree();
 		void addContent(Template t);
