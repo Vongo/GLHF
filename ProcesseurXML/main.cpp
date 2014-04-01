@@ -25,15 +25,22 @@ int xmltransformation(FILE *xml, FILE *xsl)
 
 int main(int argc, char const *argv[])
 {
+    int retour = 1;
+
     //Check input format
-    if (argc > 1)
+    if (argc == 1)
+        fputs(NO_ARGUMENT_GIVEN, stderr);
+    else if (argc > 4)
+        fputs(TOO_MANY_ARGUMENTS, stderr);
+    else if (argc > 1)
     {
-        if (strlen(argv[1]) > 1 && argv[1][0] == '-')
+        else if (strlen(argv[1]) > 1 && argv[1][0] == '-')
         {
             switch (argv[1][1])
             {
             case 'h':
             {
+                fputs (MANUAL, stderr);
                 break;
             }
             case 'p':
@@ -56,21 +63,6 @@ int main(int argc, char const *argv[])
 
     Document **doc;
     extern FILE *xmlin;
-    int retour = 1;
-    if (argc == 1)
-        fputs(NO_ARGUMENT_GIVEN, stderr);
-    if (argc == 2)
-    {
-        switch (argv[1][1])
-        {
-        case 'h':
-            fputs (MANUAL, stderr);
-            break;
-        default:
-            //cout << "Argument non reconnu : " << argv[1][1] << endl;
-            break;
-        }
-    }
     else if (argc == 3)
     {
         switch (argv[1][1])

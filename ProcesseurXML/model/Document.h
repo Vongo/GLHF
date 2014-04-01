@@ -16,6 +16,7 @@ public:
     Document(list<EnTete *> *, Element *);
     ~Document();
     Element *getRacine();
+    char *toString();
 private:
     Element *elementRacine;
     list<EnTete *> *enTetes;

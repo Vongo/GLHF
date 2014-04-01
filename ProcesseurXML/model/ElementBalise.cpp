@@ -49,7 +49,7 @@ char *ElementBalise::toString()
     //Boucle pour les elements
     for (list<Element *>::iterator it = this->lesElements->begin(); it != this->lesElements->end(); it++)
     {
-        buffer.append("\n\r");
+        buffer.append("\n");
         buffer.append((*it)->toString());
     }
 
