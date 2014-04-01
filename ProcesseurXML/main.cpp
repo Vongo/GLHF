@@ -53,7 +53,7 @@ int main(int argc, char const *argv[])
                 return 1;
             }
             xmlin = fid;
-            retour = xmlparse(doc);
+            vRet = xmlparse(doc);
             fclose(fid);
         }
     }
@@ -85,7 +85,7 @@ int main(int argc, char const *argv[])
             cout << "Argument non reconnu : " << argv[1][1] << endl;
         }
     }
-    else
+    if (!vRet)
     {
         cout << "Mauvais format d'entree" << endl;
     }
