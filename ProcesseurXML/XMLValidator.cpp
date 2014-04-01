@@ -1,4 +1,7 @@
 #include "XMLValidator.h"
+#include <fstream>
+#include <boost/regex.hpp>
+
 
 using namespace std;
 
@@ -35,7 +38,7 @@ XMLValidator::initMap()
 
 XMLValidator::constructChoiceRegex(List<Element*> * elements)
 {
-	string regex = "^"
+	string regex = "";
 
 	for(list<Element *> *::iterator it = elements.begin() ; it != elements.end() ; it++)
 	{
@@ -46,22 +49,31 @@ XMLValidator::constructChoiceRegex(List<Element*> * elements)
 		{
 			if ( strcmp((*attr2)->getValue(), "xsd:string") == 0 )
 			{
-				regex = regex + "(<" + attr1.getValue() + ">)";
+				regex = regex + "<" + (*attr1)->getValue() + ">.*</" + (*attr1)->getValue() + ">" ;
+				if (it != elements.end()) 
+				{
+					regex = regex + "|";
+				}
+				
 			}
 			else if ( strcmp((*attr2)->getValue(), "xsd:date") == 0 )
 			{
-				regex = regex + "(<" + attr1.getValue() + ">)";
+
+				regex = regex + "<" + (*attr1)->getValue() + ">[0-9]{4}-[0-9]{2}-[0-9]{2}</" + (*attr1)->getValue() + ">" ;
+				if (it != elements.end()) 
+				{
+					regex = regex + "|";
+				}
 			}
 		}
 	}
 
 	return regex;
-
 }
 
 XMLValidator::constructSeqRegex(List<Element*> * elements)
 {
-	string regex = "^"
+	string regex = "";
 
 	for(list<Element *> *::iterator it = elements.begin() ; it != elements.end() ; it++)
 	{
@@ -72,27 +84,52 @@ XMLValidator::constructSeqRegex(List<Element*> * elements)
 		{
 			if ( strcmp((*attr2)->getValue(), "xsd:string") == 0 )
 			{
-				regex = regex + "(<" + attr1.getValue() + ">)";
+				regex = regex + "<" + (*attr1)->getValue() + ">.*</" + (*attr1)->getValue() + ">" ;
+				if (it != element.end() )
+				{
+					regex = regex + "$^";
+				}
 			}
 			else if ( strcmp((*attr2)->getValue(), "xsd:date") == 0 )
 			{
-				regex = regex + "(<" + attr1.getValue() + ">)";
+				regex = regex + "<" + (*attr1)->getValue() + ">[0-9]{4}-[0-9]{2}-[0-9]{2}</" + (*attr1)->getValue() + ">" ;
+				if (it != element.end() )
+				{
+					regex = regex + "$^";
+				}
 			}
 		}
 		else if ( strcmp((*attr1)->getName(), "ref") == 0 )
 		{
 			for(map<string,string>::iterator it = elementToRegex.begin() ; it != elementToRegex.end() ; it++)
 			{
-				if ( strcmp( (*attr2)->getValue(), it->first) == 0 ))
+				if ( strcmp( (*attr1)->getValue(), it->first) == 0 ))
 				{
-					regex = it->second;
+					
 				}
 			}
 		}
-
 	}
 
 	return regex;
+}
+
+XMLValidator::XmlValidation()
+{
+	ifstream myfile;
+	myfile.open ("./files/personne.xml");
+	string line;
+
+	while ( getline (myfile,line) )
+    {
+       string regex = "<personne.*";
+       if (boost::regex_match(line, boost::regex(regex)))
+       {
+       		cout << "youyou";
+       }
+
+    }
+    myfile.close();
 }
 
 
