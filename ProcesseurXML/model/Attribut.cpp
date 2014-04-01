@@ -44,4 +44,12 @@ Attribut::~Attribut()
 	delete(this->value);
 }
 
-// <Robert color="pruple"> Blabla </Robert>
+string toString()
+{
+    
+    string stringContenu(this->name);
+    stringContenu+= "=";
+    stringContenu+= this->value;
+
+    return buffer;
+}

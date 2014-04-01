@@ -16,3 +16,30 @@ ElementBalise::~ElementBalise()
     delete lesAttributs;
     delete nom;
 }
+
+char* toString()
+{
+	string stringContenu="<";
+	stringContenu+=this->nom;
+
+	//Boucle pour les arguments
+	for (list<Attribut *>::iterator it = this->attributs.begin(); it != fifth.end(); it++)
+	{
+		stringContenu+= " ";
+		stringContenu+= *it->toString();
+	}
+	stringContenu+=" >"
+
+	//Boucle pour les elements
+	for (list<Element *>::iterator it = this->attributs.begin(); it != fifth.end(); it++)
+	{
+		stringContenu+= "\n\r";
+		stringContenu+= *it->toString();
+	}
+
+
+	stringContenu+="</";
+	stringContenu+=this->nom;
+	stringContenu+=">"
+
+}

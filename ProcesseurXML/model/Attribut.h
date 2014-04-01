@@ -9,6 +9,7 @@ public:
     Attribut(const char *);
     Attribut(char *, char *);
     ~Attribut();
+    string toString();
 
     /* data */
 private:
