@@ -1,5 +1,4 @@
 #include "commun.h"
-#include "Errors.h"
 #include "model/Document.h"
 #include <iostream>
 #include <cstring>
@@ -25,27 +24,32 @@ int xmltransformation(FILE *xml, FILE *xsl)
 
 int main(int argc, char const *argv[])
 {
-    int vRet = checkEntryFormat(argc, argv);
-
-    if (!vRet)
-        return vRet;
-
     Document **doc;
     extern FILE *xmlin;
-    if (argc == 3)
+    int retour = 1;
+    if (argc == 2)
     {
         switch (argv[1][1])
         {
-        case 'p':
+        case 'h':
+            cout << "CECI EST LE MANUEL OLOL" << endl;
+            retour = 0;
+            break;
+        default:
+            cout << "Argument non reconnu : " << argv[1][1] << endl;
+        }
+        switch
+
+    }
+else if (argc == 3)
+    {
+        if (argv[0] == "-p")
         {
+            cout << ">> PARSING <<" << endl;
             FILE *fid = fopen(argv[2], "r");
             xmlin = fid;
             vRet = xmlparse(doc);
             fclose(fid);
-            break;
-        }
-        default:
-            break;
         }
     }
     else if (argc == 4)
@@ -56,7 +60,8 @@ int main(int argc, char const *argv[])
         {
             FILE *xml = fopen(argv[2], "r");
             FILE *xsd = fopen(argv[3], "r");
-            vRet = xmlvalidation(xml, xsd);
+            cout << ">> VALIDATION <<" << endl;
+            retour = xmlvalidation(xml, xsd);
             fclose(xml);
             fclose(xsd);
             break;
@@ -65,7 +70,8 @@ int main(int argc, char const *argv[])
         {
             FILE *xml = fopen(argv[2], "r");
             FILE *xsl = fopen(argv[3], "r");
-            vRet = xmltransformation(xml, xsl);
+            cout << ">> TRANSFORMATION <<" << endl;
+            retour = xmltransformation(xml, xsl);
             fclose(xml);
             fclose(xsl);
             break;
@@ -75,6 +81,6 @@ int main(int argc, char const *argv[])
         {
             // TODO stuff
         }
-        return vRet;
     }
+    return vRet;
 }
