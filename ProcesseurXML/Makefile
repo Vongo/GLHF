@@ -1,7 +1,7 @@
-MODEL = $(wildcard ./model/*.h) $(wildcard ./model/*.cpp)
+MODEL = $(wildcard ./model/*.cpp)
 
 all: commun
-commun: *.l *.y *.cpp *.h
+commun: *.l *.y *.cpp
 	flex -P xml xml.l
 	bison -p xml --debug --verbose --defines=xml.tab.h xml.y
 	g++ -std=c++11 -g -DYYDEBUG -o xmltool main.cpp ${MODEL} xml.tab.c lex.xml.c

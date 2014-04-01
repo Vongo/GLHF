@@ -13,7 +13,7 @@ public:
     list<Element *> *getLesElements();
     char *getName();
     char *getType();
-    ElementBalise(char *&, list<Element *> *[2], list<Attribut *> *&, char *&type="xml");
+    ElementBalise(char *&, list<Element *> *[2], list<Attribut *> *&, char *);
     ~ElementBalise();
     char *toString();
 

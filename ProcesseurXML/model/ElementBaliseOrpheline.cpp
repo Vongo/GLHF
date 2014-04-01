@@ -1,7 +1,7 @@
 #include "ElementBaliseOrpheline.h"
 
 
-ElementBaliseOrpheline::ElementBaliseOrpheline(char *pNom, list<Attribut*> *attributs, char *&type):Element()
+ElementBaliseOrpheline::ElementBaliseOrpheline(char *pNom, list<Attribut*> *attributs, char *type):Element()
 {
     this->nom = pNom;
     this->lesAttributs = attributs;
@@ -13,7 +13,7 @@ char* ElementBaliseOrpheline::getName()
 	return nom;
 }
 
-char *ElementBalise::getType()
+char* ElementBaliseOrpheline::getType()
 {
     return type;
 }

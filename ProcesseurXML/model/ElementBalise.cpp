@@ -6,7 +6,7 @@ ElementBalise::ElementBalise(): Element()
     this->lesElements = new list<Element *>();
 }
 
-ElementBalise::ElementBalise(char *&nom, list<Element *> *elements [2], list<Attribut *> *&attributs, char *&type): Element()
+ElementBalise::ElementBalise(char *&nom, list<Element *> *elements [2], list<Attribut *> *&attributs, char * type): Element()
 {
     this->lesAttributs = attributs;
     this->lesElements = *elements;
