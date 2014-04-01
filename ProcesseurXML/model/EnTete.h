@@ -3,8 +3,8 @@
 
 class EnTete
 {
-	public:
-		EnTete();
+public:
+    EnTete();
 };
 
 #endif

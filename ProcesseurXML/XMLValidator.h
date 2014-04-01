@@ -1,6 +1,10 @@
 #ifndef BALISE_H
 #define BALISE_H
 
+#include <string>
+#include <map>
+
+
 using namespace std;
 
 class XMLValidator

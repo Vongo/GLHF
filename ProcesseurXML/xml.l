@@ -80,7 +80,7 @@ endcdata   "]]>"
 <INITIAL>{supspecial}	{ dbg; return SUPSPECIAL;}
 <INITIAL>{nom}		{dbg; xmllval.s = strdup(xmltext); return NOM;}
 <INITIAL>{colon}  {dbg; return COLON;}
-<INITIAL>{chaine}	{dbg; xmllval.http://ditesleavecdesfleurs.tumblr.com/s = strdup(enleveGuillemets(xmltext)); return VALEUR;}
+<INITIAL>{chaine}	{dbg; xmllval.s = strdup(enleveGuillemets(xmltext)); return VALEUR;}
 <CONTENU>{cdata}           {dbg; BEGIN(CDATASECTION); buffer = (char*) malloc(1); buffer[0]='\0'; return CDATABEGIN;  }
 <CDATASECTION>{endcdata}     {dbg; BEGIN(CONTENU); xmllval.s = strdup(buffer); free(buffer); return CDATAEND; }
 <CDATASECTION>.              {dbg; char * tmp = strdup(buffer); free(buffer); buffer = (char*) malloc(strlen(tmp)+2); strcpy(buffer,tmp); strcat(buffer,xmltext); free(tmp); }

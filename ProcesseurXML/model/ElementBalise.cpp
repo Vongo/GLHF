@@ -34,29 +34,30 @@ ElementBalise::~ElementBalise()
     delete nom;
 }
 
-char* toString()
+char *ElementBalise::toString()
 {
-	string stringContenu="<";
-	stringContenu+=this->nom;
+    string buffer("<");
+    buffer.append(this->nom);
 
-	//Boucle pour les arguments
-	for (list<Attribut *>::iterator it = this->attributs.begin(); it != fifth.end(); it++)
-	{
-		stringContenu+= " ";
-		stringContenu+= *it->toString();
-	}
-	stringContenu+=" >"
+    for (list<Attribut *>::iterator it = this->lesAttributs->begin(); it != this->lesAttributs->end(); it++)
+    {
+        buffer.append(" ");
+        buffer.append((*it)->toString());
+    }
+    buffer.append(" >");
 
-	//Boucle pour les elements
-	for (list<Element *>::iterator it = this->attributs.begin(); it != fifth.end(); it++)
-	{
-		stringContenu+= "\n\r";
-		stringContenu+= *it->toString();
-	}
+    //Boucle pour les elements
+    for (list<Element *>::iterator it = this->lesElements->begin(); it != this->lesElements->end(); it++)
+    {
+        buffer.append("\n\r");
+        buffer.append((*it)->toString());
+    }
 
+    buffer.append("</");
+    buffer.append(this->nom);
+    buffer.append(">");
 
-	stringContenu+="</";
-	stringContenu+=this->nom;
-	stringContenu+=">"
-
+    char *cstr = new char[buffer.length() + 1];
+    strcpy(cstr, buffer.c_str());
+    return cstr;
 }
