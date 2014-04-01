@@ -6,3 +6,7 @@ using namespace std;
 Element::Element()
 {
 }
+char *Element::toString()
+{
+	
+}
