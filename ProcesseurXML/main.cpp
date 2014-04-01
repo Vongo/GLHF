@@ -30,6 +30,7 @@ int main(int argc, char const *argv[])
     int vRet = checkEntryFormat(argc, argv);
     if (vRet == 1)
         return vRet;
+    cout << "C'EST LA MEEERDE" << endl;
     if (argc == 3)
     {
         if (argv[1][1] == 'p') // Redundant

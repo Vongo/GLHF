@@ -12,10 +12,11 @@ static const char *BAD_MARKUP_1 = "Non matching element names title and titre\n"
 static const char *BAD_MARKUP_2 = "Non matching element namespaces ns and badns\n";
 static const char *BAD_MARKUP_3 = "Non matching element names catalog and catalogue\n";
 static const char *BAD_MARKUP_4 = "Non matching element namespaces ns and badns\nNon matching element names catalog and catalogue\n";
-static const char *CANNOT_OPEN_XML = "Unable to open does_not_exist.xml\n";
 static const char *LEXICAL_ERROR = "Lexical Error (character ?)\nLexical Error (character !)\nsyntax error\nNo root markup\n";
 static const char *MISSING_MARKUP = "Non matching element names artist and cd\nNon matching element names cd and catalog\nsyntax error\nNo root markup\n";
 static const char *SYNTAX_ERROR = "Parsage d'un fichier correct au niveau lexical mais dont la syntaxe n'est pas bonne.l\n";
+static const char *CANNOT_OPEN_XML1 = "Unable to open does_not_exist.xml\n";
+static const char *CANNOT_OPEN_XML2 = "Unable to open file does_not_exist.xml\n";
 static const char *CANNOT_OPEN_XSL = "Unable to open file does_not_exist.xsl\n";
 static const char *CANNOT_OPEN_XSD = "Unable to open file does_not_exist.xsd\n";
 
@@ -67,10 +68,11 @@ int checkEntryFormat(int argc, char const *argv[])
                     FILE *fid = fopen(argv[2], "r");
                     if (!fid)
                     {
-                        fputs(CANNOT_OPEN_XML, stderr);
+                        fputs(CANNOT_OPEN_XML1, stderr);
                         vRet = 1;
                     }
-                    fclose(fid);
+                    else
+                        fclose(fid);
                 }
                 break;
             }
@@ -87,14 +89,18 @@ int checkEntryFormat(int argc, char const *argv[])
                     FILE *xsd = fopen(argv[3], "r");
                     if (!xml)
                     {
-                        fputs(CANNOT_OPEN_XML, stderr);
+                        fputs(CANNOT_OPEN_XML2, stderr);
                         vRet = 1;
                     }
-                    if (!xsd)
+                    else if (!xsd)
                     {
                         fputs(CANNOT_OPEN_XSD, stderr);
                         vRet = 1;
                     }
+                    if (xsd)
+                        fclose(xsd);
+                    if (xml)
+                        fclose(xml);
                 }
                 break;
             }
@@ -111,16 +117,18 @@ int checkEntryFormat(int argc, char const *argv[])
                     FILE *xsl = fopen(argv[3], "r");
                     if (!xml)
                     {
-                        fputs(CANNOT_OPEN_XML, stderr);
+                        fputs(CANNOT_OPEN_XML2, stderr);
                         vRet = 1;
                     }
-                    if (!xsl)
+                    else if (!xsl)
                     {
                         fputs(CANNOT_OPEN_XSL, stderr);
                         vRet = 1;
                     }
-                    fclose(xml);
-                    fclose(xsl);
+                    if (xsl)
+                        fclose(xsl);
+                    if (xml)
+                        fclose(xml);
                 }
                 break;
             }
