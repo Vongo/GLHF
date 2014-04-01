@@ -25,6 +25,7 @@ int xmltransformation(FILE *xml, FILE *xsl)
 int main(int argc, char const *argv[])
 {
     Document **doc;
+    Document 
     extern FILE *xmlin;
     int retour = 1;
     if (argc == 2)
@@ -38,8 +39,6 @@ int main(int argc, char const *argv[])
         default:
             cout << "Argument non reconnu : " << argv[1][1] << endl;
         }
-        switch
-
     }
 else if (argc == 3)
     {
