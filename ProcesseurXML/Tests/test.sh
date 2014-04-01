@@ -123,7 +123,7 @@ then
   number=1
   for i in *.outfile
   do
-    fileName=`basename $i .outfile`
+    fileName='basename $i .outfile'
     if [ -r $fileName ]
     then
       diff -wB $i $fileName

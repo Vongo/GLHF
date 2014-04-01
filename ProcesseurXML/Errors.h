@@ -1,0 +1,4 @@
+
+static const char *MANUAL = "Available commands are:\n ../xmltool -p file.xml : parse and display the xml file\n ../xmltool -v file.xml file.xsd : parse both xml and xsd files and display the validation result\n ../xmltool -t file.xml file.xsl : parse both xml and xsl files and display de transformation result of file.xml by the stylesheet file.xsl\n ../xmltool -h : displays this help\n";
+static const char *NO_ARGUMENT_GIVEN = "No argument given\nAvailable commands are:\n ../xmltool -p file.xml : parse and display the xml file\n ../xmltool -v file.xml file.xsd : parse both xml and xsd files and display the validation result\n ../xmltool -t file.xml file.xsl : parse both xml and xsl files and display de transformation result of file.xml by the stylesheet file.xsl\n ../xmltool -h : displays this help\n";
+static const char *UNKNOWN_ARGUMENT = "TODO unknown argument\n";
