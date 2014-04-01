@@ -10,7 +10,7 @@ class Template {
 	list<Template> children;
 	Template parent;
 	string output;
-	ElementBalise content;
+	ElementBalise* content;
 	string match;
 	
 	public:
@@ -21,8 +21,9 @@ class Template {
 		void addToOutput(string);
 		string getOutput();
 		string getMatch();
-		ElementBalise getContent();
+		ElementBalise* getContent();
 		Template getParent();
 		Template getChild(string);
 		list<Template> getChildren();
+		string
 }
