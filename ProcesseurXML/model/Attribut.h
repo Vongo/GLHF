@@ -2,6 +2,9 @@
 #define ATTRIBUT_H
 
 #include "./Constants.h"
+#include <string.h>
+#include <stdio.h>
+using namespace std;
 
 class Attribut
 {
@@ -11,7 +14,8 @@ public:
     char* getValue();
     char* getName();
     ~Attribut();
-    string toString();
+    // string toString();
+    char *toString();
 
     /* data */
 private:
