@@ -76,9 +76,9 @@ element
    INF SLASH NOM SUP 				           {$$ = new ElementBalise($2, $5, $3);} //Balise Paire
  | INF NOM COLON NOM atts SUP 
    content
-   INF SLASH NOM COLON NOM SUP         {$$ = new ElementBalise($4, $7, $5);} //Balise Paire XSL
+   INF SLASH NOM COLON NOM SUP         {$$ = new ElementBalise($4, $7, $5, $2);} //Balise Paire XSL ou XSD
  | INF NOM atts SLASH SUP              {$$ = new ElementBaliseOrpheline($2,$3);} //Balise Orpheline
- | INF NOM COLON NOM atts SLASH SUP 	 {$$ = new ElementBaliseOrpheline($4,$5);} //Balise Orpheline XSL
+ | INF NOM COLON NOM atts SLASH SUP 	 {$$ = new ElementBaliseOrpheline($4,$5, $2);} //Balise Orpheline XSL ou XSD
  ;
 
  atts

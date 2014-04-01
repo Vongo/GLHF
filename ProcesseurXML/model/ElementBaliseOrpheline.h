@@ -7,12 +7,13 @@
 class ElementBaliseOrpheline: public Element
 {
 public:
-    ElementBaliseOrpheline(char *, list<Attribut*>*);
+    ElementBaliseOrpheline(char *, list<Attribut*>*, char *&type="xml");
     ~ElementBaliseOrpheline();
     list<Attribut *> * getLesAttributs();
     char* getName();
 
 private:
+	char* type;
 	char *nom;
 	list<Attribut*> *lesAttributs;
 };
