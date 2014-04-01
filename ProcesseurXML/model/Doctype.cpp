@@ -31,11 +31,11 @@ char *Doctype::toString()
     buffer.append(this->nom2);
     buffer.append(" ");
 
-    for (list<valeurs *>::iterator it = this->valeurs->begin(); it != this->valeurs->end(); it++)
+    for (list<char*>::iterator it = this->valeurs->begin(); it != this->valeurs->end(); it++)
     {
         buffer.append(" ");
         buffer.append("\"");
-        buffer.append((*it)->toString());
+        buffer.append(*it);
         buffer.append("\"");
     }
     buffer.append(">");

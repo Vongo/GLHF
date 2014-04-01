@@ -2,6 +2,7 @@
 #define DOCTYPE_H
  
 #include <iostream>
+#include <string.h>
 #include <list>
 #include "EnTete.h"
 
