@@ -1,5 +1,4 @@
 #include "commun.h"
-#include "Errors.h"
 #include "model/Document.h"
 #include <iostream>
 #include <cstring>
@@ -25,72 +24,32 @@ int xmltransformation(FILE *xml, FILE *xsl)
 
 int main(int argc, char const *argv[])
 {
-    //Check input format
-    if (argc > 1)
-    {
-        if (strlen(argv[1]) > 1 && argv[1][0] == '-')
-        {
-            switch (argv[1][1])
-            {
-            case 'h':
-            {
-                break;
-            }
-            case 'p':
-            {
-                break;
-            }
-            case 'v':
-            {
-                break;
-            }
-            case 't':
-            {
-                break;
-            }
-            default:
-                fputs (UNKNOWN_ARGUMENT, stderr);
-            }
-        }
-    }
-
     Document **doc;
     extern FILE *xmlin;
     int retour = 1;
-    if (argc == 1)
-        fputs(NO_ARGUMENT_GIVEN, stderr);
     if (argc == 2)
     {
         switch (argv[1][1])
         {
         case 'h':
-            fputs (MANUAL, stderr);
+            cout << "CECI EST LE MANUEL OLOL" << endl;
+            retour = 0;
             break;
         default:
-            //cout << "Argument non reconnu : " << argv[1][1] << endl;
-            break;
+            cout << "Argument non reconnu : " << argv[1][1] << endl;
         }
+        switch
+
     }
-    else if (argc == 3)
+else if (argc == 3)
     {
-        switch (argv[1][1])
+        if (argv[0] == "-p")
         {
-        case 'p':
-        {
-            //cout << ">> PARSING <<" << endl;
+            cout << ">> PARSING <<" << endl;
             FILE *fid = fopen(argv[2], "r");
-            if (!fid)
-            {
-                //cout << "ACHTUNG OMFGWTF" << endl;
-                return 1;
-            }
             xmlin = fid;
-            retour = xmlparse(doc);
+            vRet = xmlparse(doc);
             fclose(fid);
-            break;
-        }
-        default:
-            break;
         }
     }
     else if (argc == 4)
@@ -101,7 +60,7 @@ int main(int argc, char const *argv[])
         {
             FILE *xml = fopen(argv[2], "r");
             FILE *xsd = fopen(argv[3], "r");
-            //cout << ">> VALIDATION <<" << endl;
+            cout << ">> VALIDATION <<" << endl;
             retour = xmlvalidation(xml, xsd);
             fclose(xml);
             fclose(xsd);
@@ -111,29 +70,17 @@ int main(int argc, char const *argv[])
         {
             FILE *xml = fopen(argv[2], "r");
             FILE *xsl = fopen(argv[3], "r");
-            //cout << ">> TRANSFORMATION <<" << endl;
+            cout << ">> TRANSFORMATION <<" << endl;
             retour = xmltransformation(xml, xsl);
             fclose(xml);
             fclose(xsl);
             break;
         }
-        default:
-            //cout << "Argument non reconnu : " << argv[1][1] << endl;
-            break;
+        }
+        if (!vRet)
+        {
+            // TODO stuff
         }
     }
-    else
-    {
-        //cout << "Mauvais format d'entree" << endl;
-    }
-
-    if (!retour)
-    {
-        //cout << "Entrée standard reconnue" << endl;
-    }
-    else
-    {
-        //cout << "Entrée standard non reconnue" << endl;
-    }
-    return retour;
+    return vRet;
 }

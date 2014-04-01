@@ -6,11 +6,12 @@ ElementBalise::ElementBalise(): Element()
     this->lesElements = new list<Element *>();
 }
 
-ElementBalise::ElementBalise(char *&nom, list<Element *> *elements [2], list<Attribut *> *&attributs): Element()
+ElementBalise::ElementBalise(char *&nom, list<Element *> *elements [2], list<Attribut *> *&attributs, char *&type): Element()
 {
     this->lesAttributs = attributs;
     this->lesElements = *elements;
     this->nom = nom;
+    this->type = type;
 }
 
 list<Element *> *ElementBalise::getLesElements()
@@ -26,6 +27,11 @@ list<Attribut *> *ElementBalise::getLesAttributs()
 char *ElementBalise::getName()
 {
     return nom;
+}
+
+char *ElementBalise::getType()
+{
+    return type;
 }
 
 ElementBalise::~ElementBalise()
@@ -49,7 +55,7 @@ char *ElementBalise::toString()
     //Boucle pour les elements
     for (list<Element *>::iterator it = this->lesElements->begin(); it != this->lesElements->end(); it++)
     {
-        buffer.append("\n\r");
+        buffer.append("\n");
         buffer.append((*it)->toString());
     }
 

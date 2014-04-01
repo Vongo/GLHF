@@ -26,6 +26,13 @@ Document::~Document()
     delete(this->elementRacine);
 }
 
-Element* Document::getRacine(){
+Element *Document::getRacine()
+{
     return this->elementRacine;
+}
+
+char *Document::toString()
+{
+	this->elementRacine->toString();
+	
 }
