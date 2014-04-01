@@ -14,6 +14,7 @@ public:
     char* getName();
     ElementBalise(char *&, list<Element *> *[2],list<Attribut *> *&);
     ~ElementBalise();
+    char* toString();
 
 private:
     char *nom;

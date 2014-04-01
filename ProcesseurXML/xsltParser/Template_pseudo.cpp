@@ -1,53 +1,54 @@
-Template {
+#include "ElementBalise.h"
+#include <string>
+#include <list>
+#include "Template.h"
 
-	List<Template> children;
-	Template parent;
-	ElementBalise content;
-	String match;
-	String output;
-	
-	public Template() {
+using namespace std;
 
+Template::Template() { }
+
+Template::Template(string m, ElementBalise c) : match(m), content(c) { }
+
+void Template::addChild(Template t) {
+	children.push_back(t);
+}
+
+void Template::setParent(Template t) : parent(t) { }
+
+void Template::addToOutput(string o) {
+	output += o;
+}
+
+string Template::getOutput() {
+	return output;
+}
+
+string Template::getMatch() {
+	return match;
+}
+
+ElementBalise Template::getContent() {
+	return content;
+}
+
+Template Template::getParent() {
+	return parent;
+}
+
+Template Template::getChild(string match) {
+	for (list<Template>::iterator it = children.begin(); it != children.end(); ++it)
+	{
+		Template child = *it;
+		if (match.compare(child.getMatch()) != 0) {
+			it++;
+		} else {
+			return child;
+		}
 	}
 
-	public Template(String m, ElementBalise c) {
-		match = m;
-		content = c;
-	}
+	return null;
+}
 
-	void addChild(Template t) {
-		children.add(t);
-	}
-
-	void setParent(Template t) {
-		parent = t;
-	}
-
-	void addToOutput(String o) {
-		output += o;
-	}
-
-	String getOutput() {
-		return output;
-	}
-
-	String getMatch(){
-		return match;
-	}
-
-	ElementBalise getContent() {
-		return content;
-	}
-
-	Template getParent() {
-		return parent;
-	}
-
-	Template getChild(String match) {
-
-	}
-
-	List<Template> getChildren() {
-		return children;
-	}
+list<Template> Template::getChildren() {
+	return children;
 }
