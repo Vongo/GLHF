@@ -20,3 +20,5 @@ xml.tab.c
 xml.tab.h
 xmltool
 
+#fichier cache mac
+*.DS_STORE
