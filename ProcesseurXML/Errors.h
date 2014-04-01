@@ -16,3 +16,73 @@ static const char *MISSING_MARKUP = "Non matching element names artist and cd\nN
 static const char *SYNTAX_ERROR = "Parsage d'un fichier correct au niveau lexical mais dont la syntaxe n'est pas bonne.l\n";
 static const char *CANNOT_OPEN_XSL = "Unable to open file does_not_exist.xsl\n";
 static const char *CANNOT_OPEN_XSD = "Unable to open file does_not_exist.xsd\n";
+
+
+
+int checkEntryFormat(int argc, char const *argv[])
+{
+    //Check input format
+    int vRet = 1;
+    if (argc == 1)
+    {
+        fputs(NO_ARGUMENT_GIVEN, stderr);
+    }
+    else if (argc > 4){
+        fputs(TOO_MANY_ARGUMENTS, stderr);
+    }
+    else if (argc > 1)
+    {
+        else if (strlen(argv[1]) > 1 && argv[1][0] == '-')
+        {
+            switch (argv[1][1])
+            {
+            case 'h':
+            {
+                fputs (MANUAL, stderr);
+                break;
+            }
+            case 'p':
+            {
+                if (argc != 3)
+                {
+
+                }
+                else
+                {
+
+                }
+                break;
+            }
+            case 'v':
+            {
+                if (argc != 4)
+                {
+
+                }
+                else
+                {
+
+                }
+                break;
+            }
+            case 't':
+            {
+                if (argc != 4)
+                {
+
+                }
+                else
+                {
+
+                }
+                break;
+            }
+            default:
+                fputs (UNKNOWN_ARGUMENT, stderr);
+            }
+        }
+    }
+
+
+    return vRet;
+}

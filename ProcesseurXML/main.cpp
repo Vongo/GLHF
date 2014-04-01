@@ -25,41 +25,10 @@ int xmltransformation(FILE *xml, FILE *xsl)
 
 int main(int argc, char const *argv[])
 {
-    int retour = 1;
+    int vRet = checkEntryFormat(argc, argv);
 
-    //Check input format
-    if (argc == 1)
-        fputs(NO_ARGUMENT_GIVEN, stderr);
-    else if (argc > 4)
-        fputs(TOO_MANY_ARGUMENTS, stderr);
-    else if (argc > 1)
-    {
-        else if (strlen(argv[1]) > 1 && argv[1][0] == '-')
-        {
-            switch (argv[1][1])
-            {
-            case 'h':
-            {
-                fputs (MANUAL, stderr);
-                break;
-            }
-            case 'p':
-            {
-                break;
-            }
-            case 'v':
-            {
-                break;
-            }
-            case 't':
-            {
-                break;
-            }
-            default:
-                fputs (UNKNOWN_ARGUMENT, stderr);
-            }
-        }
-    }
+    if (!vRet)
+        return vRet;
 
     Document **doc;
     extern FILE *xmlin;
@@ -69,15 +38,13 @@ int main(int argc, char const *argv[])
         {
         case 'p':
         {
-            //cout << ">> PARSING <<" << endl;
             FILE *fid = fopen(argv[2], "r");
             if (!fid)
             {
-                //cout << "ACHTUNG OMFGWTF" << endl;
                 return 1;
             }
             xmlin = fid;
-            retour = xmlparse(doc);
+            vRet = xmlparse(doc);
             fclose(fid);
             break;
         }
@@ -93,8 +60,7 @@ int main(int argc, char const *argv[])
         {
             FILE *xml = fopen(argv[2], "r");
             FILE *xsd = fopen(argv[3], "r");
-            //cout << ">> VALIDATION <<" << endl;
-            retour = xmlvalidation(xml, xsd);
+            vRet = xmlvalidation(xml, xsd);
             fclose(xml);
             fclose(xsd);
             break;
@@ -103,29 +69,15 @@ int main(int argc, char const *argv[])
         {
             FILE *xml = fopen(argv[2], "r");
             FILE *xsl = fopen(argv[3], "r");
-            //cout << ">> TRANSFORMATION <<" << endl;
-            retour = xmltransformation(xml, xsl);
+            vRet = xmltransformation(xml, xsl);
             fclose(xml);
             fclose(xsl);
             break;
         }
-        default:
-            //cout << "Argument non reconnu : " << argv[1][1] << endl;
-            break;
-        }
     }
-    else
+    if (!vRet)
     {
-        //cout << "Mauvais format d'entree" << endl;
-    }
 
-    if (!retour)
-    {
-        //cout << "Entrée standard reconnue" << endl;
     }
-    else
-    {
-        //cout << "Entrée standard non reconnue" << endl;
-    }
-    return retour;
+    return vRet;
 }
