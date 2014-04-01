@@ -70,12 +70,11 @@ typedef union YYSTYPE
    Element* e;
    list<Element*> **c;
    list<EnTete*> * en;
-   Document* d;
 
 
 
 /* Line 2068 of yacc.c  */
-#line 79 "xml.tab.h"
+#line 78 "xml.tab.h"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */

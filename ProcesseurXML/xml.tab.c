@@ -101,7 +101,7 @@ extern char xmltext[];
 
 int xmllex(void);  
 
-void xmlerror(const char * msg)
+void xmlerror(Document **d, const char * msg)
 {
    fprintf(stderr,"%s\n",msg);
 }
@@ -169,12 +169,11 @@ typedef union YYSTYPE
    Element* e;
    list<Element*> **c;
    list<EnTete*> * en;
-   Document* d;
 
 
 
 /* Line 293 of yacc.c  */
-#line 178 "xml.tab.c"
+#line 177 "xml.tab.c"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
@@ -186,7 +185,7 @@ typedef union YYSTYPE
 
 
 /* Line 343 of yacc.c  */
-#line 190 "xml.tab.c"
+#line 189 "xml.tab.c"
 
 #ifdef short
 # undef short
@@ -645,7 +644,7 @@ do								\
     }								\
   else								\
     {								\
-      yyerror (YY_("syntax error: cannot back up")); \
+      yyerror (d, YY_("syntax error: cannot back up")); \
       YYERROR;							\
     }								\
 while (YYID (0))
@@ -716,7 +715,7 @@ do {									  \
     {									  \
       YYFPRINTF (stderr, "%s ", Title);					  \
       yy_symbol_print (stderr,						  \
-		  Type, Value); \
+		  Type, Value, d); \
       YYFPRINTF (stderr, "\n");						  \
     }									  \
 } while (YYID (0))
@@ -730,17 +729,19 @@ do {									  \
 #if (defined __STDC__ || defined __C99__FUNC__ \
      || defined __cplusplus || defined _MSC_VER)
 static void
-yy_symbol_value_print (FILE *yyoutput, int yytype, YYSTYPE const * const yyvaluep)
+yy_symbol_value_print (FILE *yyoutput, int yytype, YYSTYPE const * const yyvaluep, Document **d)
 #else
 static void
-yy_symbol_value_print (yyoutput, yytype, yyvaluep)
+yy_symbol_value_print (yyoutput, yytype, yyvaluep, d)
     FILE *yyoutput;
     int yytype;
     YYSTYPE const * const yyvaluep;
+    Document **d;
 #endif
 {
   if (!yyvaluep)
     return;
+  YYUSE (d);
 # ifdef YYPRINT
   if (yytype < YYNTOKENS)
     YYPRINT (yyoutput, yytoknum[yytype], *yyvaluep);
@@ -762,13 +763,14 @@ yy_symbol_value_print (yyoutput, yytype, yyvaluep)
 #if (defined __STDC__ || defined __C99__FUNC__ \
      || defined __cplusplus || defined _MSC_VER)
 static void
-yy_symbol_print (FILE *yyoutput, int yytype, YYSTYPE const * const yyvaluep)
+yy_symbol_print (FILE *yyoutput, int yytype, YYSTYPE const * const yyvaluep, Document **d)
 #else
 static void
-yy_symbol_print (yyoutput, yytype, yyvaluep)
+yy_symbol_print (yyoutput, yytype, yyvaluep, d)
     FILE *yyoutput;
     int yytype;
     YYSTYPE const * const yyvaluep;
+    Document **d;
 #endif
 {
   if (yytype < YYNTOKENS)
@@ -776,7 +778,7 @@ yy_symbol_print (yyoutput, yytype, yyvaluep)
   else
     YYFPRINTF (yyoutput, "nterm %s (", yytname[yytype]);
 
-  yy_symbol_value_print (yyoutput, yytype, yyvaluep);
+  yy_symbol_value_print (yyoutput, yytype, yyvaluep, d);
   YYFPRINTF (yyoutput, ")");
 }
 
@@ -819,12 +821,13 @@ do {								\
 #if (defined __STDC__ || defined __C99__FUNC__ \
      || defined __cplusplus || defined _MSC_VER)
 static void
-yy_reduce_print (YYSTYPE *yyvsp, int yyrule)
+yy_reduce_print (YYSTYPE *yyvsp, int yyrule, Document **d)
 #else
 static void
-yy_reduce_print (yyvsp, yyrule)
+yy_reduce_print (yyvsp, yyrule, d)
     YYSTYPE *yyvsp;
     int yyrule;
+    Document **d;
 #endif
 {
   int yynrhs = yyr2[yyrule];
@@ -838,7 +841,7 @@ yy_reduce_print (yyvsp, yyrule)
       YYFPRINTF (stderr, "   $%d = ", yyi + 1);
       yy_symbol_print (stderr, yyrhs[yyprhs[yyrule] + yyi],
 		       &(yyvsp[(yyi + 1) - (yynrhs)])
-		       		       );
+		       		       , d);
       YYFPRINTF (stderr, "\n");
     }
 }
@@ -846,7 +849,7 @@ yy_reduce_print (yyvsp, yyrule)
 # define YY_REDUCE_PRINT(Rule)		\
 do {					\
   if (yydebug)				\
-    yy_reduce_print (yyvsp, Rule); \
+    yy_reduce_print (yyvsp, Rule, d); \
 } while (YYID (0))
 
 /* Nonzero means print parse trace.  It is left uninitialized so that
@@ -1123,16 +1126,18 @@ yysyntax_error (YYSIZE_T *yymsg_alloc, char **yymsg,
 #if (defined __STDC__ || defined __C99__FUNC__ \
      || defined __cplusplus || defined _MSC_VER)
 static void
-yydestruct (const char *yymsg, int yytype, YYSTYPE *yyvaluep)
+yydestruct (const char *yymsg, int yytype, YYSTYPE *yyvaluep, Document **d)
 #else
 static void
-yydestruct (yymsg, yytype, yyvaluep)
+yydestruct (yymsg, yytype, yyvaluep, d)
     const char *yymsg;
     int yytype;
     YYSTYPE *yyvaluep;
+    Document **d;
 #endif
 {
   YYUSE (yyvaluep);
+  YYUSE (d);
 
   if (!yymsg)
     yymsg = "Deleting";
@@ -1156,7 +1161,7 @@ int yyparse ();
 #endif
 #else /* ! YYPARSE_PARAM */
 #if defined __STDC__ || defined __cplusplus
-int yyparse (void);
+int yyparse (Document **d);
 #else
 int yyparse ();
 #endif
@@ -1191,11 +1196,11 @@ yyparse (YYPARSE_PARAM)
 #if (defined __STDC__ || defined __C99__FUNC__ \
      || defined __cplusplus || defined _MSC_VER)
 int
-yyparse (void)
+yyparse (Document **d)
 #else
 int
-yyparse ()
-
+yyparse (d)
+    Document **d;
 #endif
 #endif
 {
@@ -1442,14 +1447,14 @@ yyreduce:
 
 /* Line 1806 of yacc.c  */
 #line 58 "xml.y"
-    {(yyval.d) = new Document((yyvsp[(1) - (2)].en),(yyvsp[(2) - (2)].e));}
+    {*d = new Document((yyvsp[(1) - (2)].en),(yyvsp[(2) - (2)].e));}
     break;
 
   case 3:
 
 /* Line 1806 of yacc.c  */
 #line 59 "xml.y"
-    {(yyval.d) = new Document((yyvsp[(1) - (1)].e));}
+    {*d = new Document((yyvsp[(1) - (1)].e));}
     break;
 
   case 4:
@@ -1580,7 +1585,7 @@ yyreduce:
 
 
 /* Line 1806 of yacc.c  */
-#line 1584 "xml.tab.c"
+#line 1589 "xml.tab.c"
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1630,7 +1635,7 @@ yyerrlab:
     {
       ++yynerrs;
 #if ! YYERROR_VERBOSE
-      yyerror (YY_("syntax error"));
+      yyerror (d, YY_("syntax error"));
 #else
 # define YYSYNTAX_ERROR yysyntax_error (&yymsg_alloc, &yymsg, \
                                         yyssp, yytoken)
@@ -1657,7 +1662,7 @@ yyerrlab:
                 yymsgp = yymsg;
               }
           }
-        yyerror (yymsgp);
+        yyerror (d, yymsgp);
         if (yysyntax_error_status == 2)
           goto yyexhaustedlab;
       }
@@ -1681,7 +1686,7 @@ yyerrlab:
       else
 	{
 	  yydestruct ("Error: discarding",
-		      yytoken, &yylval);
+		      yytoken, &yylval, d);
 	  yychar = YYEMPTY;
 	}
     }
@@ -1737,7 +1742,7 @@ yyerrlab1:
 
 
       yydestruct ("Error: popping",
-		  yystos[yystate], yyvsp);
+		  yystos[yystate], yyvsp, d);
       YYPOPSTACK (1);
       yystate = *yyssp;
       YY_STACK_PRINT (yyss, yyssp);
@@ -1772,7 +1777,7 @@ yyabortlab:
 | yyexhaustedlab -- memory exhaustion comes here.  |
 `-------------------------------------------------*/
 yyexhaustedlab:
-  yyerror (YY_("memory exhausted"));
+  yyerror (d, YY_("memory exhausted"));
   yyresult = 2;
   /* Fall through.  */
 #endif
@@ -1784,7 +1789,7 @@ yyreturn:
          user semantic actions for why this is necessary.  */
       yytoken = YYTRANSLATE (yychar);
       yydestruct ("Cleanup: discarding lookahead",
-                  yytoken, &yylval);
+                  yytoken, &yylval, d);
     }
   /* Do not reclaim the symbols of the rule which action triggered
      this YYABORT or YYACCEPT.  */
@@ -1793,7 +1798,7 @@ yyreturn:
   while (yyssp != yyss)
     {
       yydestruct ("Cleanup: popping",
-		  yystos[*yyssp], yyvsp);
+		  yystos[*yyssp], yyvsp, d);
       YYPOPSTACK (1);
     }
 #ifndef yyoverflow

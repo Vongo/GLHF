@@ -11,6 +11,7 @@ public:
     char* getValue();
     char* getName();
     ~Attribut();
+    string toString();
 
     /* data */
 private:
