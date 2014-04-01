@@ -25,7 +25,7 @@ int xmltransformation(FILE *xml, FILE *xsl)
 int main(int argc, char const *argv[])
 {
     Document **doc;
-    Document 
+    int vRet;
     extern FILE *xmlin;
     int retour = 1;
     if (argc == 2)
@@ -42,7 +42,7 @@ int main(int argc, char const *argv[])
     }
 else if (argc == 3)
     {
-        if (argv[0] == "-p")
+        if (argv[1][1] == 'p')
         {
             cout << ">> PARSING <<" << endl;
             FILE *fid = fopen(argv[2], "r");
