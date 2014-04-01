@@ -30,10 +30,9 @@ int main(int argc, char const *argv[])
     int vRet = checkEntryFormat(argc, argv);
     if (vRet == 1)
         return vRet;
-    cout << "On est toujours là"<<endl;
     if (argc == 3)
     {
-        if (argv[0][1] == 'p') // Redundant
+        if (argv[1][1] == 'p') // Redundant
         {
             FILE *fid = fopen(argv[2], "r");
             xmlin = fid;

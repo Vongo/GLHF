@@ -1,7 +1,8 @@
 #include "XMLValidator.h"
 #include <fstream>
 #include <boost/regex.hpp>
-
+#include "./model/Element.h"
+#include "./Attribut.h"
 
 using namespace std;
 

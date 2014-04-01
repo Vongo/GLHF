@@ -5,6 +5,7 @@ class EnTete
 {
 public:
     EnTete();
+    virtual char *toString();
 };
 
 #endif

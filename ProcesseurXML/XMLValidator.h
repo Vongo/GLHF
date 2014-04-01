@@ -3,6 +3,7 @@
 
 #include <string>
 #include <map>
+#include "./model/Document.h"
 
 
 using namespace std;
