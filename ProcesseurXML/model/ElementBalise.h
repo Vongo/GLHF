@@ -12,11 +12,13 @@ public:
     list<Attribut *> *getLesAttributs();
     list<Element *> *getLesElements();
     char *getName();
-    ElementBalise(char *&, list<Element *> *[2], list<Attribut *> *&);
+    char *getType();
+    ElementBalise(char *&, list<Element *> *[2], list<Attribut *> *&, char *);
     ~ElementBalise();
     char *toString();
 
 private:
+    char* type;
     char *nom;
     list<Attribut *> *lesAttributs;
     list<Element *> *lesElements;

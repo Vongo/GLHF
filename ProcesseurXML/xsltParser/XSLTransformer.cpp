@@ -21,12 +21,12 @@ using namespace std;
 
 	void XSLTransformer::createTemplateTree() {
 		Element* root = xml.getRacine(); // <xsl:stylesheet>
-		if (strcmp(root->getName,"xsl:stylesheet") == 0) {
+		if (root->getType() == "xsl" && strcmp(root->getName,"stylesheet") == 0) {
 			//Creation de la liste des templates
 			list<Element *> children = *(root->getLesElements());
 			for(list<Element*>::iterator it=children.begin(),it != children.end(), it++)
 			{
-					if(strcmp(*(it)->getName,"xsl:template") == 0)
+					if(*(it)->getType() == "xsl" && strcmp(*(it)->getName,"template") == 0)
 					{
 						Template nemTemplate = new Template(*it);
 						tree.push(newTemplate);
@@ -37,10 +37,28 @@ using namespace std;
 			// templates match
 			Template* first = tree.front();
 			//foreach(Template t : tree) 
-			for(list<Template*>::iterator it=tree.begin(),it != tree.end(), it++)
+			set<Element*> *templates;
+			//Traitement de tous les Templates
+			for(list<Template*>::iterator itTemplate=tree.begin(),itTemplate != tree.end(), itTemplate++)
 			{
-				ElementBalise* eb = *(it)->getContent;
-				getXSLApply(eb);
+				//recuperation list de fils
+				*(itTemplate)->findXSLtemplate(templates);
+				//parcours des balise xsl:templates decrivant les fils
+				for (list<Element*>::iterator it=templates->begin(),it !=templates.end(),it++){
+					//ajout de tous les templates comme fils
+					if((*(it)->getLesAttributs())->empty())
+					{
+						//ajouter tous les templates comme fils
+						*itTemplate->addChildren(&tree);
+						it = templates->end();
+					}
+					else
+					{
+						*itTemplate->addChild(*(it));
+					}
+				}
+
+				templates->clear();
 			}
 		}
 	}
@@ -48,8 +66,9 @@ using namespace std;
 	Element* XSLTransformer::getXSLApply(ElementBalise* eb) {
 		for(list<Element*>::iterator it=*(eb)->getLesElements.begin(),it != *(eb)->getLesElements.end(), it++)
 		{
-			if(strcmp(*(it)->getName,"xsl:apply-templates") == 0)
+			if(*(it)->getType() == "xsl" && strcmp(*(it)->getName,"apply-templates") == 0)
 			{
+
 				return *(it);
 			} else {
 				return getXSLApply(*(it));
@@ -65,7 +84,7 @@ using namespace std;
 			} else if (child instanceOf ElementBalise) {
 				// récupérer le nom et tester le nom
 				String name = child.getName();
-				if (name.equals("xsl:apply-templates" && child.getAttributes !empty)) {
+				if (*(it)->getType() == "xsl" && name.equals("apply-templates" && child.getAttributes !empty)) {
 					Template filsT = tree.get(child.getAttribute("match"));
 					t.addChild(filsT);
 					filsT.setParent(t);
