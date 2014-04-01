@@ -1,3 +1,5 @@
+#include <string.h>
+using namespace std;
 
 static const char *MANUAL = "Available commands are:\n ../xmltool -p file.xml : parse and display the xml file\n ../xmltool -v file.xml file.xsd : parse both xml and xsd files and display the validation result\n ../xmltool -t file.xml file.xsl : parse both xml and xsl files and display de transformation result of file.xml by the stylesheet file.xsl\n ../xmltool -h : displays this help\n";
 static const char *NO_ARGUMENT_GIVEN = "No argument given\nAvailable commands are:\n ../xmltool -p file.xml : parse and display the xml file\n ../xmltool -v file.xml file.xsd : parse both xml and xsd files and display the validation result\n ../xmltool -t file.xml file.xsl : parse both xml and xsl files and display de transformation result of file.xml by the stylesheet file.xsl\n ../xmltool -h : displays this help\n";
@@ -27,12 +29,13 @@ int checkEntryFormat(int argc, char const *argv[])
     {
         fputs(NO_ARGUMENT_GIVEN, stderr);
     }
-    else if (argc > 4){
+    else if (argc > 4)
+    {
         fputs(TOO_MANY_ARGUMENTS, stderr);
     }
     else if (argc > 1)
     {
-        else if (strlen(argv[1]) > 1 && argv[1][0] == '-')
+        if (strlen(argv[1]) > 1 && argv[1][0] == '-')
         {
             switch (argv[1][1])
             {
@@ -45,11 +48,17 @@ int checkEntryFormat(int argc, char const *argv[])
             {
                 if (argc != 3)
                 {
-
+                    if (argc > 3)
+                        fputs(TOO_MANY_ARGUMENTS, stderr);
+                    else
+                        fputs(UNPROVIDED_ARGUMENT_P, stderr);
                 }
                 else
                 {
-
+                    FILE *fid = fopen(argv[2], "r");
+                    if (!fid)
+                        fputs(CANNOT_OPEN_XML, stderr);
+                    fclose(fid);
                 }
                 break;
             }
@@ -79,11 +88,18 @@ int checkEntryFormat(int argc, char const *argv[])
             {
                 if (argc != 4)
                 {
-
+                    fputs(UNPROVIDED_ARGUMENT_T, stderr);
                 }
                 else
                 {
-
+                    FILE *xml = fopen(argv[2], "r");
+                    FILE *xsl = fopen(argv[3], "r");
+                    if (!xml)
+                        fputs(CANNOT_OPEN_XML, stderr);
+                    if (!xsl)
+                        fputs(CANNOT_OPEN_XSL, stderr);
+                    fclose(xml);
+                    fclose(xsl);
                 }
                 break;
             }
@@ -92,7 +108,5 @@ int checkEntryFormat(int argc, char const *argv[])
             }
         }
     }
-
-
     return vRet;
 }

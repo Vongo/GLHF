@@ -40,17 +40,12 @@ int main(int argc, char const *argv[])
             cout << "Argument non reconnu : " << argv[1][1] << endl;
         }
     }
-    else if (argc == 3)
+else if (argc == 3)
     {
         if (argv[0] == "-p")
         {
             cout << ">> PARSING <<" << endl;
             FILE *fid = fopen(argv[2], "r");
-            if (!fid)
-            {
-                cout << "ACHTUNG OMFGWTF" << endl;
-                return 1;
-            }
             xmlin = fid;
             vRet = xmlparse(doc);
             fclose(fid);
@@ -80,22 +75,11 @@ int main(int argc, char const *argv[])
             fclose(xsl);
             break;
         }
-        default:
-            cout << "Argument non reconnu : " << argv[1][1] << endl;
+        }
+        if (!vRet)
+        {
+            // TODO stuff
         }
     }
-    if (!vRet)
-    {
-        cout << "Mauvais format d'entree" << endl;
-    }
-
-    if (!retour)
-    {
-        cout << "Entrée standard reconnue" << endl;
-    }
-    else
-    {
-        cout << "Entrée standard non reconnue" << endl;
-    }
-    return 0;
+    return vRet;
 }
