@@ -25,3 +25,7 @@ Document::~Document()
     delete(this->enTetes);
     delete(this->elementRacine);
 }
+
+Element* Document::getRacine(){
+    return this->elementRacine;
+}

@@ -37,6 +37,15 @@ Attribut::Attribut(char *pName, char *pValue){
     this->value = pValue;
 }
 
+char* Attribut::getValue()
+{
+    return value;
+}
+
+char* Attribut::getName()
+{
+    return name;
+}
 
 Attribut::~Attribut()
 {

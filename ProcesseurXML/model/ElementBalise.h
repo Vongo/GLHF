@@ -9,6 +9,9 @@ class ElementBalise: public Element
 {
 public:
     ElementBalise();
+    list<Element *> * getLesElements();
+    list<Attribut *> * getLesAttributs();
+    char* getName();
     ElementBalise(char *&, list<Element *> *[2],list<Attribut *> *&);
     ~ElementBalise();
     char* toString();
