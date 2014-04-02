@@ -70,7 +70,11 @@ int checkEntryFormat(int argc, char const *argv[])
                         fputs(CANNOT_OPEN_XML, stderr);
                         vRet = 1;
                     }
-                    fclose(fid);
+                    else 
+                    {
+                        fclose(fid);
+                    }
+                    
                 }
                 break;
             }
