@@ -75,12 +75,7 @@ char *ElementBalise::toString()
         buffer.append((*it)->toString());
     }
 
-    for (list<Element *>::iterator it = this->lesElements[0]->begin(); it != this->lesElements[0]->end(); it++)
-    {
-        buffer.append("\n");
-        buffer.append((*it)->toString());
-    }
-
+    buffer.append("\n");
     buffer.append("</");
     buffer.append(this->nom);
     buffer.append(">");
