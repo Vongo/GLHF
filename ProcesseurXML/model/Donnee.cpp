@@ -6,6 +6,31 @@ Donnee::Donnee(char *contenu, int codeType): Element()
     this->codeType = codeType;
 }
 
+list<Attribut *> *Donnee::getLesAttributs()
+{
+    return new list<Attribut *>;
+}
+
+list<Element *> *Donnee::getLesElements()
+{
+    return new list<Element *>;
+}
+
+char* Donnee::getName()
+{
+    return "";
+}
+
+char* Donnee::getType()
+{
+    return "";
+}
+
+char* Donnee::getContenu()
+{
+    return contenu;
+}
+
 char *Donnee::toString()
 {
     switch (this->codeType)

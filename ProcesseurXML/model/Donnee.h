@@ -11,7 +11,12 @@ class Donnee: public Element
 {
 public:
     Donnee(char *contenu, int codeType);
+    list<Attribut *> *getLesAttributs();
+    list<Element *> *getLesElements();
+    char *getName();
+    char *getType();
     char *toString();
+    char *getContenu();
 
 private:
     char *contenu;

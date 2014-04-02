@@ -14,7 +14,7 @@ public:
     char *getName();
     char *getType();
     ElementBalise(char *&, list<Element *> *, list<Attribut *> *&, char *);
-    ElementBalise (ElementBalise& elemBalise);        //constructeur de copie   
+    ElementBalise (ElementBalise& elemBalise);  //constructeur de copie   
     ~ElementBalise();
     char *toString();
     list<Element*> getElementsByName(char* name);
