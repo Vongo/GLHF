@@ -64,5 +64,5 @@ Attribut::~Attribut()
 
 char *Attribut::toString()
 {
-    return strcat(strcat(this->name,"="),this->value);
+    return strcat(strcat(strcat(this->name,"=\""),this->value),"\"");
 }
