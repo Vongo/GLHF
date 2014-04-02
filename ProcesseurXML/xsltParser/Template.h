@@ -27,7 +27,7 @@ public:
 	void addToOutput(string);
 	string getOutput();
 	char* getMatch();
-	ElemenT* getContent();
+	Element* getContent();
 	Template* getParent();
 	Template* getChild(char* match);
 	list<Template*> getChildren();
