@@ -23,8 +23,19 @@ int xmltransformation(FILE *xml, FILE *xsl)
 
 // END TEMP //
 
+/*/
 int main(int argc, char const *argv[])
 {
+/*/// TEST ZONE //
+int main(int argcT, char const *argvT[])
+{
+    int argc = 3;
+    const char **argv = (const char **) calloc(3, sizeof(char *));
+    argv[0] = "./xmltool";
+    argv[1] = "-p";
+    argv[2] = "./files/simple_no_att.xml";
+    //*/
+
     Document *doc ;
     extern FILE *xmlin;
     int vRet = checkEntryFormat(argc, argv);
@@ -37,8 +48,9 @@ int main(int argc, char const *argv[])
             FILE *fid = fopen(argv[2], "r");
             xmlin = fid;
             vRet = xmlparse(doc);
-            cout<<"Main.cpp : ligne 40"<<endl;
-            cout << doc->toString()<<endl;
+            cout << "Main.cpp : ligne 51" << endl;
+            if (doc != 0)
+                cout << doc->toString() << endl;
             fclose(fid);
         }
     }
