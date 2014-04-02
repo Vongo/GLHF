@@ -44,7 +44,7 @@ char *Donnee::toString()
     }
     case 1: //CDATA
     {
-        string buffer("<![CDATA[");
+        string buffer(format("<![CDATA["));
         buffer.append(this->contenu);
         buffer.append("]]>");
         char *cstr = new char[buffer.length() + 1];

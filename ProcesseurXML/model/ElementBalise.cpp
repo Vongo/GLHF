@@ -17,17 +17,17 @@ ElementBalise::ElementBalise(char *&nom, list<Element *> *elements, list<Attribu
 
 ElementBalise::ElementBalise(ElementBalise &elemBalise): Element((Element)elemBalise)
 {
-    cout <<"kikoo1"<< endl;
+    cout << "kikoo1" << endl;
     // this->lesAttributs = list(*(elemBalise.getLesAttributs()));
     this->lesAttributs = new list<Attribut *>;
     this->lesAttributs = elemBalise.lesAttributs;
     // this->lesElements = new list<Element *>;
     //this->lesElements = elemBalise.getLesElements();
-    cout <<"kikoo2"<<endl;
+    cout << "kikoo2" << endl;
     nom = elemBalise.nom;
-    cout <<"kikoo3"<<endl;
+    cout << "kikoo3" << endl;
     type = elemBalise.type;
-    cout<<"kikoo4"<<endl;
+    cout << "kikoo4" << endl;
     // this->lesAttributs=new list<Attribut>(*(elemBalise.getLesAttributs()));
     // this->lesElements=new list<Element>(*(elemBalise.getLesElements()));
 }
@@ -51,62 +51,69 @@ char *ElementBalise::getType()
 {
     return type;
 }
-list<Element*>* ElementBalise::getElementsByName(char* name){
 
-    list<Element*> elementsOk;
-    for(list<Element*>::iterator it = this->lesElements->begin();it != this->lesElements->end();it++)
+list<Element *> *ElementBalise::getElementsByName(char *name)
+{
+
+
+    list<Element *> *ElementBalise::getElementsByName(char *name)
     {
-        if(strcmp((*it)->getName,name) == 0)
+        list<Element *> *elementsOk;
+        for (list<Element *>::iterator it = this->lesElements->begin(); it != this->lesElements->end(); it++)
         {
-            elementsOk->push_back(*it);
+
+            if (strcmp((*it)->getName, name) == 0)
+            {
+                elementsOk->push_back(*it);
+            }
         }
+        return &elementsOk;
     }
-    return &elementsOk;
-}
-ElementBalise::~ElementBalise()
-{
-    delete lesAttributs;
-    delete nom;
-}
-
-char *ElementBalise::toString()
-{
-    // cout << "ELEMENT_BALISE_TOSTRING" << endl;
-    // cout<< "J'ai "<< this->lesElements[0]->size()<<this->lesElements[1]->size()<<" enfants."<<endl;
-    string buffer(getTabulation());
-    buffer.append("<");
-
-    char *b = new char [80];
-    if (strcmp(this->type, "xml"))
+    ElementBalise::~ElementBalise()
     {
-        strcpy(b, this->type);
-        strcat(b, ":");
-        strcat(b, this->nom);
+        delete lesAttributs;
+        delete nom;
     }
-    else
-        strcpy(b, this->nom);
-    buffer.append(b);
 
-    for (list<Attribut *>::iterator it = this->lesAttributs->begin(); it != this->lesAttributs->end(); it++)
+    char *ElementBalise::toString()
     {
-        buffer.append(" ");
-        buffer.append((*it)->toString());
-    }
-    buffer.append(">");
+        // cout << "ELEMENT_BALISE_TOSTRING" << endl;
+        // cout<< "J'ai "<< this->lesElements[0]->size()<<this->lesElements[1]->size()<<" enfants."<<endl;
+        string buffer(format("<"));
 
-    //Boucle pour les elements
-    for (list<Element *>::iterator it = this->lesElements->begin(); it != this->lesElements->end(); it++)
-    {
+        char *b = new char [80];
+        if (strcmp(this->type, "xml"))
+        {
+            strcpy(b, this->type);
+            strcat(b, ":");
+            strcat(b, this->nom);
+        }
+        else
+            strcpy(b, this->nom);
+        buffer.append(b);
+
+        for (list<Attribut *>::iterator it = this->lesAttributs->begin(); it != this->lesAttributs->end(); it++)
+        {
+            buffer.append(" ");
+            buffer.append((*it)->toString());
+        }
+        buffer.append(">");
+
+        //Boucle pour les elements
+        for (list<Element *>::iterator it = this->lesElements->begin(); it != this->lesElements->end(); it++)
+        {
+            buffer.append("\n");
+            moarIndent();
+            buffer.append(format((*it)->toString()));
+            lessIndent();
+        }
+
         buffer.append("\n");
-        buffer.append((*it)->toString());
+        buffer.append(format("</"));
+        buffer.append(b);
+        buffer.append(">");
+
+        char *cstr = new char[buffer.length() + 1];
+        strcpy(cstr, buffer.c_str());
+        return cstr;
     }
-
-    buffer.append("\n");
-    buffer.append("</");
-    buffer.append(b);
-    buffer.append(">");
-
-    char *cstr = new char[buffer.length() + 1];
-    strcpy(cstr, buffer.c_str());
-    return cstr;
-}

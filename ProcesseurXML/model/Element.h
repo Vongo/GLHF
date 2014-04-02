@@ -33,6 +33,7 @@ public:
         cout << "YOU SHOULDN'T BE HERE" << endl;
         return 0;
     }
+
    	virtual char* getType()
    	{
    		return 0;
