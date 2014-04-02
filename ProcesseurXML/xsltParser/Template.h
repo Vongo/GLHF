@@ -14,7 +14,7 @@ class Template{
 private:
 	list<Template *> children;
 	Template* parent;
-	string output;
+
 	ElementBalise* content;
 	char* match;
 	
