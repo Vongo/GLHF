@@ -24,7 +24,7 @@ extern char xmltext[];
 
 int xmllex(void);  
 
-void xmlerror(Document *d, const char * msg)
+void xmlerror(Document **d, const char * msg)
 {
    fprintf(stderr,"%s\n",msg);
 }
@@ -37,7 +37,7 @@ void xmlerror(Document *d, const char * msg)
    Attribut* a;
    list<Attribut *>* la;
    Element* e;
-   list<Element*> **c;
+   list<Element*> *c;
    list<EnTete*> * en;
 }
 
@@ -51,13 +51,13 @@ void xmlerror(Document *d, const char * msg)
 %type <c> content;
 %type <en> entetes;
 
-%parse-param {Document *d} //Le retour du parseur
+%parse-param {Document **d} //Le retour du parseur
 
 %%
 
 document
- : entetes element 					            {d = new Document($1,$2);}
- | element 							                {d = new Document($1);};
+ : entetes element 					            {*d = new Document($1,$2);}
+ | element 							                {*d = new Document($1);};
  ;
 
 entetes
@@ -74,7 +74,7 @@ valeurs
 element
  : INF NOM atts SUP 
    content
-   INF SLASH NOM SUP 				           {$$ = new ElementBalise($2, $5, $3, "xml");} //Balise Paire
+   INF SLASH NOM SUP 				           {/*cout << "Creation elmt " << $2 << " nb d'elmts inf : " << $5[1]->size() << " nb de donnees inf : " << $5[0]->size()<< endl; */$$ = new ElementBalise($2, $5, $3, "xml");} //Balise Paire
  | INF NOM COLON NOM atts SUP 
    content
    INF SLASH NOM COLON NOM SUP         {$$ = new ElementBalise($4, $7, $5, $2);} //Balise Paire XSL ou XSD
@@ -93,14 +93,8 @@ element
   ;
 
 content
- : content element                {$$ = $1;$$[1]->push_back($2);}
- | content CDATABEGIN CDATAEND 		{$$ = $1;$$[0]->push_back(new Donnee($3,1));}
- | content DONNEES 					{$$ = $1; $$[0]->push_back(new Donnee($2,0));}
- | /* vide */       				{
-                              list<Element*>* donnees = new list<Element*>(); 
-                              list<Element*>* elements = new list<Element*>(); 
-                              $$ = new list<Element*>*[2];
-                              $$[0] = donnees;
-                              $$[1] = elements;
-                            }
+ : content element                {$$ = $1;$$->push_back($2);}
+ | content CDATABEGIN CDATAEND 		{$$ = $1;$$->push_back(new Donnee($3,1));}
+ | content DONNEES 					{$$ = $1; $$->push_back(new Donnee($2,0));}
+ | /* vide */       				{$$ = new list<Element*>;}
  ;
