@@ -129,6 +129,7 @@ element
 content
  : content element                {$$ = $1;$$->push_back($2);}
  | content CDATABEGIN CDATAEND 		{$$ = $1;$$->push_back(new Donnee($3,1));}
- | content DONNEES 					{$$ = $1; $$->push_back(new Donnee($2,0));}
+ | content DONNEES          {$$ = $1; $$->push_back(new Donnee($2,0));}
+ | content COMMENT 					{$$ = $1; $$->push_back(new Donnee($2,2));}
  | /* vide */       				{$$ = new list<Element*>;}
  ;
