@@ -1,16 +1,12 @@
-#include "ElementBalise.h"
-#include <string>
-#include <list>
 #include "Template.h"
 
 using namespace std;
 
-Template::Template() { }
-
-Template::Template(Element* rootTemplate){
+Template::Template(ElementBalise* rootTemplate){
 	//Init match
+
     list<Attribut *> attributs = *(rootTemplate->getLesAttributs());
-    match = string(*(attributs.front())->getValue());
+    match = attributs.front()->getValue();
     //Init Content
     content = rootTemplate;   
 }
@@ -18,15 +14,16 @@ Template::Template(Element* rootTemplate){
 void Template::addChild(Template* t) {
 	children.push_back(t);
 }
-void Template::addChildren(set<Template*> *t){
-	for(list<Template*>::iterator itAjout=tree.begin(),itAjout != tree.end(),itAjout++)
+void Template::addChildren(map<char*,Template*> *t){
+
+	for(map<char*,Template*>::iterator itAjout = t->begin();itAjout != t->end();itAjout++)
 	{
-		this->addChild(*it)
+		this->addChild(itAjout->second);
 	}
 }
-list<Element*> findXSLtemplate(list<Template*> *t)
+list<Element*> findXSLtemplate(set<Template*> *t)
 {
-	for(list<Element*>::iterator it=*(eb)->getLesElements.begin(),it != *(eb)->getLesElements.end(), it++)
+	/*for(list<Element*>::iterator it=*(eb)->getLesElements.begin();it != *(eb)->getLesElements.end(); it++)
 	{
 		if(*(it)->getTypes() == "xsl" && strcmp(*(it)->getName,"apply-templates") == 0)
 		{
@@ -34,9 +31,11 @@ list<Element*> findXSLtemplate(list<Template*> *t)
 		} else {
 			return getXSLApply(*(it));
 		}
-	}
+	}*/
 }
-void Template::setParent(Template t) : parent(t) { }
+void Template::setParent(Template* t){
+	this->parent = t;
+}
 
 void Template::addToOutput(string o) {
 	output += o;
@@ -46,7 +45,7 @@ string Template::getOutput() {
 	return output;
 }
 
-string Template::getMatch() {
+char* Template::getMatch() {
 	return match;
 }
 
@@ -54,24 +53,21 @@ ElementBalise* Template::getContent() {
 	return content;
 }
 
-Template Template::getParent() {
+Template* Template::getParent() {
 	return parent;
 }
 
-Template Template::getChild(string match) {
-	for (list<Template>::iterator it = children.begin(); it != children.end(); ++it)
+Template* Template::getChild(char* match) {
+	for (list<Template*>::iterator it = children.begin(); it != children.end(); it++)
 	{
-		Template child = *it;
-		if (match.compare(child.getMatch()) != 0) {
-			it++;
-		} else {
-			return child;
+		if (strcmp((*it)->getMatch(),match) == 0) {
+			return *it;
 		}
 	}
 
-	return null;
+	return nullptr;
 }
 
-list<Template> Template::getChildren() {
+list<Template*> Template::getChildren() {
 	return children;
 }

@@ -1,6 +1,14 @@
-#ifndef XSLTRANSFORMER_H
-#define XSLTRANSFORMER_H
+#ifndef XSLTRANSFORMER_h
+#define XSLTRANSFORMER_h
 
+
+#include <list>
+#include <iostream>
+#include <string.h>
+#include <map>
+#include "ElementBalise.h"
+#include "Template.h"
+#include "Document.h"
 
 class XSLTransformer {
 
@@ -12,10 +20,12 @@ class XSLTransformer {
 
 		Document xml;
 		Document catalog;
-		map<char* match,Template*> tree;
+		map <char*,Template*> tree;
 		
 		void createTemplateTree();
 		void addContent(Template t);
 
 
-}
+
+};
+#endif
