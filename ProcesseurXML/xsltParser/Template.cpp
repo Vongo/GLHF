@@ -14,9 +14,9 @@ Template::Template(ElementBalise* rootTemplate){
 void Template::addChild(Template* t) {
 	children.push_back(t);
 }
-void Template::addChildren(map<char*,Template*> *t){
+void Template::addChildren(map<string,Template*> *t){
 
-	for(map<char*,Template*>::iterator itAjout = t->begin();itAjout != t->end();itAjout++)
+	for(map<string,Template*>::iterator itAjout = t->begin();itAjout != t->end();itAjout++)
 	{
 		this->addChild(itAjout->second);
 	}
