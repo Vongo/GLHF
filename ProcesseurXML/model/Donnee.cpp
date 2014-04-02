@@ -16,21 +16,22 @@ list<Element *> *Donnee::getLesElements()
     return new list<Element *>;
 }
 
-char* Donnee::getName()
+char *Donnee::getName()
 {
     return "";
 }
 
-char* Donnee::getType()
+char *Donnee::getType()
 {
     return "";
 }
 
-char* Donnee::getContenu()
+char *Donnee::getContenu()
 {
     return contenu;
 }
-int codeType(){
+int Donnee::getCodeType()
+{
     return codeType;
 }
 char *Donnee::toString()

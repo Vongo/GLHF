@@ -12,9 +12,13 @@ class Donnee: public Element
 public:
     Donnee(char *, int);
     char *toString();
-    list<Element*>* getLesElements();
-    int getCodeType();
-    char *getContenu();
+    list<Attribut *> *getLesAttributs();
+    list<Element *> *getLesElements();
+    virtual int getCodeType();
+    virtual char *getContenu();
+    virtual char *getName();
+    virtual char *getType();
+
 private:
     char *contenu;
     int codeType; //0:texte 1:CDATA 2:Commentaire

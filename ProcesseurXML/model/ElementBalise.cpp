@@ -54,66 +54,61 @@ char *ElementBalise::getType()
 
 list<Element *> *ElementBalise::getElementsByName(char *name)
 {
-
-
-    list<Element *> *ElementBalise::getElementsByName(char *name)
+    list<Element *> *elementsOk;
+    for (list<Element *>::iterator it = this->lesElements->begin(); it != this->lesElements->end(); it++)
     {
-        list<Element *> *elementsOk;
-        for (list<Element *>::iterator it = this->lesElements->begin(); it != this->lesElements->end(); it++)
-        {
-
-            if (strcmp((*it)->getName, name) == 0)
-            {
-                elementsOk->push_back(*it);
-            }
-        }
-        return &elementsOk;
+        // if (strcmp((*it)->getName, name) == 0)
+        // {
+        //     elementsOk->push_back(*it);
+        // }
     }
-    ElementBalise::~ElementBalise()
+    return elementsOk;
+}
+ElementBalise::~ElementBalise()
+{
+    delete lesAttributs;
+    delete nom;
+}
+
+char *ElementBalise::toString()
+{
+    // cout << "ELEMENT_BALISE_TOSTRING" << endl;
+    // cout<< "J'ai "<< this->lesElements[0]->size()<<this->lesElements[1]->size()<<" enfants."<<endl;
+    string buffer(format("<"));
+
+    char *b = new char [80];
+    if (strcmp(this->type, "xml"))
     {
-        delete lesAttributs;
-        delete nom;
+        strcpy(b, this->type);
+        strcat(b, ":");
+        strcat(b, this->nom);
     }
+    else
+        strcpy(b, this->nom);
+    buffer.append(b);
 
-    char *ElementBalise::toString()
+    for (list<Attribut *>::iterator it = this->lesAttributs->begin(); it != this->lesAttributs->end(); it++)
     {
-        // cout << "ELEMENT_BALISE_TOSTRING" << endl;
-        // cout<< "J'ai "<< this->lesElements[0]->size()<<this->lesElements[1]->size()<<" enfants."<<endl;
-        string buffer(format("<"));
+        buffer.append(" ");
+        buffer.append((*it)->toString());
+    }
+    buffer.append(">");
 
-        char *b = new char [80];
-        if (strcmp(this->type, "xml"))
-        {
-            strcpy(b, this->type);
-            strcat(b, ":");
-            strcat(b, this->nom);
-        }
-        else
-            strcpy(b, this->nom);
-        buffer.append(b);
-
-        for (list<Attribut *>::iterator it = this->lesAttributs->begin(); it != this->lesAttributs->end(); it++)
-        {
-            buffer.append(" ");
-            buffer.append((*it)->toString());
-        }
-        buffer.append(">");
-
-        //Boucle pour les elements
-        for (list<Element *>::iterator it = this->lesElements->begin(); it != this->lesElements->end(); it++)
-        {
-            buffer.append("\n");
-            moarIndent();
-            buffer.append(format((*it)->toString()));
-            lessIndent();
-        }
-
+    //Boucle pour les elements
+    for (list<Element *>::iterator it = this->lesElements->begin(); it != this->lesElements->end(); it++)
+    {
         buffer.append("\n");
-        buffer.append(format("</"));
-        buffer.append(b);
-        buffer.append(">");
-
-        char *cstr = new char[buffer.length() + 1];
-        strcpy(cstr, buffer.c_str());
-        return cstr;
+        moarIndent();
+        buffer.append(format((*it)->toString()));
+        lessIndent();
     }
+
+    buffer.append("\n");
+    buffer.append(format("</"));
+    buffer.append(b);
+    buffer.append(">");
+
+    char *cstr = new char[buffer.length() + 1];
+    strcpy(cstr, buffer.c_str());
+    return cstr;
+}
