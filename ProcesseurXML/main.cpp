@@ -30,7 +30,6 @@ int main(int argc, char const *argv[])
     int vRet = checkEntryFormat(argc, argv);
     if (vRet == 1)
         return vRet;
-    cout << "C'EST LA MEEERDE" << endl;
     if (argc == 3)
     {
         if (argv[1][1] == 'p') // Redundant
@@ -38,6 +37,8 @@ int main(int argc, char const *argv[])
             FILE *fid = fopen(argv[2], "r");
             xmlin = fid;
             vRet = xmlparse(doc);
+            cout<<"Main.cpp : ligne 40"<<endl;
+            cout << (*doc)->toString()<<endl;
             fclose(fid);
         }
     }
