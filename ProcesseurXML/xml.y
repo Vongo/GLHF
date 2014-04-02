@@ -61,7 +61,7 @@ document
  ;
 
 entetes
- : entetes INFSPECIAL NOM atts SUPSPECIAL 	{$$ = $1; $$->push_back(new Autre($4));}
+ : entetes INFSPECIAL NOM atts SUPSPECIAL 	{$$ = $1; $$->push_back(new Autre($3,$4));}
  | entetes DOCTYPE NOM NOM valeurs SUP 	{$$ = $1; $$->push_back(new Doctype($3,$4,$5));}
  | /*vide*/							                {$$ = new list<EnTete*>();}
  ;
@@ -86,7 +86,7 @@ element
                                           }
                                           $$ = new ElementBalise($2, $5, $3, "xml");
                                         } //Balise Paire ok avec test si nom différent
-                      
+
  | INF NOM COLON NOM atts SUP 
    content
    INF SLASH NOM COLON NOM SUP         {$$ = new ElementBalise($4, $7, $5, $2);} //Balise Paire XSL ou XSD
