@@ -1,6 +1,7 @@
 #include "commun.h"
 #include "Errors.h"
 #include "model/Document.h"
+#include "model/Constants.h"
 #include <iostream>
 #include <cstring>
 

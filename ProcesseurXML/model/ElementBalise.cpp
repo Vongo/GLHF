@@ -58,7 +58,8 @@ char *ElementBalise::toString()
 {
     // cout << "ELEMENT_BALISE_TOSTRING" << endl;
     // cout<< "J'ai "<< this->lesElements[0]->size()<<this->lesElements[1]->size()<<" enfants."<<endl;
-    string buffer("<");
+    string buffer(getTabulation());
+    buffer.append("<");
     buffer.append(this->nom);
 
     for (list<Attribut *>::iterator it = this->lesAttributs->begin(); it != this->lesAttributs->end(); it++)
