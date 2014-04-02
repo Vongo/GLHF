@@ -89,7 +89,29 @@ element
 
  | INF NOM COLON NOM atts SUP 
    content
-   INF SLASH NOM COLON NOM SUP         {$$ = new ElementBalise($4, $7, $5, $2);} //Balise Paire XSL ou XSD
+   INF SLASH NOM COLON NOM SUP         { 
+                                          if(strcmp($2,$10)!= 0)
+                                          {
+                                            char str[100];
+                                            strcpy(str,"Non matching element namespaces ");
+                                            strcat(str,$2);
+                                            strcat(str," and ");
+                                            strcat(str,$10);
+                                            strcat(str,"\n");
+                                            fputs(str,stderr);
+                                          }
+                                          if(strcmp($4,$12)!= 0)
+                                          {
+                                            char str[100];
+                                            strcpy(str,"Non matching element names ");
+                                            strcat(str,$4);
+                                            strcat(str," and ");
+                                            strcat(str,$12);
+                                            strcat(str,"\n");
+                                            fputs(str,stderr);
+                                          }
+                                          {$$ = new ElementBalise($4, $7, $5, $2);} //Balise Paire XSL ou XSD
+                                        }
  | INF NOM atts SLASH SUP              {$$ = new ElementBaliseOrpheline($2,$3, "xml");} //Balise Orpheline
  | INF NOM COLON NOM atts SLASH SUP 	 {$$ = new ElementBaliseOrpheline($4,$5,$2);} //Balise Orpheline XSL ou XSD
  ;
