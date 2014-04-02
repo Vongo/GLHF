@@ -49,7 +49,7 @@ char* Template::getMatch() {
 	return match;
 }
 
-ElementBalise* Template::getContent() {
+Element* Template::getContent() {
 	return content;
 }
 
