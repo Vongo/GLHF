@@ -17,17 +17,17 @@ ElementBalise::ElementBalise(char *&nom, list<Element *> *elements, list<Attribu
 
 ElementBalise::ElementBalise(ElementBalise &elemBalise): Element((Element)elemBalise)
 {
-    cout <<"kikoo1"<< endl;
+    cout << "kikoo1" << endl;
     // this->lesAttributs = list(*(elemBalise.getLesAttributs()));
     this->lesAttributs = new list<Attribut *>;
     this->lesAttributs = elemBalise.lesAttributs;
     // this->lesElements = new list<Element *>;
     //this->lesElements = elemBalise.getLesElements();
-    cout <<"kikoo2"<<endl;
+    cout << "kikoo2" << endl;
     nom = elemBalise.nom;
-    cout <<"kikoo3"<<endl;
+    cout << "kikoo3" << endl;
     type = elemBalise.type;
-    cout<<"kikoo4"<<endl;
+    cout << "kikoo4" << endl;
     // this->lesAttributs=new list<Attribut>(*(elemBalise.getLesAttributs()));
     // this->lesElements=new list<Element>(*(elemBalise.getLesElements()));
 }
@@ -51,15 +51,16 @@ char *ElementBalise::getType()
 {
     return type;
 }
-list<Element*>* ElementBalise::getElementsByName(char* name){
-
-    list<Element*>* elementsOk;
-    for(list<Element*>::iterator it = this->lesElements->begin();it != this->lesElements->end();it++)
+list<Element *> *ElementBalise::getElementsByName(char *name)
+{
+    list<Element *> *elementsOk;
+    for (list<Element *>::iterator it = this->lesElements->begin(); it != this->lesElements->end(); it++)
     {
-        if(strcmp((*it)->getName,name) == 0)
-        {
-            elementsOk->push_back(*it);
-        }
+        // GO PEX NOOB
+        // if (strcmp((*it)->getName, name) == 0)
+        // {
+        //     elementsOk->push_back(*it);
+        // }
     }
     return elementsOk;
 }
