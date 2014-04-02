@@ -64,15 +64,15 @@ char *ElementBalise::toString()
         buffer.append(" ");
         buffer.append((*it)->toString());
     }
-    buffer.append(" >");
-    /*
+    buffer.append(">");
+    
     //Boucle pour les elements
     for (list<Element *>::iterator it = this->lesElements->begin(); it != this->lesElements->end(); it++)
     {
         buffer.append("\n");
         buffer.append((*it)->toString());
     }
-    */
+    
     buffer.append("</");
     buffer.append(this->nom);
     buffer.append(">");
