@@ -58,8 +58,7 @@ char *ElementBalise::toString()
 {
     // cout << "ELEMENT_BALISE_TOSTRING" << endl;
     // cout<< "J'ai "<< this->lesElements[0]->size()<<this->lesElements[1]->size()<<" enfants."<<endl;
-    string buffer(getTabulation());
-    buffer.append("<");
+    string buffer(format("<"));
 
     char *b = new char [80];
     if (strcmp(this->type, "xml"))
@@ -83,11 +82,13 @@ char *ElementBalise::toString()
     for (list<Element *>::iterator it = this->lesElements->begin(); it != this->lesElements->end(); it++)
     {
         buffer.append("\n");
-        buffer.append((*it)->toString());
+        moarIndent();
+        buffer.append(format((*it)->toString()));
+        lessIndent();
     }
 
     buffer.append("\n");
-    buffer.append("</");
+    buffer.append(format("</"));
     buffer.append(b);
     buffer.append(">");
 

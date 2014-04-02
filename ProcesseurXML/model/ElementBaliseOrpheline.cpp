@@ -30,7 +30,7 @@ ElementBaliseOrpheline::~ElementBaliseOrpheline()
 
 char *ElementBaliseOrpheline::toString()
 {
-    string buffer("<");
+    string buffer(format("<"));
     buffer.append(this->nom);
 
     for (list<Attribut *>::iterator it = this->lesAttributs->begin(); it != this->lesAttributs->end(); it++)
