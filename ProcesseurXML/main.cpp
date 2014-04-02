@@ -23,7 +23,7 @@ int xmltransformation(FILE *xml, FILE *xsl)
 
 // END TEMP //
 
-/*/
+//*/
 int main(int argc, char const *argv[])
 {
 /*/// TEST ZONE //
@@ -52,6 +52,7 @@ int main(int argcT, char const *argvT[])
             {
                 // cout << "DO NOT MISS ME" << endl;
                 cout << doc->toString() << endl;
+                // doc->toString();
             }
             fclose(fid);
         }
