@@ -11,11 +11,12 @@ using namespace std;
 class Autre: public EnTete
 {
 public:
-    Autre(list<Attribut *> *);
+    Autre(char *, list<Attribut *> *);
     ~Autre();
     char *toString();
 private:
     list<Attribut *> *attributs;
+    char *nom;
 };
 
 #endif

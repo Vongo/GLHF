@@ -1,7 +1,9 @@
 #include "Document.h"
+#include "./Constants.h"
 #include <iostream>
 #include <fstream>
 #include <typeinfo>
+#include <string.h>
 using namespace std;
 
 Document::Document()
@@ -17,7 +19,7 @@ Document::Document(list<EnTete *> *enTetes, Element *elementRacine)
 
 Document::Document(Element *elementRacine)
 {
-    this->enTetes = 0;
+    this->enTetes = new list<EnTete*>();
     this->elementRacine = elementRacine;
 }
 
@@ -34,5 +36,15 @@ Element *Document::getRacine()
 
 char *Document::toString()
 {
-    return this->elementRacine->toString();
+    nbTab = 0;
+    string buffer("");
+    for (list<EnTete *>::iterator it = this->enTetes->begin(); it != this->enTetes->end(); it++)
+    {
+    	buffer.append((*it)->toString());
+    	buffer.append("\n");
+    }
+    buffer.append(this->elementRacine->toString());
+    char *cstr = new char[buffer.length() + 1];
+    strcpy(cstr, buffer.c_str());
+    return cstr;
 }
