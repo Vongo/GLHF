@@ -10,6 +10,7 @@ class Attribut
 {
 public:
     Attribut(const char *);
+    Attribut(const Attribut &);        //constructeur de copie   
     Attribut(char *, char *);
     char* getValue();
     char* getName();
