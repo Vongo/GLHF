@@ -60,7 +60,17 @@ char *ElementBalise::toString()
     // cout<< "J'ai "<< this->lesElements[0]->size()<<this->lesElements[1]->size()<<" enfants."<<endl;
     string buffer(getTabulation());
     buffer.append("<");
-    buffer.append(this->nom);
+
+    char *b = new char [80];
+    if (strcmp(this->type, "xml"))
+    {
+        strcpy(b, this->type);
+        strcat(b, ":");
+        strcat(b, this->nom);
+    }
+    else
+        strcpy(b, this->nom);
+    buffer.append(b);
 
     for (list<Attribut *>::iterator it = this->lesAttributs->begin(); it != this->lesAttributs->end(); it++)
     {
@@ -78,9 +88,9 @@ char *ElementBalise::toString()
 
     buffer.append("\n");
     buffer.append("</");
-    buffer.append(this->nom);
+    buffer.append(b);
     buffer.append(">");
-    
+
     char *cstr = new char[buffer.length() + 1];
     strcpy(cstr, buffer.c_str());
     return cstr;

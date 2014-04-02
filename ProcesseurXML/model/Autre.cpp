@@ -13,13 +13,16 @@ Autre::~Autre()
 
 char *Autre::toString()
 {
-    string buffer("<?");
+    string buffer(format("<?"));
     buffer.append(this->nom);
+    buffer.append(" ");
+
     for (list<Attribut *>::iterator it = this->attributs->begin(); it != this->attributs->end(); it++)
     {
-        buffer.append((*it)->toString());
+        buffer.append(format((*it)->toString()));
+        buffer.append(" ");
     }
-    buffer.append("?>\n");
+    buffer.append("?>");
     char *cstr = new char[buffer.length() + 1];
     strcpy(cstr, buffer.c_str());
     return cstr;
