@@ -17,6 +17,7 @@ public:
     ~Document();
     Element *getRacine();
     char *toString();
+    bool hasRootElement();
 private:
     Element *elementRacine;
     list<EnTete *> *enTetes;

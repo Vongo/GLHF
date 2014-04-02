@@ -26,17 +26,17 @@ int xmltransformation(FILE *xml, FILE *xsl)
 //*/
 int main(int argc, char const *argv[])
 {
-/*/// TEST ZONE //
-int main(int argcT, char const *argvT[])
-{
-    int argc = 3;
-    const char **argv = (const char **) calloc(3, sizeof(char *));
-    argv[0] = "./xmltool";
-    argv[1] = "-p";
-    argv[2] = "./files/personne.xml";
-    //*/
+    /*/// TEST ZONE //
+    int main(int argcT, char const *argvT[])
+    {
+        int argc = 3;
+        const char **argv = (const char **) calloc(3, sizeof(char *));
+        argv[0] = "./xmltool";
+        argv[1] = "-p";
+        argv[2] = "./files/personne.xml";
+        //*/
 
-    Document *doc ;
+    Document *doc;
     extern FILE *xmlin;
     int vRet = checkEntryFormat(argc, argv);
     if (vRet == 1)
@@ -50,6 +50,11 @@ int main(int argcT, char const *argvT[])
             vRet = xmlparse(&doc);
             if (doc != NULL)
             {
+                if (vRet == 1)
+                {
+                    fputs(NO_ROOT_ELEMENT, stderr);
+                    return vRet;
+                }
                 // cout << "DO NOT MISS ME" << endl;
                 cout << doc->toString() << endl;
                 // doc->toString();

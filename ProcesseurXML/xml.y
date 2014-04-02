@@ -74,7 +74,19 @@ valeurs
 element
  : INF NOM atts SUP 
    content
-   INF SLASH NOM SUP 				           {/*cout << "Creation elmt " << $2 << " nb d'elmts inf : " << $5[1]->size() << " nb de donnees inf : " << $5[0]->size()<< endl; */$$ = new ElementBalise($2, $5, $3, "xml");} //Balise Paire
+   INF SLASH NOM SUP 				           { if(strcmp($2,$8)!= 0)
+                                          {
+                                            char str[100];
+                                            strcpy(str,"Non matching element names ");
+                                            strcat(str,$2);
+                                            strcat(str," and ");
+                                            strcat(str,$8);
+                                            strcat(str,"\n");
+                                            fputs(str,stderr);
+                                          }
+                                          $$ = new ElementBalise($2, $5, $3, "xml");
+                                        } //Balise Paire ok avec test si nom différent
+                      
  | INF NOM COLON NOM atts SUP 
    content
    INF SLASH NOM COLON NOM SUP         {$$ = new ElementBalise($4, $7, $5, $2);} //Balise Paire XSL ou XSD
