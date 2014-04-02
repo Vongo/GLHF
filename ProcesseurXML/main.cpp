@@ -6,7 +6,7 @@
 
 using namespace std;
 
-int xmlparse(Document **);
+int xmlparse(Document *);
 int xmlvalidation(FILE *xml, FILE *xsd);
 int xmltransformation(FILE *xml, FILE *xsl);
 
@@ -25,7 +25,7 @@ int xmltransformation(FILE *xml, FILE *xsl)
 
 int main(int argc, char const *argv[])
 {
-    Document **doc;
+    Document *doc ;
     extern FILE *xmlin;
     int vRet = checkEntryFormat(argc, argv);
     if (vRet == 1)
@@ -37,6 +37,7 @@ int main(int argc, char const *argv[])
             FILE *fid = fopen(argv[2], "r");
             xmlin = fid;
             vRet = xmlparse(doc);
+            doc->toString();
             fclose(fid);
         }
     }
