@@ -11,6 +11,7 @@ char *Donnee::toString()
     switch (this->codeType)
     {
     case 0: //Texte
+    case 2:
     {
         return this->contenu;
     }
@@ -23,14 +24,14 @@ char *Donnee::toString()
         strcpy(cstr, buffer.c_str());
         return cstr;
     }
-    case 2: //Commentaire
+   /* case 2: //Commentaire
     {
-        string buffer("<!-- ");
+        string buffer("");
         buffer.append(this->contenu);
-        buffer.append(" -->");
+        buffer.append("");
         char *cstr = new char[buffer.length() + 1];
         strcpy(cstr, buffer.c_str());
         return cstr;
-    }
+    }*/
     }
 }
