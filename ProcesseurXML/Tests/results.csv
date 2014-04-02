@@ -16,8 +16,8 @@ TestParsingMissingMarkup;Ok;Ok;Ok;Non testé;Ok
 TestParsingSimple1;Ok;Ok;Non testé;Non testé;Ok
 TestParsingSimple2;Ok;Ok;Non testé;Non testé;Ok
 TestParsingSimple3;Ok;Ok;Non testé;Non testé;Ok
-TestParsingSimple4;Ok;Ok;Non testé;Non testé;Ok
-TestParsingSimple5;Ok;Ok;Non testé;Non testé;Ok
+TestParsingSimple4;Echec;Echec;Non testé;Non testé;Echec
+TestParsingSimple5;Echec;Echec;Non testé;Non testé;Echec
 TestParsingSyntaxError;Ok;Ok;Ok;Non testé;Ok
 TestTransformApplyTemplates1;Echec;Echec;Non testé;Non testé;Echec
 TestTransformApplyTemplates2;Echec;Echec;Non testé;Non testé;Echec

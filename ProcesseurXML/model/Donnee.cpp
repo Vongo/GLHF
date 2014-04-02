@@ -11,9 +11,9 @@ char *Donnee::toString()
     switch (this->codeType)
     {
     case 0: //Texte
-    case 2:
+    case 2: //Commentaire
     {
-        return this->contenu;
+        return format(this->contenu);
     }
     case 1: //CDATA
     {
@@ -24,14 +24,5 @@ char *Donnee::toString()
         strcpy(cstr, buffer.c_str());
         return cstr;
     }
-   /* case 2: //Commentaire
-    {
-        string buffer("");
-        buffer.append(this->contenu);
-        buffer.append("");
-        char *cstr = new char[buffer.length() + 1];
-        strcpy(cstr, buffer.c_str());
-        return cstr;
-    }*/
     }
 }

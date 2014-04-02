@@ -25,7 +25,7 @@ using namespace std;
 		map<string,Template*>::iterator itTemplateRoot = tree.find("/");
 
 		if(itTemplateRoot != tree.end()){
-			executeTemplate(itTemplateRoot->second,currentNode);
+			executeTemplate(&*(itTemplateRoot->second)->getContent(),&*currentNode);
 		}
 		else{
 			//on cherche les template pour les fils de root
@@ -42,7 +42,7 @@ using namespace std;
 			map<string,Template*>::iterator itTemplateRoot = tree.find(string(currentNode->getName());
 
 			if(itTemplateRoot != tree.end()){
-				resultChild = executeTemplate(itTemplateRoot->second,*itChildren);
+				resultChild = executeTemplate(itTemplateRoot->second->getContent(),*itChildren);
 				result->insert(result->begin(),resultChild->begin(),resultChild->end());
 
 			}	
@@ -54,8 +54,27 @@ using namespace std;
 		return result;
 	}
 
-	list<Element*>* XSLTransformer::executeTemplate(Template*t, Element* currentNode){
-		//TODO
+	list<Element*>* XSLTransformer::executeTemplate(Element* currentNodeTemplate, Element* currentNodeModel){
+
+		list<Element*>* children = currentNodeModel->getLesElements();
+		list<Element*>* resultChild;
+		list<Element*>* result;
+		for(list<Element*>::iterator itChildren = children->begin();itChildren != children->end();itChildren++){
+			if(strcmp((*itChildren)->getType(),typeXsl)>0){
+				Element* nElement = new Element(*itChildren);
+				resultChild = executeTemplate(*itChildren,currentNodeModel);
+				nElement->addChildren(*resultChild);
+			}
+			else{
+				if(strcmp((*itChildren)->getName(),applytemplate)<0){
+					resultChild = 
+				}
+
+
+
+
+			}
+		}
 	}
 
 	void XSLTransformer::createTemplateTree() {
