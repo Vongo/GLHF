@@ -10,13 +10,14 @@ using namespace std;
 class Donnee: public Element
 {
 public:
-    Donnee(char *contenu, int codeType);
+    Donnee(char *, int);
+    char *toString();
     list<Attribut *> *getLesAttributs();
     list<Element *> *getLesElements();
-    char *getName();
-    char *getType();
-    char *toString();
-    char *getContenu();
+    virtual int getCodeType();
+    virtual char *getContenu();
+    virtual char *getName();
+    virtual char *getType();
 
 private:
     char *contenu;

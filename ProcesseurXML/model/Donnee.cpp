@@ -16,21 +16,24 @@ list<Element *> *Donnee::getLesElements()
     return new list<Element *>;
 }
 
-char* Donnee::getName()
+char *Donnee::getName()
 {
     return "";
 }
 
-char* Donnee::getType()
+char *Donnee::getType()
 {
     return "";
 }
 
-char* Donnee::getContenu()
+char *Donnee::getContenu()
 {
     return contenu;
 }
-
+int Donnee::getCodeType()
+{
+    return codeType;
+}
 char *Donnee::toString()
 {
     switch (this->codeType)
@@ -42,7 +45,7 @@ char *Donnee::toString()
     }
     case 1: //CDATA
     {
-        string buffer("<![CDATA[");
+        string buffer(format("<![CDATA["));
         buffer.append(this->contenu);
         buffer.append("]]>");
         char *cstr = new char[buffer.length() + 1];

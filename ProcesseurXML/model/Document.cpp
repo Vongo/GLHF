@@ -19,7 +19,7 @@ Document::Document(list<EnTete *> *enTetes, Element *elementRacine)
 
 Document::Document(Element *elementRacine)
 {
-    this->enTetes = new list<EnTete*>();
+    this->enTetes = new list<EnTete *>();
     this->elementRacine = elementRacine;
 }
 
@@ -40,11 +40,21 @@ char *Document::toString()
     string buffer("");
     for (list<EnTete *>::iterator it = this->enTetes->begin(); it != this->enTetes->end(); it++)
     {
-    	buffer.append((*it)->toString());
-    	buffer.append("\n");
+        buffer.append((*it)->toString());
+        buffer.append("\n");
     }
     buffer.append(this->elementRacine->toString());
     char *cstr = new char[buffer.length() + 1];
     strcpy(cstr, buffer.c_str());
     return cstr;
+}
+
+bool Document::hasEnTete()
+{
+    return !(this->enTetes->empty());
+}
+
+list<EnTete *> *Document::getEnTete()
+{
+    return this->enTetes;
 }

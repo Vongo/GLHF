@@ -10,7 +10,7 @@ using namespace std;
 
 typedef enum TypeBalise {OUVRANTE, FERMANTE, ORPHELINE} TypeBalise;
 static int nbTab;
-const char TAB = '\t';
+const char TAB = ' ';
 
 static char *getTabulation()
 {
