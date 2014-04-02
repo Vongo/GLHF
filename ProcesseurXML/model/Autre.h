@@ -14,6 +14,8 @@ public:
     Autre(char *, list<Attribut *> *);
     ~Autre();
     char *toString();
+    char *getName();
+    list<Attribut *> *getLesAttributs();
 private:
     list<Attribut *> *attributs;
     char *nom;
