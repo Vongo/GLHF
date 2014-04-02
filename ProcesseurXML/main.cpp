@@ -37,7 +37,7 @@ int main(int argc, char const *argv[])
         argv[2] = "./files/personne.xml";
         //*/
 
-    Document *doc ;
+    Document *doc;
     extern FILE *xmlin;
     int vRet = checkEntryFormat(argc, argv);
     if (vRet == 1)
