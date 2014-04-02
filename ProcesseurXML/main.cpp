@@ -1,6 +1,8 @@
 #include "commun.h"
 #include "Errors.h"
 #include "model/Document.h"
+#include "model/Constants.h"
+#include "validator/XMLValidator.h"
 #include <iostream>
 #include <cstring>
 
@@ -12,9 +14,13 @@ int xmltransformation(FILE *xml, FILE *xsl);
 
 // TEMP //
 
-int xmlvalidation(FILE *xml, FILE *xsd)
+int xmlvalidation(const char *xml, Document * xsd)
 {
-    return 1;
+    XMLValidator xmlValidate(xml, xsd);
+    int resultat = xmlValidate.XmlValidation();
+    /////////////////////////////////////////////////cout << endl << endl << resultat << endl << endl;
+    
+    return resultat;
 }
 int xmltransformation(FILE *xml, FILE *xsl)
 {
@@ -68,11 +74,24 @@ int main(int argc, char const *argv[])
         {
         case 'v':
         {
-            FILE *xml = fopen(argv[2], "r");
+            //FILE *xml = fopen(argv[2], "r");
             FILE *xsd = fopen(argv[3], "r");
-            vRet = xmlvalidation(xml, xsd);
-            fclose(xml);
+            xmlin = xsd;
+            vRet = xmlparse(&doc);
+            int retour = xmlvalidation(argv[2], doc);
+            //fclose(xml);
             fclose(xsd);
+		string chaineRetour = "The file " + string(argv[2]);
+		if (retour == 0)
+		{
+			chaineRetour += " is valid wrt ";
+		}
+		else
+		{
+			chaineRetour += " is not valid wrt ";
+		}
+		chaineRetour += string(argv[3]);
+		fputs(chaineRetour.c_str(),stdout);
             break;
         }
         case 't':
