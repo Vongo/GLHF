@@ -1,30 +1,36 @@
-#include <ElementBalise>
+#ifndef TEMPLATE_H
+#define TEMPLATE_H value
+
 #include <string>
 #include <list>
-#include <Template>
+#include <ElementBalise.h>
+#include <set>
+#include <map>
 
 using namespace std;
 
-class Template {
+class Template{
 
 private:
 	list<Template *> children;
-	Template parent;
+	Template* parent;
 	string output;
 	ElementBalise* content;
-	string match;
+	char* match;
 	
 public:
-	Template(string, ElementBalise);
-	Template();
-	void addChild(Template);
-	void setParent(Template);
+	Template(ElementBalise* rootTemplate);
+
+	void addChild(Template* t);
+	void addChildren(map<char*,Template*>* t);
+	void setParent(Template* t);
 	void addToOutput(string);
 	string getOutput();
-	string getMatch();
+	char* getMatch();
 	ElementBalise* getContent();
-	Template getParent();
-	Template getChild(string);
-	list<Template> getChildren();
-	list<Element*> findXSLtemplate();
-}
+	Template* getParent();
+	Template* getChild(char* match);
+	list<Template*> getChildren();
+	set<Element*> findXSLtemplate(set<Element*> *t);
+};
+#endif
