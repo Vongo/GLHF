@@ -28,11 +28,6 @@ public:
         cout << "YOU SHOULDN'T BE HERE" << endl;
         return 0;
     }
-    virtual char *getType()
-    {
-        cout << "YOU SHOULDN'T BE HERE" << endl;
-        return 0;
-    }
     virtual list<Attribut *> *getLesAttributs()
     {
         cout << "YOU SHOULDN'T BE HERE" << endl;
@@ -40,6 +35,18 @@ public:
     }
    	virtual char* getType()
    	{
+   		return 0;
+   	}
+   	virtual void addElement(list<Element*>*){
+
+   	}
+   	virtual list<Element*>* getElementsByName(char*){
+   		return 0;
+   	}
+   	virtual char* getContenu(){
+   		return 0;
+   	}
+   	virtual int getCodeType(){
    		return 0;
    	}
 private:

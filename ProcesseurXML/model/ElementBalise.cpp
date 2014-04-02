@@ -53,7 +53,7 @@ char *ElementBalise::getType()
 }
 list<Element*>* ElementBalise::getElementsByName(char* name){
 
-    list<Element*>* elementsOk;
+    list<Element*> elementsOk;
     for(list<Element*>::iterator it = this->lesElements->begin();it != this->lesElements->end();it++)
     {
         if(strcmp((*it)->getName,name) == 0)
@@ -61,7 +61,7 @@ list<Element*>* ElementBalise::getElementsByName(char* name){
             elementsOk->push_back(*it);
         }
     }
-    return elementsOk;
+    return &elementsOk;
 }
 ElementBalise::~ElementBalise()
 {

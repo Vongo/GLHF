@@ -30,7 +30,9 @@ char* Donnee::getContenu()
 {
     return contenu;
 }
-
+int codeType(){
+    return codeType;
+}
 char *Donnee::toString()
 {
     switch (this->codeType)

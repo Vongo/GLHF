@@ -48,3 +48,9 @@ char *Document::toString()
     strcpy(cstr, buffer.c_str());
     return cstr;
 }
+bool hasEnTete(){
+    return !(enTetes->isEmpty());
+}
+list<EnTete *> *getEnTete(){
+    return enTetes;
+}
