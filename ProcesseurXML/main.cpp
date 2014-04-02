@@ -33,7 +33,7 @@ int main(int argcT, char const *argvT[])
     const char **argv = (const char **) calloc(3, sizeof(char *));
     argv[0] = "./xmltool";
     argv[1] = "-p";
-    argv[2] = "./files/simple_no_att.xml";
+    argv[2] = "./files/personne.xml";
     //*/
 
     Document *doc ;
