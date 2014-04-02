@@ -18,22 +18,18 @@ class XSLTransformer {
 		XSLTransformer(Document xmlRep,Document cat);
 	private:
 
-	/*struct cmp_str
-	{
-   		bool operator()(char const *a, char const *b)
-		{
-			return strcmp(a, b) < 0;
-   		}
-	};*/
-
 		Document xml;
 		Document catalog;
 		map <string,Template*> tree;
-		
+		char const* typeXsl = "xsl";
+		char const* applytemplates = "apply-templates";
+		char const* applytemplate = "apply-template";
+		char const* valueof = "value-of";
+		char const* foreach = "for-each";
 		void createTemplateTree();
 		void addContent(Template t);
 		Document* geneDoc();
-		list<Element*>* executeTemplate(Template* t,Element* currentNode);
+		list<Element*>* executeTemplate(Element* currentNodeTemplate,Element* currentNodeModel);
 		list<Element*>* applyTemplateOnChildren(Element* currentNode);
 
 
