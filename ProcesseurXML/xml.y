@@ -57,7 +57,7 @@ void xmlerror(Document **d, const char * msg)
 
 document
  : entetes element 					            {*d = new Document($1,$2);}
- | element 							                {cout <<$1->toString()<<endl;*d = new Document($1); cout << (*d)->toString() <<endl;};
+ | element 							                {*d = new Document($1);};
  ;
 
 entetes
@@ -84,7 +84,7 @@ element
 
  atts
   : atts att 						               {$$->push_back($2);}
-  | /*vide*/						               {cout << "Pas d'atts" << endl;$$ = new list<Attribut*>();}
+  | /*vide*/						               {$$ = new list<Attribut*>();}
   ;
 
  att
@@ -95,7 +95,7 @@ element
 content
  : content element                {$$ = $1;$$[1]->push_back($2);}
  | content CDATABEGIN CDATAEND 		{$$ = $1;$$[0]->push_back(new Donnee($3,1));}
- | content DONNEES 					{cout << $2 << endl;$$ = $1; $$[0]->push_back(new Donnee($2,0));}
+ | content DONNEES 					{$$ = $1; $$[0]->push_back(new Donnee($2,0));}
  | /* vide */       				{
                               list<Element*>* donnees = new list<Element*>(); 
                               list<Element*>* elements = new list<Element*>(); 
