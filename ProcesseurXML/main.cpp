@@ -1,6 +1,8 @@
 #include "commun.h"
 #include "Errors.h"
 #include "model/Document.h"
+#include "model/Constants.h"
+#include "validator/XMLValidator.h"
 #include <iostream>
 #include <cstring>
 
@@ -12,9 +14,13 @@ int xmltransformation(FILE *xml, FILE *xsl);
 
 // TEMP //
 
-int xmlvalidation(FILE *xml, FILE *xsd)
+int xmlvalidation(const char *xml, Document * xsd)
 {
-    return 1;
+    XMLValidator xmlValidate(xml, xsd);
+    int resultat = xmlValidate.XmlValidation();
+    /////////////////////////////////////////////////cout << endl << endl << resultat << endl << endl;
+    
+    return resultat;
 }
 int xmltransformation(FILE *xml, FILE *xsl)
 {
@@ -26,17 +32,17 @@ int xmltransformation(FILE *xml, FILE *xsl)
 //*/
 int main(int argc, char const *argv[])
 {
-/*/// TEST ZONE //
-int main(int argcT, char const *argvT[])
-{
-    int argc = 3;
-    const char **argv = (const char **) calloc(3, sizeof(char *));
-    argv[0] = "./xmltool";
-    argv[1] = "-p";
-    argv[2] = "./files/personne.xml";
-    //*/
+    /*/// TEST ZONE //
+    int main(int argcT, char const *argvT[])
+    {
+        int argc = 3;
+        const char **argv = (const char **) calloc(3, sizeof(char *));
+        argv[0] = "./xmltool";
+        argv[1] = "-p";
+        argv[2] = "./files/personne.xml";
+        //*/
 
-    Document *doc ;
+    Document *doc;
     extern FILE *xmlin;
     int vRet = checkEntryFormat(argc, argv);
     if (vRet == 1)
@@ -50,6 +56,11 @@ int main(int argcT, char const *argvT[])
             vRet = xmlparse(&doc);
             if (doc != NULL)
             {
+                if (vRet == 1)
+                {
+                    fputs(NO_ROOT_ELEMENT, stderr);
+                    return vRet;
+                }
                 // cout << "DO NOT MISS ME" << endl;
                 cout << doc->toString() << endl;
                 // doc->toString();
@@ -63,11 +74,24 @@ int main(int argcT, char const *argvT[])
         {
         case 'v':
         {
-            FILE *xml = fopen(argv[2], "r");
+            //FILE *xml = fopen(argv[2], "r");
             FILE *xsd = fopen(argv[3], "r");
-            vRet = xmlvalidation(xml, xsd);
-            fclose(xml);
+            xmlin = xsd;
+            vRet = xmlparse(&doc);
+            int retour = xmlvalidation(argv[2], doc);
+            //fclose(xml);
             fclose(xsd);
+		string chaineRetour = "The file " + string(argv[2]);
+		if (retour == 0)
+		{
+			chaineRetour += " is valid wrt ";
+		}
+		else
+		{
+			chaineRetour += " is not valid wrt ";
+		}
+		chaineRetour += string(argv[3]);
+		fputs(chaineRetour.c_str(),stdout);
             break;
         }
         case 't':
