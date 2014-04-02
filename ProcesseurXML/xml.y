@@ -1,5 +1,5 @@
 %{
-
+#define YYDEBUG 1
 #include <stack>
 #include <list>
 #include <cstring>
@@ -24,7 +24,7 @@ extern char xmltext[];
 
 int xmllex(void);  
 
-void xmlerror(Document **d, const char * msg)
+void xmlerror(Document *d, const char * msg)
 {
    fprintf(stderr,"%s\n",msg);
 }
@@ -47,20 +47,21 @@ void xmlerror(Document **d, const char * msg)
 %type <l> valeurs;
 %type <a> att;
 %type <la> atts;
-%type <e> element
+%type <e> element;
 %type <c> content;
 %type <en> entetes;
 
-%parse-param {Document **d} //Le retour du parseur
+%parse-param {Document *d} //Le retour du parseur
+
 %%
 
 document
- : entetes element 					            {*d = new Document($1,$2);}
- | element 							                {*d = new Document($1);};
+ : entetes element 					            {d = new Document($1,$2);}
+ | element 							                {d = new Document($1);};
  ;
 
 entetes
- : entetes INFSPECIAL atts SUPSPECIAL 	{$$ = $1; $$->push_back(new Autre($3));}
+ : entetes INFSPECIAL NOM atts SUPSPECIAL 	{$$ = $1; $$->push_back(new Autre($4));}
  | entetes DOCTYPE NOM NOM valeurs SUP 	{$$ = $1; $$->push_back(new Doctype($3,$4,$5));}
  | /*vide*/							                {$$ = new list<EnTete*>();}
  ;
@@ -82,7 +83,7 @@ element
  ;
 
  atts
-  : atts att 						               {$$ = $1; $$->push_back($2);}
+  : atts att 						               {$$->push_back($2);}
   | /*vide*/						               {$$ = new list<Attribut*>();}
   ;
 
@@ -94,12 +95,12 @@ element
 content
  : content element                {$$ = $1;$$[1]->push_back($2);}
  | content CDATABEGIN CDATAEND 		{$$ = $1;$$[0]->push_back(new Donnee($3,1));}
- | content DONNEES 					{$$ = $1; $$[0]->push_back(new Donnee($2,0));}         
+ | content DONNEES 					{$$ = $1; $$[0]->push_back(new Donnee($2,0));}
  | /* vide */       				{
                               list<Element*>* donnees = new list<Element*>(); 
                               list<Element*>* elements = new list<Element*>(); 
                               $$ = new list<Element*>*[2];
-                              ($$)[0] = donnees;
-                              (*$$)[1] = *elements;  
-                            } 
+                              $$[0] = donnees;
+                              $$[1] = elements;
+                            }
  ;

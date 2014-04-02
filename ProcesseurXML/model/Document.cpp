@@ -1,6 +1,7 @@
 #include "Document.h"
 #include <iostream>
 #include <fstream>
+#include <typeinfo>
 using namespace std;
 
 Document::Document()
@@ -33,6 +34,7 @@ Element *Document::getRacine()
 
 char *Document::toString()
 {
+	cout << elementRacine << endl;
 	this->elementRacine->toString();
 	
 }

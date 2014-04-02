@@ -14,6 +14,19 @@ ElementBalise::ElementBalise(char *&nom, list<Element *> *elements [2], list<Att
     this->type = type;
 }
 
+ElementBalise::ElementBalise(ElementBalise& elemBalise):Element((Element)elemBalise)     
+{   
+    // this->lesAttributs = list(*(elemBalise.getLesAttributs()));
+    this->lesAttributs = new list<Attribut *>;
+    this->lesAttributs = elemBalise.getLesAttributs();
+    this->lesElements = new list<Element *>;
+    this->lesElements = elemBalise.getLesElements();
+    strcpy(this->nom, elemBalise.nom);
+    strcpy(this->type, elemBalise.type);
+    // this->lesAttributs=new list<Attribut>(*(elemBalise.getLesAttributs()));  
+   // this->lesElements=new list<Element>(*(elemBalise.getLesElements())); 
+}   
+
 list<Element *> *ElementBalise::getLesElements()
 {
     return lesElements;
@@ -42,6 +55,7 @@ ElementBalise::~ElementBalise()
 
 char *ElementBalise::toString()
 {
+    cout << "kikoo" << endl;
     string buffer("<");
     buffer.append(this->nom);
 
@@ -51,14 +65,14 @@ char *ElementBalise::toString()
         buffer.append((*it)->toString());
     }
     buffer.append(" >");
-
+    /*
     //Boucle pour les elements
     for (list<Element *>::iterator it = this->lesElements->begin(); it != this->lesElements->end(); it++)
     {
         buffer.append("\n");
         buffer.append((*it)->toString());
     }
-
+    */
     buffer.append("</");
     buffer.append(this->nom);
     buffer.append(">");
