@@ -34,7 +34,7 @@ Element *Document::getRacine()
 
 char *Document::toString()
 {
-	cout << elementRacine << endl;
+	cout << "kikoo" << endl;
 	this->elementRacine->toString();
 	
 }
