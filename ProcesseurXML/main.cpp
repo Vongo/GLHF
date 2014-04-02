@@ -49,7 +49,7 @@ int main(int argcT, char const *argvT[])
             xmlin = fid;
             vRet = xmlparse(doc);
             cout << "Main.cpp : ligne 51" << endl;
-            if (doc != 0)
+            if (doc != NULL)
                 cout << doc->toString() << endl;
             fclose(fid);
         }

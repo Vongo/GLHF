@@ -6,7 +6,7 @@ ElementBalise::ElementBalise(): Element()
     this->lesElements = new list<Element *>();
 }
 
-ElementBalise::ElementBalise(char *&nom, list<Element *> *elements [2], list<Attribut *> *&attributs, char * type): Element()
+ElementBalise::ElementBalise(char *&nom, list<Element *> *elements [2], list<Attribut *> *&attributs, char *type): Element()
 {
     this->lesAttributs = attributs;
     this->lesElements = *elements;
@@ -14,8 +14,8 @@ ElementBalise::ElementBalise(char *&nom, list<Element *> *elements [2], list<Att
     this->type = type;
 }
 
-ElementBalise::ElementBalise(ElementBalise& elemBalise):Element((Element)elemBalise)     
-{   
+ElementBalise::ElementBalise(ElementBalise &elemBalise): Element((Element)elemBalise)
+{
     // this->lesAttributs = list(*(elemBalise.getLesAttributs()));
     this->lesAttributs = new list<Attribut *>;
     this->lesAttributs = elemBalise.getLesAttributs();
@@ -23,9 +23,9 @@ ElementBalise::ElementBalise(ElementBalise& elemBalise):Element((Element)elemBal
     this->lesElements = elemBalise.getLesElements();
     strcpy(this->nom, elemBalise.nom);
     strcpy(this->type, elemBalise.type);
-    // this->lesAttributs=new list<Attribut>(*(elemBalise.getLesAttributs()));  
-   // this->lesElements=new list<Element>(*(elemBalise.getLesElements())); 
-}   
+    // this->lesAttributs=new list<Attribut>(*(elemBalise.getLesAttributs()));
+    // this->lesElements=new list<Element>(*(elemBalise.getLesElements()));
+}
 
 list<Element *> *ElementBalise::getLesElements()
 {
@@ -65,14 +65,15 @@ char *ElementBalise::toString()
         buffer.append((*it)->toString());
     }
     buffer.append(">");
-    
+
     //Boucle pour les elements
     for (list<Element *>::iterator it = this->lesElements->begin(); it != this->lesElements->end(); it++)
     {
         buffer.append("\n");
+        cout << "YOLOOOOOOOOOOOOOOOOOOOOOOOOOOOOO" << endl;
         buffer.append((*it)->toString());
     }
-    
+
     buffer.append("</");
     buffer.append(this->nom);
     buffer.append(">");
