@@ -13,7 +13,7 @@ public:
     list<Element *> *getLesElements();
     char *getName();
     char *getType();
-    ElementBalise(char *&, list<Element *> *[2], list<Attribut *> *&, char *);
+    ElementBalise(char *&, list<Element *> *, list<Attribut *> *&, char *);
     ElementBalise (ElementBalise& elemBalise);        //constructeur de copie   
     ~ElementBalise();
     char *toString();
