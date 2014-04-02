@@ -48,7 +48,7 @@ int main(int argcT, char const *argvT[])
             FILE *fid = fopen(argv[2], "r");
             xmlin = fid;
             vRet = xmlparse(&doc);
-            //cout << "Main.cpp : ligne 51" << endl;
+            cout << "Main.cpp : ligne 51" << endl;
             if (doc != NULL)
             {
                 cout << "DO NOT MISS ME" << endl;
