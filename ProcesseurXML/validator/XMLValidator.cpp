@@ -23,13 +23,20 @@ void XMLValidator::initMap()
 		{
 			regOccur regex = constructSeqRegex(petitFils->getLesElements());
 			Attribut * attrName =  ((*it)->getLesAttributs())->front();
-			elementToRegex[attrName->getValue()] = regex;
+			if (regex.maxOccur != -1)
+			{
+				elementToRegex[attrName->getValue()] = regex;
+			}
 		}
 		else if(strcmp(petitFils->getName(), "choice") == 0)
 		{
 			regOccur regex = constructChoiceRegex(petitFils->getLesElements());
 			Attribut * attrName =  ((*it)->getLesAttributs())->front();
-			elementToRegex[attrName->getValue()] = regex;
+			if (regex.maxOccur != -1)
+			{
+				elementToRegex[attrName->getValue()] = regex;
+			}
+			//elementToRegex[attrName->getValue()] = regex;
 		}
 	}
 }
@@ -73,8 +80,10 @@ regOccur XMLValidator::constructChoiceRegex(list<Element*> * elements)
 			{
 				if ( strcmp( attr1->getValue(), (it->first).c_str()) == 0 )
 				{
-					regex.exprReg = (it->second).exprReg;
-					regex.maxOccur = atoi(attr2->getValue());
+					(it->second).maxOccur = atoi(attr2->getValue());
+					regex.maxOccur = -1;
+					//regex.exprReg = (it->second).exprReg;
+					//regex.maxOccur = atoi(attr2->getValue());
 				}
 			}
 		}
@@ -112,8 +121,10 @@ regOccur XMLValidator::constructSeqRegex(list<Element*> * elements)
 			{
 				if ( strcmp( attr1->getValue(), (it->first).c_str()) == 0 )
 				{
-					regex.exprReg = (it->second).exprReg;
-					regex.maxOccur = atoi(attr2->getValue());
+					(it->second).maxOccur = atoi(attr2->getValue());
+					regex.maxOccur = -1;
+					//regex.exprReg = (it->second).exprReg;
+					//regex.maxOccur = atoi(attr2->getValue());
 				}
 			}
 		}
@@ -126,34 +137,35 @@ int XMLValidator::XmlValidation()
 {
 	initMap();
 /*
-	cout << "coucou" << endl;
 	for(map<string,regOccur>::iterator it = elementToRegex.begin() ; it != elementToRegex.end() ; it++)
 	{
-			cout << "Nom: " << (it->first) << endl;
+			cout << "Nom: " << (it->first) << endl << (it->second).maxOccur << endl;
 			cout << "Regex: " << (it->second).exprReg << endl;//////////////
 	}
 */
-
-
 	ifstream fichier(XMLDocument);
 	if (fichier)
 	{
 		string ligne;
+		int flag = 0;
 		int nbParse = 0;
 		//string regBalise = " *<choice.*>";
 		//string regBaliseFin = " *</choice.*>";
 		//string regPersonne = " *<a>.*</a>| *<b>.*</b>| *<c>.*</c>";
 		for(map<string,regOccur>::iterator it = elementToRegex.begin() ; it != elementToRegex.end() ; it++)
 		{
+			flag = 0;
 			nbParse = 0;
-			string regBalise = " *<" + it->first + ".*>";
+			//string regBalise = " *<" + it->first + ".*>";
+			string regBalise = " *<" + it->first + " .*>| *<" + it->first + ">";
 			string regBaliseFin = " *</" + it->first + ".*>";
 			string regPersonne = (it->second).exprReg;
-			
-			while (getline(fichier,ligne) && nbParse < (it->second).maxOccur)
+
+			while (getline(fichier,ligne))// && nbParse < (it->second).maxOccur)
 			{
 				if (boost::regex_match (ligne, boost::regex(regBalise)))
 				{
+					flag = 1;
 					string texte = "";
 					while (getline(fichier,ligne) && boost::regex_match (ligne, boost::regex(regBaliseFin)) == false)
 					{
@@ -162,12 +174,23 @@ int XMLValidator::XmlValidation()
 					//cout << texte;
 					if (boost::regex_match (texte, boost::regex(regPersonne)))
 					{
-						//cout << texte;
+						//cout << endl << texte << endl << "Num : " << nbParse << endl << endl;
 						nbParse ++;
+						if (nbParse > (it->second).maxOccur)
+						{
+							return 1;
+						}
 					}
 					else
 					{
 						return 1;
+					}
+				}
+				else
+				{
+					if (flag == 1)
+					{
+						break;
 					}
 				}
 			}

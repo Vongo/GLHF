@@ -14,7 +14,7 @@ class Template{
 private:
 	list<Template *> children;
 	Template* parent;
-	string output;
+
 	ElementBalise* content;
 	char* match;
 	
@@ -24,10 +24,8 @@ public:
 	void addChild(Template* t);
 	void addChildren(map<string,Template*>* t);
 	void setParent(Template* t);
-	void addToOutput(string);
-	string getOutput();
 	char* getMatch();
-	ElementBalise* getContent();
+	Element* getContent();
 	Template* getParent();
 	Template* getChild(char* match);
 	list<Template*> getChildren();

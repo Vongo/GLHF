@@ -18,14 +18,14 @@ using namespace std;
 	}
 
 	Document* XSLTransformer::geneDoc(){
-		Element* currentNode = xml.getRacine();
+		Element* cd  = xml.getRacine();
 
 		// on cherche le template special s'appliquant a root
 
 		map<string,Template*>::iterator itTemplateRoot = tree.find("/");
 
 		if(itTemplateRoot != tree.end()){
-			executeTemplate(itTemplateRoot->second,currentNode);
+			executeTemplate(&*(itTemplateRoot->second)->getContent(),&*currentNode);
 		}
 		else{
 			//on cherche les template pour les fils de root
@@ -42,7 +42,7 @@ using namespace std;
 			map<string,Template*>::iterator itTemplateRoot = tree.find(string(currentNode->getName());
 
 			if(itTemplateRoot != tree.end()){
-				resultChild = executeTemplate(itTemplateRoot->second,*itChildren);
+				resultChild = executeTemplate(itTemplateRoot->second->getContent(),*itChildren);
 				result->insert(result->begin(),resultChild->begin(),resultChild->end());
 
 			}	
@@ -54,8 +54,53 @@ using namespace std;
 		return result;
 	}
 
-	list<Element*>* XSLTransformer::executeTemplate(Template*t, Element* currentNode){
-		//TODO
+	list<Element*>* XSLTransformer::executeTemplate(Element* currentNodeTemplate, Element* currentNodeModel){
+
+		list<Element*>* children = currentNodeModel->getLesElements();
+		list<Element*>* resultChild;
+		list<Element*>* result;
+		for(list<Element*>::iterator itChildren = children->begin();itChildren != children->end();itChildren++){
+
+			Element* nElement = new Element(*itChildren);
+
+			if(strcmp((*itChildren)->getType(),typeXsl)>0){
+				
+				resultChild = executeTemplate(*itChildren,currentNodeModel);
+				
+			}
+			else{
+				//<xsl:apply-templates...>
+				if(strcmp((*itChildren)->getName(),applytemplate) == 0){
+					//test si select dans apply-template
+					if((*itChildren)->getLesAttributs() != NULL){
+
+						char* match = (*itChildren)->getLesAttributs()->front()->getValue();
+						//recuperation du template par match
+						Template* templateCourant = tree.find(string(match));
+						//recuperation des enfants donc le nom correspond au template
+						list<Elements*>* childrenOk = currentNodeModel->getElementsByName(match);
+						//execution du template pour chaque enfants
+						for(list<Element*>::iterator it= childrenOk->begin(); it != childrenOk->end();it++){
+							resultChild =executeTemplate(templateCourant->getContent(),*it);
+						}
+					}//si apply template orpheline
+					else{
+						for(map<string,Template*>::iterator itTemplate = tree.begin();itTemplate != tree.end(), itTemplate++){
+							for(list<Element*>::iterator itChildren = children->begin(); itChildren->children->end();itChildren++){
+								resultChild = executeTemplate(*itTemplate,*itChildren);
+							}
+						}
+					}
+				}
+
+
+
+
+			}
+			nElement->addChildren(*resultChild);
+			result->push_back(nElement);
+		}
+		return result;
 	}
 
 	void XSLTransformer::createTemplateTree() {

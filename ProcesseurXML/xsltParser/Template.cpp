@@ -37,19 +37,11 @@ void Template::setParent(Template* t){
 	this->parent = t;
 }
 
-void Template::addToOutput(string o) {
-	output += o;
-}
-
-string Template::getOutput() {
-	return output;
-}
-
 char* Template::getMatch() {
 	return match;
 }
 
-ElementBalise* Template::getContent() {
+Element* Template::getContent() {
 	return content;
 }
 

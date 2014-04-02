@@ -23,6 +23,11 @@ list<Attribut *> * ElementBaliseOrpheline::getLesAttributs()
 	return lesAttributs;
 }
 
+list<Element *> * ElementBaliseOrpheline::getLesElements()
+{
+    return new list<Element *>;
+}
+
 ElementBaliseOrpheline::~ElementBaliseOrpheline()
 {
     delete this->nom;

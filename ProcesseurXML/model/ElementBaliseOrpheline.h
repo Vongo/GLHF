@@ -10,6 +10,7 @@ public:
     ElementBaliseOrpheline(char *, list<Attribut*>*, char *);
     ~ElementBaliseOrpheline();
     list<Attribut *> * getLesAttributs();
+    list<Element *> *getLesElements();
     char* getName();
     char *toString();
     char* getType();

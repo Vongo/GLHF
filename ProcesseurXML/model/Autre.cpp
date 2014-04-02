@@ -27,3 +27,14 @@ char *Autre::toString()
     strcpy(cstr, buffer.c_str());
     return cstr;
 }
+
+
+char *Autre::getName()
+{
+    return nom;
+}
+
+list<Attribut *> *Autre::getLesAttributs()
+{
+    return attributs;
+}
