@@ -57,7 +57,7 @@ void xmlerror(Document **d, const char * msg)
 
 document
  : entetes element 					            {*d = new Document($1,$2);}
- | element 							                {cout <<$1->toString()<<endl;*d = new Document($1); cout << (*d)->toString() <<endl;};
+ | element 							                {*d = new Document($1);};
  ;
 
 entetes
@@ -74,7 +74,7 @@ valeurs
 element
  : INF NOM atts SUP 
    content
-   INF SLASH NOM SUP 				           {cout << "Creation elmt " << $2 << " nb d'elmts inf : " << $5[1]->size() << " nb de donnees inf : " << $5[0]->size()<< endl; $$ = new ElementBalise($2, $5, $3, "xml");} //Balise Paire
+   INF SLASH NOM SUP 				           {/*cout << "Creation elmt " << $2 << " nb d'elmts inf : " << $5[1]->size() << " nb de donnees inf : " << $5[0]->size()<< endl; */$$ = new ElementBalise($2, $5, $3, "xml");} //Balise Paire
  | INF NOM COLON NOM atts SUP 
    content
    INF SLASH NOM COLON NOM SUP         {$$ = new ElementBalise($4, $7, $5, $2);} //Balise Paire XSL ou XSD
@@ -84,7 +84,7 @@ element
 
  atts
   : atts att 						               {$$->push_back($2);}
-  | /*vide*/						               {cout << "Pas d'atts" << endl;$$ = new list<Attribut*>();}
+  | /*vide*/						               {$$ = new list<Attribut*>();}
   ;
 
  att
@@ -95,7 +95,7 @@ element
 content
  : content element                {$$ = $1;$$[1]->push_back($2);}
  | content CDATABEGIN CDATAEND 		{$$ = $1;$$[0]->push_back(new Donnee($3,1));}
- | content DONNEES 					{cout << $2 << endl;$$ = $1; $$[0]->push_back(new Donnee($2,0));}
+ | content DONNEES 					{$$ = $1; $$[0]->push_back(new Donnee($2,0));}
  | /* vide */       				{
                               list<Element*>* donnees = new list<Element*>(); 
                               list<Element*>* elements = new list<Element*>(); 
