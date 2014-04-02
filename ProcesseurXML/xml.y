@@ -74,7 +74,7 @@ valeurs
 element
  : INF NOM atts SUP 
    content
-   INF SLASH NOM SUP 				           {/*cout << "Creation elmt " << $2 << " nb d'elmts inf : " << $5[1]->size() << " nb de donnees inf : " << $5[0]->size()<< endl; */$$ = new ElementBalise($2, $5, $3, "xml");} //Balise Paire
+   INF SLASH NOM SUP 				           {$$ = new ElementBalise($2, $5, $3, "xml");} //Balise Paire
  | INF NOM COLON NOM atts SUP 
    content
    INF SLASH NOM COLON NOM SUP         {$$ = new ElementBalise($4, $7, $5, $2);} //Balise Paire XSL ou XSD
