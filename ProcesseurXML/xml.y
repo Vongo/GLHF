@@ -24,7 +24,7 @@ extern char xmltext[];
 
 int xmllex(void);  
 
-void xmlerror(Document *d, const char * msg)
+void xmlerror(Document **d, const char * msg)
 {
    fprintf(stderr,"%s\n",msg);
 }
@@ -51,13 +51,13 @@ void xmlerror(Document *d, const char * msg)
 %type <c> content;
 %type <en> entetes;
 
-%parse-param {Document *d} //Le retour du parseur
+%parse-param {Document **d} //Le retour du parseur
 
 %%
 
 document
- : entetes element 					            {d = new Document($1,$2);}
- | element 							                {d = new Document($1); cout << d->toString()<<endl;};
+ : entetes element 					            {*d = new Document($1,$2);}
+ | element 							                {cout <<$1->toString()<<endl;*d = new Document($1); cout << (*d)->toString() <<endl;};
  ;
 
 entetes
