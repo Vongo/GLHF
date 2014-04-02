@@ -51,7 +51,18 @@ char *ElementBalise::getType()
 {
     return type;
 }
+list<Element*>* ElementBalise::getElementsByName(char* name){
 
+    list<Element*>* elementsOk;
+    for(list<Element*>::iterator it = this->lesElements->begin();it != this->lesElements->end();it++)
+    {
+        if(strcmp((*it)->getName,name) == 0)
+        {
+            elementsOk->push_back(*it);
+        }
+    }
+    return elementsOk;
+}
 ElementBalise::~ElementBalise()
 {
     delete lesAttributs;

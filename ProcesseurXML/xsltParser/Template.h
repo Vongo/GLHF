@@ -24,8 +24,6 @@ public:
 	void addChild(Template* t);
 	void addChildren(map<string,Template*>* t);
 	void setParent(Template* t);
-	void addToOutput(string);
-	string getOutput();
 	char* getMatch();
 	Element* getContent();
 	Template* getParent();

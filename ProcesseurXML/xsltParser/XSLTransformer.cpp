@@ -18,7 +18,7 @@ using namespace std;
 	}
 
 	Document* XSLTransformer::geneDoc(){
-		Element* currentNode = xml.getRacine();
+		Element* cd  = xml.getRacine();
 
 		// on cherche le template special s'appliquant a root
 
@@ -60,21 +60,47 @@ using namespace std;
 		list<Element*>* resultChild;
 		list<Element*>* result;
 		for(list<Element*>::iterator itChildren = children->begin();itChildren != children->end();itChildren++){
+
+			Element* nElement = new Element(*itChildren);
+
 			if(strcmp((*itChildren)->getType(),typeXsl)>0){
-				Element* nElement = new Element(*itChildren);
+				
 				resultChild = executeTemplate(*itChildren,currentNodeModel);
-				nElement->addChildren(*resultChild);
+				
 			}
 			else{
-				if(strcmp((*itChildren)->getName(),applytemplate)<0){
-					resultChild = 
+				//<xsl:apply-templates...>
+				if(strcmp((*itChildren)->getName(),applytemplate) == 0){
+					//test si select dans apply-template
+					if((*itChildren)->getLesAttributs() != NULL){
+
+						char* match = (*itChildren)->getLesAttributs()->front()->getValue();
+						//recuperation du template par match
+						Template* templateCourant = tree.find(string(match));
+						//recuperation des enfants donc le nom correspond au template
+						list<Elements*>* childrenOk = currentNodeModel->getElementsByName(match);
+						//execution du template pour chaque enfants
+						for(list<Element*>::iterator it= childrenOk->begin(); it != childrenOk->end();it++){
+							resultChild =executeTemplate(templateCourant->getContent(),*it);
+						}
+					}//si apply template orpheline
+					else{
+						for(map<string,Template*>::iterator itTemplate = tree.begin();itTemplate != tree.end(), itTemplate++){
+							for(list<Element*>::iterator itChildren = children->begin(); itChildren->children->end();itChildren++){
+								resultChild = executeTemplate(*itTemplate,*itChildren);
+							}
+						}
+					}
 				}
 
 
 
 
 			}
+			nElement->addChildren(*resultChild);
+			result->push_back(nElement);
 		}
+		return result;
 	}
 
 	void XSLTransformer::createTemplateTree() {
