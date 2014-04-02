@@ -2,7 +2,7 @@
 #include "Errors.h"
 #include "model/Document.h"
 #include "model/Constants.h"
-#include "validator/XMLValidator.h"
+// #include "validator/XMLValidator.h"
 #include <iostream>
 #include <cstring>
 
@@ -16,11 +16,11 @@ int xmltransformation(FILE *xml, FILE *xsl);
 
 int xmlvalidation(const char *xml, Document * xsd)
 {
-    XMLValidator xmlValidate(xml, xsd);
-    int resultat = xmlValidate.XmlValidation();
+    // XMLValidator xmlValidate(xml, xsd);
+    // int resultat = xmlValidate.XmlValidation();
     /////////////////////////////////////////////////cout << endl << endl << resultat << endl << endl;
-    
-    return resultat;
+    return 1;
+    // return resultat;
 }
 int xmltransformation(FILE *xml, FILE *xsl)
 {
