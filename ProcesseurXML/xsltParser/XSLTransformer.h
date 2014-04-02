@@ -20,10 +20,17 @@ class XSLTransformer {
 
 		Document xml;
 		Document catalog;
-		map <char*,Template*> tree;
-		
+		map <string,Template*> tree;
+		char const* typeXsl = "xsl";
+		char const* applytemplates = "apply-templates";
+		char const* applytemplate = "apply-template";
+		char const* valueof = "value-of";
+		char const* foreach = "for-each";
 		void createTemplateTree();
 		void addContent(Template t);
+		Document* geneDoc();
+		list<Element*>* executeTemplate(Element* currentNodeTemplate,Element* currentNodeModel);
+		list<Element*>* applyTemplateOnChildren(Element* currentNode);
 
 
 

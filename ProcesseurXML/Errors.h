@@ -19,6 +19,8 @@ static const char *CANNOT_OPEN_XML1 = "Unable to open does_not_exist.xml\n";
 static const char *CANNOT_OPEN_XML2 = "Unable to open file does_not_exist.xml\n";
 static const char *CANNOT_OPEN_XSL = "Unable to open file does_not_exist.xsl\n";
 static const char *CANNOT_OPEN_XSD = "Unable to open file does_not_exist.xsd\n";
+static const char *NO_ROOT_ELEMENT = "No root markup\n";
+
 
 
 

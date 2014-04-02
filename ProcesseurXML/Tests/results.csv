@@ -6,25 +6,25 @@ TestCLITransformNoFile;Ok;Ok;Ok;Non testé;Ok
 TestCLITransformOneFile;Ok;Ok;Ok;Non testé;Ok
 TestCLIValidationNoFile;Ok;Ok;Ok;Non testé;Ok
 TestCLIValidationOneFile;Ok;Ok;Ok;Non testé;Ok
-TestParsingBadMarkup1;Echec;Echec;Echec;Non testé;Echec
-TestParsingBadMarkup2;Echec;Echec;Echec;Non testé;Echec
-TestParsingBadMarkup3;Echec;Echec;Echec;Non testé;Echec
-TestParsingBadMarkup4;Echec;Echec;Echec;Non testé;Echec
+TestParsingBadMarkup1;Ok;Ok;Ok;Non testé;Ok
+TestParsingBadMarkup2;Ok;Ok;Ok;Non testé;Ok
+TestParsingBadMarkup3;Ok;Ok;Ok;Non testé;Ok
+TestParsingBadMarkup4;Ok;Ok;Ok;Non testé;Ok
 TestParsingCannotOpen;Ok;Ok;Ok;Non testé;Ok
-TestParsingLexicalError;Echec;Ok;Echec;Non testé;Echec
-TestParsingMissingMarkup;Echec;Ok;Echec;Non testé;Echec
-TestParsingSimple1;Echec;Echec;Non testé;Non testé;Echec
-TestParsingSimple2;Echec;Echec;Non testé;Non testé;Echec
-TestParsingSimple3;Echec;Echec;Non testé;Non testé;Echec
+TestParsingLexicalError;Ok;Ok;Ok;Non testé;Ok
+TestParsingMissingMarkup;Ok;Ok;Ok;Non testé;Ok
+TestParsingSimple1;Ok;Ok;Non testé;Non testé;Ok
+TestParsingSimple2;Ok;Ok;Non testé;Non testé;Ok
+TestParsingSimple3;Ok;Ok;Non testé;Non testé;Ok
 TestParsingSimple4;Echec;Echec;Non testé;Non testé;Echec
 TestParsingSimple5;Echec;Echec;Non testé;Non testé;Echec
-TestParsingSyntaxError;Echec;Ok;Echec;Non testé;Echec
+TestParsingSyntaxError;Ok;Ok;Ok;Non testé;Ok
 TestTransformApplyTemplates1;Echec;Echec;Non testé;Non testé;Echec
 TestTransformApplyTemplates2;Echec;Echec;Non testé;Non testé;Echec
-TestTransformCannotOpen1;Ok;Ok;Echec;Non testé;Echec
+TestTransformCannotOpen1;Ok;Ok;Ok;Non testé;Ok
 TestTransformCannotOpen2;Ok;Ok;Ok;Non testé;Ok
 TestTransformForeach;Echec;Echec;Non testé;Non testé;Echec
-TestValidationCannotOpen1;Ok;Ok;Echec;Non testé;Echec
+TestValidationCannotOpen1;Ok;Ok;Ok;Non testé;Ok
 TestValidationCannotOpen2;Ok;Ok;Ok;Non testé;Ok
 TestValidationChoiceBad;Echec;Echec;Non testé;Non testé;Echec
 TestValidationChoiceGood;Echec;Echec;Non testé;Non testé;Echec

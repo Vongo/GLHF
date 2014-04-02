@@ -22,12 +22,12 @@ public:
 	Template(ElementBalise* rootTemplate);
 
 	void addChild(Template* t);
-	void addChildren(map<char*,Template*>* t);
+	void addChildren(map<string,Template*>* t);
 	void setParent(Template* t);
 	void addToOutput(string);
 	string getOutput();
 	char* getMatch();
-	ElementBalise* getContent();
+	Element* getContent();
 	Template* getParent();
 	Template* getChild(char* match);
 	list<Template*> getChildren();

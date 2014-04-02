@@ -61,7 +61,7 @@ document
  ;
 
 entetes
- : entetes INFSPECIAL NOM atts SUPSPECIAL 	{$$ = $1; $$->push_back(new Autre($4));}
+ : entetes INFSPECIAL NOM atts SUPSPECIAL 	{$$ = $1; $$->push_back(new Autre($3,$4));}
  | entetes DOCTYPE NOM NOM valeurs SUP 	{$$ = $1; $$->push_back(new Doctype($3,$4,$5));}
  | /*vide*/							                {$$ = new list<EnTete*>();}
  ;
@@ -74,10 +74,44 @@ valeurs
 element
  : INF NOM atts SUP 
    content
-   INF SLASH NOM SUP 				           {/*cout << "Creation elmt " << $2 << " nb d'elmts inf : " << $5[1]->size() << " nb de donnees inf : " << $5[0]->size()<< endl; */$$ = new ElementBalise($2, $5, $3, "xml");} //Balise Paire
+   INF SLASH NOM SUP 				           { if(strcmp($2,$8)!= 0)
+                                          {
+                                            char str[100];
+                                            strcpy(str,"Non matching element names ");
+                                            strcat(str,$2);
+                                            strcat(str," and ");
+                                            strcat(str,$8);
+                                            strcat(str,"\n");
+                                            fputs(str,stderr);
+                                          }
+                                          $$ = new ElementBalise($2, $5, $3, "xml");
+                                        } //Balise Paire ok avec test si nom différent
+
  | INF NOM COLON NOM atts SUP 
    content
-   INF SLASH NOM COLON NOM SUP         {$$ = new ElementBalise($4, $7, $5, $2);} //Balise Paire XSL ou XSD
+   INF SLASH NOM COLON NOM SUP         { 
+                                          if(strcmp($2,$10)!= 0)
+                                          {
+                                            char str[100];
+                                            strcpy(str,"Non matching element namespaces ");
+                                            strcat(str,$2);
+                                            strcat(str," and ");
+                                            strcat(str,$10);
+                                            strcat(str,"\n");
+                                            fputs(str,stderr);
+                                          }
+                                          if(strcmp($4,$12)!= 0)
+                                          {
+                                            char str[100];
+                                            strcpy(str,"Non matching element names ");
+                                            strcat(str,$4);
+                                            strcat(str," and ");
+                                            strcat(str,$12);
+                                            strcat(str,"\n");
+                                            fputs(str,stderr);
+                                          }
+                                          {$$ = new ElementBalise($4, $7, $5, $2);} //Balise Paire XSL ou XSD
+                                        }
  | INF NOM atts SLASH SUP              {$$ = new ElementBaliseOrpheline($2,$3, "xml");} //Balise Orpheline
  | INF NOM COLON NOM atts SLASH SUP 	 {$$ = new ElementBaliseOrpheline($4,$5,$2);} //Balise Orpheline XSL ou XSD
  ;
@@ -95,6 +129,7 @@ element
 content
  : content element                {$$ = $1;$$->push_back($2);}
  | content CDATABEGIN CDATAEND 		{$$ = $1;$$->push_back(new Donnee($3,1));}
- | content DONNEES 					{$$ = $1; $$->push_back(new Donnee($2,0));}
+ | content DONNEES          {$$ = $1; $$->push_back(new Donnee($2,0));}
+ | content COMMENT 					{$$ = $1; $$->push_back(new Donnee($2,2));}
  | /* vide */       				{$$ = new list<Element*>;}
  ;
