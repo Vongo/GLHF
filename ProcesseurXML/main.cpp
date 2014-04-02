@@ -65,9 +65,7 @@ int main(int argc, char const *argv[])
                     fputs(NO_ROOT_ELEMENT, stderr);
                     return vRet;
                 }
-                // cout << "DO NOT MISS ME" << endl;
                 cout << doc->toString() << endl;
-                // doc->toString();
             }
             fclose(fid);
         }
@@ -78,12 +76,18 @@ int main(int argc, char const *argv[])
         {
         case 'v':
         {
-            //FILE *xml = fopen(argv[2], "r");
             FILE *xsd = fopen(argv[3], "r");
             xmlin = xsd;
             vRet = xmlparse(&doc);
+            if (doc != NULL)
+            {
+                if (vRet == 1)
+                {
+                    fputs(NO_ROOT_ELEMENT, stderr);
+                    return vRet;
+                }
+            }
             int retour = xmlvalidation(argv[2], doc);
-            //fclose(xml);
             fclose(xsd);
             string chaineRetour = "The file " + string(argv[2]);
             if (retour == 0)
@@ -96,6 +100,7 @@ int main(int argc, char const *argv[])
             }
             chaineRetour += string(argv[3]);
             fputs(chaineRetour.c_str(), stdout);
+            vRet = vRet && retour;
             break;
         }
         case 't':
