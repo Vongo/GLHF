@@ -15,7 +15,6 @@ public:
     ~Autre();
     char *toString();
 private:
-	string hoho;
     list<Attribut *> *attributs;
 };
 

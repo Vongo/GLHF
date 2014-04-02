@@ -66,7 +66,7 @@ entetes
  | /*vide*/							                {$$ = new list<EnTete*>();}
  ;
 
-valeurs				
+valeurs
  : valeurs VALEUR 				            	{$$ = $1; $$->push_back($2);}
  | /*vide*/							                {$$ = new list<char* >();}
  ;
