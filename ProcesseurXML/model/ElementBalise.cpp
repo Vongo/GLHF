@@ -3,11 +3,11 @@
 ElementBalise::ElementBalise(): Element()
 {
     this->lesAttributs = new list<Attribut *>();
-    this->lesElements = (list<Element*>**) calloc(2, sizeof(list<Element*>*));
-    // this->lesElements = new list<Element *>();
+    // this->lesElements = (list<Element*>**) calloc(2, sizeof(list<Element*>*));
+    this->lesElements = new list<Element *>();
 }
 
-ElementBalise::ElementBalise(char *&nom, list<Element *> *elements [2], list<Attribut *> *&attributs, char *type): Element()
+ElementBalise::ElementBalise(char *&nom, list<Element *> *elements, list<Attribut *> *&attributs, char *type): Element()
 {
     this->lesAttributs = attributs;
     this->lesElements = elements;
@@ -28,7 +28,7 @@ ElementBalise::ElementBalise(ElementBalise &elemBalise): Element((Element)elemBa
     // this->lesElements=new list<Element>(*(elemBalise.getLesElements()));
 }
 
-list<Element *> **ElementBalise::getLesElements()
+list<Element *> *ElementBalise::getLesElements()
 {
     return lesElements;
 }
@@ -69,7 +69,7 @@ char *ElementBalise::toString()
     buffer.append(">");
 
     //Boucle pour les elements
-    for (list<Element *>::iterator it = this->lesElements[1]->begin(); it != this->lesElements[1]->end(); it++)
+    for (list<Element *>::iterator it = this->lesElements->begin(); it != this->lesElements->end(); it++)
     {
         buffer.append("\n");
         buffer.append((*it)->toString());
