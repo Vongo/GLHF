@@ -6,7 +6,7 @@
 
 using namespace std;
 
-int xmlparse(Document *);
+int xmlparse(Document **);
 int xmlvalidation(FILE *xml, FILE *xsd);
 int xmltransformation(FILE *xml, FILE *xsl);
 
@@ -47,10 +47,13 @@ int main(int argcT, char const *argvT[])
         {
             FILE *fid = fopen(argv[2], "r");
             xmlin = fid;
-            vRet = xmlparse(doc);
-            cout << "Main.cpp : ligne 51" << endl;
-            if (doc != 0)
+            vRet = xmlparse(&doc);
+            //cout << "Main.cpp : ligne 51" << endl;
+            if (doc != NULL)
+            {
+                cout << "DO NOT MISS ME" << endl;
                 cout << doc->toString() << endl;
+            }
             fclose(fid);
         }
     }
