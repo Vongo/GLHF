@@ -10,7 +10,7 @@ class ElementBalise: public Element
 public:
     ElementBalise();
     list<Attribut *> *getLesAttributs();
-    list<Element *> *getLesElements();
+    list<Element *> **getLesElements();
     char *getName();
     char *getType();
     ElementBalise(char *&, list<Element *> *[2], list<Attribut *> *&, char *);
@@ -22,7 +22,7 @@ private:
     char* type;
     char *nom;
     list<Attribut *> *lesAttributs;
-    list<Element *> *lesElements;
+    list<Element *> **lesElements;
 };
 
 #endif

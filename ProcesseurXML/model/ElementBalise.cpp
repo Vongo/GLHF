@@ -3,13 +3,14 @@
 ElementBalise::ElementBalise(): Element()
 {
     this->lesAttributs = new list<Attribut *>();
-    this->lesElements = new list<Element *>();
+    this->lesElements = (list<Element*>**) calloc(2, sizeof(list<Element*>*));
+    // this->lesElements = new list<Element *>();
 }
 
 ElementBalise::ElementBalise(char *&nom, list<Element *> *elements [2], list<Attribut *> *&attributs, char *type): Element()
 {
     this->lesAttributs = attributs;
-    this->lesElements = *elements;
+    this->lesElements = elements;
     this->nom = nom;
     this->type = type;
 }
@@ -19,7 +20,7 @@ ElementBalise::ElementBalise(ElementBalise &elemBalise): Element((Element)elemBa
     // this->lesAttributs = list(*(elemBalise.getLesAttributs()));
     this->lesAttributs = new list<Attribut *>;
     this->lesAttributs = elemBalise.getLesAttributs();
-    this->lesElements = new list<Element *>;
+    // this->lesElements = new list<Element *>;
     this->lesElements = elemBalise.getLesElements();
     strcpy(this->nom, elemBalise.nom);
     strcpy(this->type, elemBalise.type);
@@ -27,7 +28,7 @@ ElementBalise::ElementBalise(ElementBalise &elemBalise): Element((Element)elemBa
     // this->lesElements=new list<Element>(*(elemBalise.getLesElements()));
 }
 
-list<Element *> *ElementBalise::getLesElements()
+list<Element *> **ElementBalise::getLesElements()
 {
     return lesElements;
 }
@@ -55,7 +56,8 @@ ElementBalise::~ElementBalise()
 
 char *ElementBalise::toString()
 {
-    cout << "kikoo" << endl;
+    // cout << "ELEMENT_BALISE_TOSTRING" << endl;
+    // cout<< "J'ai "<< this->lesElements[0]->size()<<this->lesElements[1]->size()<<" enfants."<<endl;
     string buffer("<");
     buffer.append(this->nom);
 
@@ -67,10 +69,9 @@ char *ElementBalise::toString()
     buffer.append(">");
 
     //Boucle pour les elements
-    for (list<Element *>::iterator it = this->lesElements->begin(); it != this->lesElements->end(); it++)
+    for (list<Element *>::iterator it = this->lesElements[1]->begin(); it != this->lesElements[1]->end(); it++)
     {
         buffer.append("\n");
-        cout << "YOLOOOOOOOOOOOOOOOOOOOOOOOOOOOOO" << endl;
         buffer.append((*it)->toString());
     }
 
