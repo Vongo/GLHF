@@ -17,26 +17,12 @@ ElementBalise::ElementBalise(char *&nom, list<Element *> *elements, list<Attribu
 
 ElementBalise::ElementBalise(ElementBalise &elemBalise): Element((Element)elemBalise)
 {
-<<<<<<< HEAD
+
     this->lesAttributs = elemBalise.lesAttributs;
     this->lesElements = elemBalise.lesElements;
     this->nom = elemBalise.nom;
     this->type = elemBalise.type;
-=======
-    cout << "kikoo1" << endl;
-    // this->lesAttributs = list(*(elemBalise.getLesAttributs()));
-    this->lesAttributs = new list<Attribut *>;
-    this->lesAttributs = elemBalise.lesAttributs;
-    // this->lesElements = new list<Element *>;
-    //this->lesElements = elemBalise.getLesElements();
-    cout << "kikoo2" << endl;
-    nom = elemBalise.nom;
-    cout << "kikoo3" << endl;
-    type = elemBalise.type;
-    cout << "kikoo4" << endl;
-    // this->lesAttributs=new list<Attribut>(*(elemBalise.getLesAttributs()));
-    // this->lesElements=new list<Element>(*(elemBalise.getLesElements()));
->>>>>>> b61e20c37be460f556bfa6f92dd771cef277e6fe
+
 }
 
 list<Element *> *ElementBalise::getLesElements()
