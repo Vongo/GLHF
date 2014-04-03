@@ -7,6 +7,8 @@
 #include <string.h>
 #include <map>
 #include "../model/ElementBalise.h"
+#include "../model/ElementBaliseOrpheline.h"
+
 #include "../model/Donnee.h"
 #include "Template.h"
 #include "../model/Document.h"

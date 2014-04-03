@@ -27,6 +27,7 @@ ElementBalise::ElementBalise(ElementBalise &elemBalise): Element((Element)elemBa
 
 list<Element *> *ElementBalise::getLesElements()
 {
+    cout<<"oukay"<<endl;
     return lesElements;
 }
 
@@ -47,7 +48,7 @@ char *ElementBalise::getType()
 
 list<Element *> *ElementBalise::getElementsByName(char *name)
 {
-    list<Element *> *elementsOk;
+    list<Element *> *elementsOk = new list<Element*>();
     for (list<Element *>::iterator it = this->lesElements->begin(); it != this->lesElements->end(); it++)
     {
         // if (strcmp((*it)->getName, name) == 0)

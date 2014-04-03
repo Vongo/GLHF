@@ -43,6 +43,9 @@ ElementBaliseOrpheline::~ElementBaliseOrpheline()
 char *ElementBaliseOrpheline::toString()
 {
     string buffer(format("<"));
+
+    buffer.append(this->type);
+    buffer.append(":");
     buffer.append(this->nom);
 
     for (list<Attribut *>::iterator it = this->lesAttributs->begin(); it != this->lesAttributs->end(); it++)
@@ -50,8 +53,7 @@ char *ElementBaliseOrpheline::toString()
         buffer.append(" ");
         buffer.append((*it)->toString());
     }
-    buffer.append(" /");
-    buffer.append(" >");
+    buffer.append("/>");
 
     char *cstr = new char[buffer.length() + 1];
     strcpy(cstr, buffer.c_str());
