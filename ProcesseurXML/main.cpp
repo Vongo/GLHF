@@ -2,7 +2,8 @@
 #include "Errors.h"
 #include "model/Document.h"
 #include "model/Constants.h"
-#include "validator/XMLValidator.h"
+#include "transformator/XSLTransformer.h"
+// #include "validator/XMLValidator.h"
 #include <iostream>
 #include <cstring>
 
@@ -14,16 +15,32 @@ int xmltransformation(FILE *xml, FILE *xsl);
 
 int xmlvalidation(const char *xml, Document *xsd)
 {
-    XMLValidator xmlValidate(xml, xsd);
-    int resultat = xmlValidate.XmlValidation();
-    /////////////////////////////////////cout << endl << endl << resultat << endl << endl;
-    return resultat;
+    // XMLValidator xmlValidate(xml, xsd);
+    // int resultat = xmlValidate.XmlValidation();
+    // /////////////////////////////////////cout << endl << endl << resultat << endl << endl;
+    // return resultat;
+    return 1;
 }
 
 // TEMP //
 
 int xmltransformation(FILE *xml, FILE *xsl)
 {
+    extern FILE *xmlin;
+
+    Document *docXml;
+    Document *docXsl;
+
+    xmlin = xml;
+    int vRet = xmlparse(&docXml);
+
+
+    xmlin = xsl;
+    vRet = xmlparse(&docXsl);
+
+    XSLTransformer *oPrime = new XSLTransformer(*docXml, *docXsl);
+
+
     return 1;
 }
 
