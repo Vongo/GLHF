@@ -3,7 +3,7 @@
 #include "model/Document.h"
 #include "model/Constants.h"
 #include "transformator/XSLTransformer.h"
-// #include "validator/XMLValidator.h"
+#include "validator/XMLValidator.h"
 #include <iostream>
 #include <cstring>
 
@@ -15,11 +15,11 @@ int xmltransformation(FILE *xml, FILE *xsl);
 
 int xmlvalidation(const char *xml, Document *xsd)
 {
-    // XMLValidator xmlValidate(xml, xsd);
-    // int resultat = xmlValidate.XmlValidation();
+    XMLValidator xmlValidate(xml, xsd);
+    int resultat = xmlValidate.XmlValidation();
     // /////////////////////////////////////cout << endl << endl << resultat << endl << endl;
-    // return resultat;
-    return 1;
+    return resultat;
+    // return 1;
 }
 
 // TEMP //
@@ -39,7 +39,6 @@ int xmltransformation(FILE *xml, FILE *xsl)
     vRet = xmlparse(&docXsl);
 
     XSLTransformer *oPrime = new XSLTransformer(*docXml, *docXsl);
-
 
     return 1;
 }
