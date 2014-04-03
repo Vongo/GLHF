@@ -8,6 +8,13 @@ ElementBaliseOrpheline::ElementBaliseOrpheline(char *pNom, list<Attribut*> *attr
     this->type = type;
 }
 
+ElementBaliseOrpheline::ElementBaliseOrpheline(ElementBaliseOrpheline &elemBaliseOrph): Element((Element)elemBaliseOrph)
+{
+    this->lesAttributs = elemBaliseOrph.lesAttributs;
+    this->nom = elemBaliseOrph.nom;
+    this->type = elemBaliseOrph.type;
+}
+
 char* ElementBaliseOrpheline::getName()
 {
 	return nom;
@@ -30,7 +37,7 @@ list<Element *> * ElementBaliseOrpheline::getLesElements()
 
 ElementBaliseOrpheline::~ElementBaliseOrpheline()
 {
-    delete this->nom;
+    
 }
 
 char *ElementBaliseOrpheline::toString()
