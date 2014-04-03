@@ -53,8 +53,6 @@ Document *XSLTransformer::geneDoc()
         {
             Document *docTrans = new Document(docXml.getEnTete(), nRoot);
         }
-
-
     }
 }
 list<Element *> *XSLTransformer::applyTemplateOnChildren(Element *currentNode)
