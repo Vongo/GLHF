@@ -9,6 +9,7 @@ class ElementBaliseOrpheline: public Element
 public:
     ElementBaliseOrpheline(char *, list<Attribut*>*, char *);
     ~ElementBaliseOrpheline();
+    ElementBaliseOrpheline (ElementBaliseOrpheline& elemBaliseOrph);
     list<Attribut *> * getLesAttributs();
     char* getName();
     char *toString();
