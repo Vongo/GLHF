@@ -1,4 +1,5 @@
 #include "XSLTransformer.h"
+#include <typeinfo>
 
 
 
@@ -14,7 +15,9 @@ XSLTransformer::XSLTransformer()
 
 XSLTransformer::XSLTransformer(Document docXml, Document docXsl)
 {
+
     this->docXml = docXml;
+    // cout<<this->docXml.toString()<<endl;
     this->docXsl = docXsl;
 
     typeXsl = "xsl";
@@ -22,11 +25,14 @@ XSLTransformer::XSLTransformer(Document docXml, Document docXsl)
     valueof = "value-of";
     foreach = "for-each";
     createTemplateTree();
+    cout << tree.size()<<endl;
+    geneDoc();
 
 }
 
 Document *XSLTransformer::geneDoc()
 {
+
     Element *currentNode  = docXml.getRacine();
     list<Element *> *result;
     Document *docTrans;
@@ -36,10 +42,16 @@ Document *XSLTransformer::geneDoc()
 
     if (itTemplateRoot != tree.end())
     {
-        result = executeTemplate(&*(itTemplateRoot->second)->getContent(), &*currentNode);
+        cout<<"tutu"<<endl;
+        cout<<currentNode->toString()<<endl;
+        cout<<"louliu"<<endl;
+        result = executeTemplate(&*(itTemplateRoot->second)->getContent(), currentNode);
+        cout<<"toto"<<endl;
+        cout<<result->front()->toString()<<endl;
     }
     else
     {
+
         //on cherche les template pour les fils de root
         result = applyTemplateOnChildren(currentNode);
     }
@@ -60,6 +72,7 @@ Document *XSLTransformer::geneDoc()
 }
 list<Element *> *XSLTransformer::applyTemplateOnChildren(Element *currentNode)
 {
+    cout << "applyTemplateOnChildren"<<endl;
     list<Element *> *resultChild;
     list<Element *> *result;
 
@@ -87,30 +100,54 @@ list<Element *> *XSLTransformer::applyTemplateOnChildren(Element *currentNode)
 list<Element *> *XSLTransformer::executeTemplate(Element *currentNodeTemplate, Element *currentNodeModel)
 {
 
-    list<Element *> *children = currentNodeModel->getLesElements();
-    list<Element *> *resultChild;
+    cout <<"executeTemplate"<<endl;
+    cout<<currentNodeTemplate->toString()<<endl;
+    // list<Element *> *children = currentNodeModel->getLesElements();
+    list<Element *> *children = currentNodeTemplate->getLesElements();
+    list<Element *> *resultChild = new list<Element *>();
+
     list<Element *> *result;
+    // cout<<currentNodeModel->getName()<<endl;
+    cout<<children->size()<<endl;
     for (list<Element *>::iterator itChildren = children->begin(); itChildren != children->end(); itChildren++)
     {
+        cout<<"on parcours les fils"<<endl;
 
-        Element *nElement = new Element(*(*itChildren));
+        Element *nElement;
 
-        if (strcmp((*itChildren)->getType(), typeXsl) > 0)
+        if(typeid(*(*itChildren)).name() == typeid(ElementBalise).name())
         {
+            nElement = new ElementBalise(*((ElementBalise*)*itChildren));
 
+        }
+        else if(typeid(*(*itChildren)).name() == typeid(ElementBaliseOrpheline).name()){
+            nElement = new ElementBaliseOrpheline(*((ElementBaliseOrpheline*)*itChildren));
+
+        }
+        else if(typeid(*(*itChildren)).name() == typeid(Donnee).name()){
+            nElement = new Donnee((*itChildren)->getContenu(),(*itChildren)->getCodeType());
+
+        }
+
+        cout<<(*itChildren)->getType()<<endl;
+        if (strcmp((*itChildren)->getType(), "xsl") != 0)
+        {
+            cout<<"balise pas xsl"<<endl;
             resultChild = executeTemplate(*itChildren, currentNodeModel);
+            
 
         }
         else
         {
             //<xsl:apply-templates...>
-            if (strcmp((*itChildren)->getName(), this->applytemplates) == 0)
-            {
+            if (strcmp((*itChildren)->getName(), "apply-templates") == 0)
+            {   cout<<"c'est un apply-template>"<<endl;
                 //test si select dans apply-template
                 if ((*itChildren)->getLesAttributs() != NULL)
                 {
 
                     char *match = (*itChildren)->getLesAttributs()->front()->getValue();
+                    cout<<match<<endl;
                     //recuperation du template par match
                     Template *templateCourant = tree.find(string(match))->second;
                     //recuperation des enfants donc le nom correspond au template
@@ -122,7 +159,7 @@ list<Element *> *XSLTransformer::executeTemplate(Element *currentNodeTemplate, E
                     }
                 }//si apply template orpheline
                 else
-                {
+                {   cout<<"orpheline"<<endl;
                     for (map<string, Template *>::iterator itTemplate = tree.begin(); itTemplate != tree.end(); itTemplate++)
                     {
                         for (list<Element *>::iterator itChildren = children->begin(); itChildren != children->end(); itChildren++)
@@ -162,7 +199,10 @@ list<Element *> *XSLTransformer::executeTemplate(Element *currentNodeTemplate, E
             }
 
         }
+        cout<<"on tente le size"<<endl;
+        cout<<resultChild->size()<<endl;
         nElement->addElement(resultChild);
+        cout<<"aga"<<endl;
         result->push_back(nElement);
     }
     return result;
@@ -171,13 +211,16 @@ list<Element *> *XSLTransformer::executeTemplate(Element *currentNodeTemplate, E
 void XSLTransformer::createTemplateTree()
 {
     Element *root = docXsl.getRacine(); // <xsl:stylesheet>
-    if (root->getType() == "xsl" && strcmp(root->getName(), "stylesheet") == 0)
+    // cout << root->toString()<<endl;
+    // cout << root->getType()<<endl;
+    // cout << root->getName()<<endl;
+    if (strcmp(root->getType(),"xsl") == 0 && strcmp(root->getName(), "stylesheet") == 0)
     {
         //Creation de la liste des templates
         list<Element *> children = *(root->getLesElements());
         for (list<Element *>::iterator it = children.begin(); it != children.end(); it++)
         {
-            if ((*it)->getType() == "xsl" && strcmp((*it)->getName(), "template") == 0)
+            if (strcmp((*it)->getType(),"xsl") == 0 && strcmp((*it)->getName(), "template") == 0)
             {
                 Template *newTemplate = new Template((ElementBalise *)*it);
                 tree.insert(pair<string, Template *>(newTemplate->getMatch(), newTemplate));

@@ -7,6 +7,8 @@
 #include <string.h>
 #include <map>
 #include "../model/ElementBalise.h"
+#include "../model/ElementBaliseOrpheline.h"
+
 #include "../model/Donnee.h"
 #include "Template.h"
 #include "../model/Document.h"
@@ -18,6 +20,7 @@ class XSLTransformer
 public:
     XSLTransformer();
     XSLTransformer(Document docXml, Document docXsl);
+    Document *geneDoc();
 private:
 
     Document docXml, docXsl;
@@ -29,7 +32,6 @@ private:
     char *foreach;
     void createTemplateTree();
     void addContent(Template t);
-    Document *geneDoc();
     list<Element *> *executeTemplate(Element *currentNodeTemplate, Element *currentNodeModel);
     list<Element *> *applyTemplateOnChildren(Element *currentNode);
 
