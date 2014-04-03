@@ -33,35 +33,35 @@ int xmltransformation(FILE *xml, FILE *xsl)
 
     xmlin = xml;
     int vRet = xmlparse(&docXml);
-
+    cout << docXml->toString() << endl;
 
     xmlin = xsl;
     vRet = xmlparse(&docXsl);
 
     XSLTransformer *oPrime = new XSLTransformer(*docXml, *docXsl);
-
+    Document *lol = oPrime->geneDoc();
+    cout << lol->toString() << endl;
     return 1;
 }
 
 // END TEMP //
 
-//*/
+/*/
 int main(int argc, char const *argv[])
 {
-    /*/// TEST ZONE //
-    int main(int argcT, char const *argvT[])
-    {
-        int argc = 3;
-        const char **argv = (const char **) calloc(3, sizeof(char *));
-        argv[0] = "./xmltool";
-        argv[1] = "-p";
-        argv[2] = "./files/personne.xml";
-        /*/
-
-    /*/
-    int vRet = checkEntryFormat(argcT, argvT);
-    /*/
+/*/// TEST ZONE //
+int main(int argcT, char const *argvT[])
+{
+    int argc = 4;
+    const char **argv = (const char **) calloc(argc, sizeof(char *));
+    argv[0] = "./xmltool";
+    argv[1] = "-t";
+    argv[2] = "./files/catalog.xml";
+    argv[3] = "./files/catalog_apply_templates.xsl";
+    //*/
     int vRet = checkEntryFormat(argc, argv);
+    /*/
+    int vRet = 0;
     //*/
     if (vRet == 1)
         return vRet;

@@ -22,7 +22,6 @@ XSLTransformer::XSLTransformer(Document docXml, Document docXsl)
     valueof = "value-of";
     foreach = "for-each";
     createTemplateTree();
-
 }
 
 Document *XSLTransformer::geneDoc()
@@ -54,8 +53,8 @@ Document *XSLTransformer::geneDoc()
         {
             docTrans = new Document(docXml.getEnTete(), nRoot);
         }
-        cout << docTrans->toString() << endl;
     }
+    return docTrans;
 }
 list<Element *> *XSLTransformer::applyTemplateOnChildren(Element *currentNode)
 {

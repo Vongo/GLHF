@@ -18,6 +18,7 @@ class XSLTransformer
 public:
     XSLTransformer();
     XSLTransformer(Document docXml, Document docXsl);
+    Document *geneDoc();
 private:
 
     Document docXml, docXsl;
@@ -29,7 +30,6 @@ private:
     char *foreach;
     void createTemplateTree();
     void addContent(Template t);
-    Document *geneDoc();
     list<Element *> *executeTemplate(Element *currentNodeTemplate, Element *currentNodeModel);
     list<Element *> *applyTemplateOnChildren(Element *currentNode);
 
