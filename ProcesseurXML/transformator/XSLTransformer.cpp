@@ -25,11 +25,6 @@ XSLTransformer::XSLTransformer(Document docXml, Document docXsl)
     valueof = "value-of";
     foreach = "for-each";
     createTemplateTree();
-<<<<<<< HEAD
-    cout << tree.size() << endl;
-    geneDoc();
-=======
->>>>>>> 055c7508b7bf8947c613af335ab7f1e1c4562913
 
     cout << tree.size() << endl;
     geneDoc();
@@ -77,13 +72,9 @@ Document *XSLTransformer::geneDoc()
 list<Element *> *XSLTransformer::applyTemplateOnChildren(Element *currentNode)
 {
     cout << "applyTemplateOnChildren" << endl;
-<<<<<<< HEAD
-    list<Element *> *resultChild;
-    list<Element *> *result;
-=======
+
     list<Element *> *resultChild = new list<Element *>();
     list<Element *> *result = new list<Element *>();
->>>>>>> 055c7508b7bf8947c613af335ab7f1e1c4562913
 
     list<Element *> *children = currentNode->getLesElements();
 
@@ -151,9 +142,9 @@ list<Element *> *XSLTransformer::executeTemplate(Element *currentNodeTemplate, E
         else if (typeid(*(*itChildren)).name() == typeid(Donnee).name())
         {
             // nElement = new Donnee((*itChildren)->getContenu(), (*itChildren)->getCodeType());
-            cout << nElement->toString() << endl;
+            
             *nElement = new Donnee((*itChildren)->getContenu(), (*itChildren)->getCodeType());
-
+            cout << (*nElement)->toString() << endl;
         }
 
         cout << (*itChildren)->getType() << endl;
@@ -233,9 +224,9 @@ list<Element *> *XSLTransformer::executeTemplate(Element *currentNodeTemplate, E
         }
         cout << "on tente le size" << endl;
         cout << resultChild->size() << endl;
-        nElement->addElement(resultChild);
+        (*nElement)->addElement(resultChild);
         cout << "aga" << endl;
-        result->push_back(nElement);
+        result->push_back(*nElement);
 
     }
     return result;
