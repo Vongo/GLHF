@@ -1,6 +1,5 @@
-#include "Template.h"
 #include "XSLTransformer.h"
-#include "Donnee.h"
+
 
 
 
@@ -13,10 +12,11 @@ XSLTransformer::XSLTransformer()
     cout << "lolilol" << endl;
 }
 
-XSLTransformer::XSLTransformer(Document xmlRep, Document cat)
+XSLTransformer::XSLTransformer(Document docXml, Document docXsl)
 {
-    xml = xmlRep;
-    catalog = cat;
+    this->docXml = docXml;
+    this->docXsl = docXsl;
+
     typeXsl = "xsl";
     applytemplates = "apply-templates";
     valueof = "value-of";
@@ -27,8 +27,9 @@ XSLTransformer::XSLTransformer(Document xmlRep, Document cat)
 
 Document *XSLTransformer::geneDoc()
 {
-    Element *currentNode  = xml.getRacine();
+    Element *currentNode  = docXml.getRacine();
     list<Element *> *result;
+    Document *docTrans;
     // on cherche le template special s'appliquant a root
 
     map<string, Template *>::iterator itTemplateRoot = tree.find("/");
@@ -45,16 +46,16 @@ Document *XSLTransformer::geneDoc()
     if (result->size() == 1)
     {
         ElementBalise *nRoot = (ElementBalise *)result->front();
-        if (!xml.hasEnTete())
+        if (!docXml.hasEnTete())
         {
-            Document *docTrans = new Document(nRoot);
+            docTrans = new Document(nRoot);
         }
         else
         {
-            Document *docTrans = new Document(xml.getEnTete(), nRoot);
+            docTrans = new Document(docXml.getEnTete(), nRoot);
         }
 
-
+        cout << docTrans->toString() << endl;
     }
 }
 list<Element *> *XSLTransformer::applyTemplateOnChildren(Element *currentNode)
@@ -153,7 +154,7 @@ list<Element *> *XSLTransformer::executeTemplate(Element *currentNodeTemplate, E
                 int pos = selectString.find_last_of("/");
                 string node = selectString.substr(pos, string::npos);
 
-                list<Element *> *bite = xml.getRacine()->getElementsByName((char *)node.c_str());
+                list<Element *> *bite = docXml.getRacine()->getElementsByName((char *)node.c_str());
                 for (list<Element *>::iterator itBite = bite->begin(); itBite != bite->end(); itBite++)
                 {
                     resultChild = executeTemplate(((*itChildren)->getLesElements()->front()), *itBite);
@@ -169,7 +170,7 @@ list<Element *> *XSLTransformer::executeTemplate(Element *currentNodeTemplate, E
 
 void XSLTransformer::createTemplateTree()
 {
-    Element *root = xml.getRacine(); // <xsl:stylesheet>
+    Element *root = docXsl.getRacine(); // <xsl:stylesheet>
     if (root->getType() == "xsl" && strcmp(root->getName(), "stylesheet") == 0)
     {
         //Creation de la liste des templates

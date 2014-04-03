@@ -17,10 +17,26 @@ ElementBalise::ElementBalise(char *&nom, list<Element *> *elements, list<Attribu
 
 ElementBalise::ElementBalise(ElementBalise &elemBalise): Element((Element)elemBalise)
 {
+<<<<<<< HEAD
     this->lesAttributs = elemBalise.lesAttributs;
     this->lesElements = elemBalise.lesElements;
     this->nom = elemBalise.nom;
     this->type = elemBalise.type;
+=======
+    cout << "kikoo1" << endl;
+    // this->lesAttributs = list(*(elemBalise.getLesAttributs()));
+    this->lesAttributs = new list<Attribut *>;
+    this->lesAttributs = elemBalise.lesAttributs;
+    // this->lesElements = new list<Element *>;
+    //this->lesElements = elemBalise.getLesElements();
+    cout << "kikoo2" << endl;
+    nom = elemBalise.nom;
+    cout << "kikoo3" << endl;
+    type = elemBalise.type;
+    cout << "kikoo4" << endl;
+    // this->lesAttributs=new list<Attribut>(*(elemBalise.getLesAttributs()));
+    // this->lesElements=new list<Element>(*(elemBalise.getLesElements()));
+>>>>>>> b61e20c37be460f556bfa6f92dd771cef277e6fe
 }
 
 list<Element *> *ElementBalise::getLesElements()
@@ -43,6 +59,18 @@ char *ElementBalise::getType()
     return type;
 }
 
+list<Element *> *ElementBalise::getElementsByName(char *name)
+{
+    list<Element *> *elementsOk;
+    for (list<Element *>::iterator it = this->lesElements->begin(); it != this->lesElements->end(); it++)
+    {
+        // if (strcmp((*it)->getName, name) == 0)
+        // {
+        //     elementsOk->push_back(*it);
+        // }
+    }
+    return elementsOk;
+}
 ElementBalise::~ElementBalise()
 {
     //delete lesAttributs;
@@ -53,8 +81,7 @@ char *ElementBalise::toString()
 {
     // cout << "ELEMENT_BALISE_TOSTRING" << endl;
     // cout<< "J'ai "<< this->lesElements[0]->size()<<this->lesElements[1]->size()<<" enfants."<<endl;
-    string buffer(getTabulation());
-    buffer.append("<");
+    string buffer(format("<"));
 
     char *b = new char [80];
     if (strcmp(this->type, "xml"))
@@ -78,11 +105,13 @@ char *ElementBalise::toString()
     for (list<Element *>::iterator it = this->lesElements->begin(); it != this->lesElements->end(); it++)
     {
         buffer.append("\n");
-        buffer.append((*it)->toString());
+        moarIndent();
+        buffer.append(format((*it)->toString()));
+        lessIndent();
     }
 
     buffer.append("\n");
-    buffer.append("</");
+    buffer.append(format("</"));
     buffer.append(b);
     buffer.append(">");
 

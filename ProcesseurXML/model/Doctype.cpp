@@ -44,3 +44,19 @@ char *Doctype::toString()
     strcpy(cstr, buffer.c_str());
     return cstr;
 }
+
+char *Doctype::getName1() 
+{
+    return nom1;
+}
+
+char *Doctype::getName2() 
+{
+    return nom2;
+}
+
+list<char*> *Doctype::getValeurs()
+{
+    return valeurs;
+}
+

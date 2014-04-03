@@ -34,6 +34,22 @@ public:
         return 0;
     }
 
+   	virtual char* getType()
+   	{
+   		return 0;
+   	}
+   	virtual void addElement(list<Element*>*){
+
+   	}
+   	virtual list<Element*>* getElementsByName(char*){
+   		return 0;
+   	}
+   	virtual char* getContenu(){
+   		return 0;
+   	}
+   	virtual int getCodeType(){
+   		return 0;
+   	}
 private:
     // vector<Element> elementsIncluded;
 

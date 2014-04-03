@@ -21,11 +21,10 @@ class XSLTransformer {
 		Document xml;
 		Document catalog;
 		map <string,Template*> tree;
-		char const* typeXsl = "xsl";
-		char const* applytemplates = "apply-templates";
-		char const* applytemplate = "apply-template";
-		char const* valueof = "value-of";
-		char const* foreach = "for-each";
+		static char * typeXsl;
+		static char * applytemplates;
+		static char * valueof;
+		static char * foreach;
 		void createTemplateTree();
 		void addContent(Template t);
 		Document* geneDoc();
