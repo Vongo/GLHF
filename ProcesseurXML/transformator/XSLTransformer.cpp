@@ -29,6 +29,7 @@ Document *XSLTransformer::geneDoc()
 {
     Element *currentNode  = docXml.getRacine();
     list<Element *> *result;
+    Document *docTrans;
     // on cherche le template special s'appliquant a root
 
     map<string, Template *>::iterator itTemplateRoot = tree.find("/");
@@ -47,14 +48,14 @@ Document *XSLTransformer::geneDoc()
         ElementBalise *nRoot = (ElementBalise *)result->front();
         if (!docXml.hasEnTete())
         {
-            Document *docTrans = new Document(nRoot);
+            docTrans = new Document(nRoot);
         }
         else
         {
-            Document *docTrans = new Document(docXml.getEnTete(), nRoot);
+            docTrans = new Document(docXml.getEnTete(), nRoot);
         }
 
-
+        cout << docTrans->toString() << endl;
     }
 }
 list<Element *> *XSLTransformer::applyTemplateOnChildren(Element *currentNode)
