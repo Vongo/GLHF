@@ -110,14 +110,14 @@ list<Element *> *XSLTransformer::executeTemplate(Element *currentNodeTemplate, E
     cout << children->size() << endl;
     for (list<Element *>::iterator itChildren = children->begin(); itChildren != children->end(); itChildren++)
     {
-        cout << "on parcours les fils" << endl;
-
+        cout << "on parcourt les fils" << endl;
+        // cout << children->front()->toString() << endl;
         Element **nElement;
 
         if (typeid(*(*itChildren)).name() == typeid(ElementBalise).name())
         {
-            *nElement = new ElementBalise(*((ElementBalise *)*itChildren));
-
+            Element *lol = new ElementBalise(*((ElementBalise *)*itChildren));
+            nElement = &lol;
         }
         else if (typeid(*(*itChildren)).name() == typeid(ElementBaliseOrpheline).name())
         {
@@ -129,6 +129,7 @@ list<Element *> *XSLTransformer::executeTemplate(Element *currentNodeTemplate, E
             *nElement = new Donnee((*itChildren)->getContenu(), (*itChildren)->getCodeType());
 
         }
+        cout << "on a parcouru les fils" << endl;
 
         cout << (*itChildren)->getType() << endl;
         if (strcmp((*itChildren)->getType(), "xsl") != 0)
@@ -147,10 +148,14 @@ list<Element *> *XSLTransformer::executeTemplate(Element *currentNodeTemplate, E
                 //test si select dans apply-template
                 if ((*itChildren)->getLesAttributs() != NULL)
                 {
-
-                    char *match = (*itChildren)->getLesAttributs()->front()->getValue();
+                    cout << "olol1" << endl;
+                    list<Attribut *> *lol = (*itChildren)->getLesAttributs();
+                    cout << "olol2" << endl;
+                    char *match = lol->front()->getValue();
                     cout << match << endl;
                     //recuperation du template par match
+                    cout << "olol3" << endl;
+
                     Template *templateCourant = tree.find(string(match))->second;
                     //recuperation des enfants donc le nom correspond au template
                     list<Element *> *childrenOk = currentNodeModel->getElementsByName(match);
@@ -201,10 +206,8 @@ list<Element *> *XSLTransformer::executeTemplate(Element *currentNodeTemplate, E
             }
 
         }
-        cout << "on tente le size" << endl;
-        cout<<resultChild->size()<<endl;
+        cout << resultChild->size() << endl;
         (*nElement)->addElement(resultChild);
-        cout << "aga" << endl;
         result->push_back(*nElement);
     }
     return result;
