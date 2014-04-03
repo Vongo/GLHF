@@ -31,6 +31,7 @@ int xmltransformation(FILE *xml, FILE *xsl)
     Document *docXml;
     Document *docXsl;
 
+
     xmlin = xml;
     int vRet = xmlparse(&docXml);
 
@@ -38,7 +39,11 @@ int xmltransformation(FILE *xml, FILE *xsl)
     xmlin = xsl;
     vRet = xmlparse(&docXsl);
 
+
     XSLTransformer *oPrime = new XSLTransformer(*docXml, *docXsl);
+    // oPrime->geneDoc();
+    cout << "la narmol la transformation elle est bon"<<endl;
+
 
 
     return 1;
