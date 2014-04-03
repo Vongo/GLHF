@@ -25,9 +25,14 @@ XSLTransformer::XSLTransformer(Document docXml, Document docXsl)
     valueof = "value-of";
     foreach = "for-each";
     createTemplateTree();
+<<<<<<< HEAD
     cout << tree.size() << endl;
     geneDoc();
+=======
+>>>>>>> 055c7508b7bf8947c613af335ab7f1e1c4562913
 
+    cout << tree.size() << endl;
+    geneDoc();
 }
 
 Document *XSLTransformer::geneDoc()
@@ -66,15 +71,19 @@ Document *XSLTransformer::geneDoc()
         {
             docTrans = new Document(docXml.getEnTete(), nRoot);
         }
-
-        cout << docTrans->toString() << endl;
     }
+    return docTrans;
 }
 list<Element *> *XSLTransformer::applyTemplateOnChildren(Element *currentNode)
 {
     cout << "applyTemplateOnChildren" << endl;
+<<<<<<< HEAD
     list<Element *> *resultChild;
     list<Element *> *result;
+=======
+    list<Element *> *resultChild = new list<Element *>();
+    list<Element *> *result = new list<Element *>();
+>>>>>>> 055c7508b7bf8947c613af335ab7f1e1c4562913
 
     list<Element *> *children = currentNode->getLesElements();
 
@@ -101,39 +110,50 @@ list<Element *> *XSLTransformer::executeTemplate(Element *currentNodeTemplate, E
 {
     list<Element *> *resultChild = new list<Element *>();
 
+
     if (typeid(*(currentNodeTemplate)).name() == typeid(Donnee).name())
     {
         return resultChild;
     }
+
+
     cout << "executeTemplate" << endl;
     cout << currentNodeTemplate->toString() << endl;
     // list<Element *> *children = currentNodeModel->getLesElements();
     list<Element *> *children = currentNodeTemplate->getLesElements();
 
 
-    list<Element *> *result;
+    list<Element *> *result = new list<Element *>();
     // cout<<currentNodeModel->getName()<<endl;
     cout << children->size() << endl;
     for (list<Element *>::iterator itChildren = children->begin(); itChildren != children->end(); itChildren++)
     {
         cout << "on parcours les fils" << endl;
 
-        Element *nElement;
+        Element **nElement;
 
         if (typeid(*(*itChildren)).name() == typeid(ElementBalise).name())
         {
-            nElement = new ElementBalise(*((ElementBalise *)*itChildren));
+            // nElement = new ElementBalise(*((ElementBalise *)*itChildren));
+
+            *nElement = new ElementBalise(*((ElementBalise *)*itChildren));
+
 
         }
         else if (typeid(*(*itChildren)).name() == typeid(ElementBaliseOrpheline).name())
         {
-            nElement = new ElementBaliseOrpheline(*((ElementBaliseOrpheline *)*itChildren));
+            // nElement = new ElementBaliseOrpheline(*((ElementBaliseOrpheline *)*itChildren));
+
+            *nElement = new ElementBaliseOrpheline(*((ElementBaliseOrpheline *)*itChildren));
+
 
         }
         else if (typeid(*(*itChildren)).name() == typeid(Donnee).name())
         {
-            nElement = new Donnee((*itChildren)->getContenu(), (*itChildren)->getCodeType());
+            // nElement = new Donnee((*itChildren)->getContenu(), (*itChildren)->getCodeType());
             cout << nElement->toString() << endl;
+            *nElement = new Donnee((*itChildren)->getContenu(), (*itChildren)->getCodeType());
+
         }
 
         cout << (*itChildren)->getType() << endl;
@@ -144,6 +164,7 @@ list<Element *> *XSLTransformer::executeTemplate(Element *currentNodeTemplate, E
             resultChild = executeTemplate(*itChildren, currentNodeModel);
             cout << "patachon" << endl;
             cout << resultChild->size() << endl;
+
 
 
         }
@@ -193,7 +214,6 @@ list<Element *> *XSLTransformer::executeTemplate(Element *currentNodeTemplate, E
                 list<Element *> *children = currentNodeModel->getElementsByName(select);
                 Donnee *nDonnee = new Donnee(children->front()->getContenu(), children->front()->getCodeType());
                 resultChild->push_front(nDonnee);
-
             }
             else if (strcmp((*itChildren)->getName(), this->foreach) == 0)
             {
@@ -216,6 +236,7 @@ list<Element *> *XSLTransformer::executeTemplate(Element *currentNodeTemplate, E
         nElement->addElement(resultChild);
         cout << "aga" << endl;
         result->push_back(nElement);
+
     }
     return result;
 }
