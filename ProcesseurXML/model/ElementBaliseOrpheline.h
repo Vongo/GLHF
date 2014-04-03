@@ -15,6 +15,7 @@ public:
     char* getName();
     char *toString();
     char* getType();
+    void addElement(list<Element*>*tet){};
 
 private:
 	char *type;

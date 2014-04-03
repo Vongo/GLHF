@@ -18,7 +18,7 @@ public:
     virtual char *getContenu();
     virtual char *getName();
     virtual char *getType();
-
+    void addElement(list<Element*>*tet){};
 private:
     char *contenu;
     int codeType; //0:texte 1:CDATA 2:Commentaire

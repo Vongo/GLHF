@@ -22,11 +22,11 @@ ElementBalise::ElementBalise(ElementBalise &elemBalise): Element((Element)elemBa
     this->lesElements = elemBalise.lesElements;
     this->nom = elemBalise.nom;
     this->type = elemBalise.type;
-
 }
 
 list<Element *> *ElementBalise::getLesElements()
 {
+    cout << "oukay" << endl;
     return lesElements;
 }
 
@@ -47,7 +47,7 @@ char *ElementBalise::getType()
 
 list<Element *> *ElementBalise::getElementsByName(char *name)
 {
-    list<Element *> *elementsOk = new list<Element*>();
+    list<Element *> *elementsOk = new list<Element *>();
     for (list<Element *>::iterator it = this->lesElements->begin(); it != this->lesElements->end(); it++)
     {
         // if (strcmp((*it)->getName, name) == 0)
@@ -104,4 +104,8 @@ char *ElementBalise::toString()
     char *cstr = new char[buffer.length() + 1];
     strcpy(cstr, buffer.c_str());
     return cstr;
+}
+
+void ElementBalise::addElement(list<Element*>* tutu){
+    this->lesElements->insert(this->lesElements->begin(),tutu->begin(),tutu->end());
 }

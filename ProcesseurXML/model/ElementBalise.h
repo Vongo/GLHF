@@ -17,7 +17,7 @@ public:
     ElementBalise (ElementBalise& elemBalise);  //constructeur de copie   
     ~ElementBalise();
     char *toString();
-
+    void addElement(list<Element*>*);
     list<Element*> *getElementsByName(char* name);
 
 private:
