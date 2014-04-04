@@ -26,7 +26,7 @@ ElementBalise::ElementBalise(ElementBalise &elemBalise): Element((Element)elemBa
 
 list<Element *> *ElementBalise::getLesElements()
 {
-    cout << "oukay" << endl;
+    // cout << "oukay" << endl;
     return lesElements;
 }
 

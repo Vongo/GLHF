@@ -22,6 +22,7 @@ public:
     XSLTransformer(Document docXml, Document docXsl);
     Document *geneDoc();
 private:
+    int kikoololilol;
 
     Document docXml, docXsl;
 

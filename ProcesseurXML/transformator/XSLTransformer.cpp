@@ -10,12 +10,13 @@ using namespace std;
 //TODO implem verification du type réel des objets hériter d'élement avant toute opération
 XSLTransformer::XSLTransformer()
 {
+    kikoololilol = 0;
     cout << "lolilol" << endl;
 }
 
 XSLTransformer::XSLTransformer(Document docXml, Document docXsl)
 {
-
+    kikoololilol = 0;
     this->docXml = docXml;
     // cout<<this->docXml.toString()<<endl;
     this->docXsl = docXsl;
@@ -139,7 +140,7 @@ list<Element *> *XSLTransformer::executeTemplate(Element *currentNodeTemplate, E
         else if (typeid(*(*itChildren)).name() == typeid(Donnee).name())
         {
             // nElement = new Donnee((*itChildren)->getContenu(), (*itChildren)->getCodeType());
-            
+
             *nElement = new Donnee((*itChildren)->getContenu(), (*itChildren)->getCodeType());
             cout << (*nElement)->toString() << endl;
         }
@@ -169,6 +170,7 @@ list<Element *> *XSLTransformer::executeTemplate(Element *currentNodeTemplate, E
                     cout << "olol1" << endl;
                     list<Attribut *> *lol = (*itChildren)->getLesAttributs();
                     cout << "olol2" << endl;
+                    kikoololilol += 1;
                     char *match = lol->front()->getValue();
                     cout << match << endl;
                     //recuperation du template par match

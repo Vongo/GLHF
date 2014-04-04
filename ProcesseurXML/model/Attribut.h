@@ -9,13 +9,11 @@ using namespace std;
 class Attribut
 {
 public:
-    Attribut(const char *);
     Attribut(const Attribut &);        //constructeur de copie   
     Attribut(char *, char *);
     char* getValue();
     char* getName();
     ~Attribut();
-    // string toString();
     char *toString();
 
     /* data */

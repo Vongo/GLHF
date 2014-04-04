@@ -3,7 +3,7 @@
 #include "model/Document.h"
 #include "model/Constants.h"
 #include "transformator/XSLTransformer.h"
-// #include "validator/XMLValidator.h"
+#include "validator/XMLValidator.h"
 #include <iostream>
 #include <cstring>
 
@@ -15,11 +15,11 @@ int xmltransformation(FILE *xml, FILE *xsl);
 
 int xmlvalidation(const char *xml, Document *xsd)
 {
-    // XMLValidator xmlValidate(xml, xsd);
-    // int resultat = xmlValidate.XmlValidation();
-    // // /////////////////////////////////////cout << endl << endl << resultat << endl << endl;
-    // return resultat;
-    // // return 1;
+    XMLValidator xmlValidate(xml, xsd);
+    int resultat = xmlValidate.XmlValidation();
+    // /////////////////////////////////////cout << endl << endl << resultat << endl << endl;
+    return resultat;
+    // return 1;
 }
 
 // TEMP //
@@ -34,7 +34,7 @@ int xmltransformation(FILE *xml, FILE *xsl)
 
     xmlin = xml;
     int vRet = xmlparse(&docXml);
-    cout << docXml->toString() << endl;
+    // cout << docXml->toString() << endl;
 
     xmlin = xsl;
     vRet = xmlparse(&docXsl);
@@ -53,7 +53,7 @@ int xmltransformation(FILE *xml, FILE *xsl)
 
 // END TEMP //
 
-/*/
+//*/
 int main(int argc, char const *argv[])
 {
 /*/// TEST ZONE //
@@ -130,7 +130,8 @@ int main(int argcT, char const *argvT[])
         {
             FILE *xml = fopen(argv[2], "r");
             FILE *xsl = fopen(argv[3], "r");
-            vRet = xmltransformation(xml, xsl);
+            // vRet = xmltransformation(xml, xsl);
+            vRet = 1;
             fclose(xml);
             fclose(xsl);
             break;
